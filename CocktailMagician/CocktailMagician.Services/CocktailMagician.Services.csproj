@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CocktailMagician.Data\CocktailMagician.Data.csproj" />
+    <ProjectReference Include="..\CocktailMagician.Models\CocktailMagician.Models.csproj" />
+  </ItemGroup>
+
+</Project>
