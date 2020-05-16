@@ -35,7 +35,11 @@ namespace CocktailMagician
            options
            .UseSqlServer(
                Configuration.GetConnectionString("DefaultConnection")));
+
+
             services.AddScoped<IDtoMapper<Bar, BarDTO>, BarDTOMapper>();
+            services.AddScoped<IDtoMapper<Cocktail, CocktailDto>, CocktailDtoMapper>();
+            services.AddScoped<IDtoMapper<Ingredient, IngredientDto>, IngredientDtoMapper>();
             services.AddScoped<IDateTimeProvider, DateTimeProvider>();
             services.AddControllersWithViews();
         }
