@@ -13,5 +13,7 @@ namespace CocktailMagician.Services.DtoEntities
         public string Info { get; set; }
 
         public string Address { get; set; }
+
+        public string PhotoPath { get; set; }
     }
 }
