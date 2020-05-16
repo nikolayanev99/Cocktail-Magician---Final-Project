@@ -1,19 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using CocktailMagician.Models.Abstract;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace CocktailMagician.Models
+namespace CocktailMagician.Web.Models
 {
-    public class Bar : Entity
+    public class BarViewModel
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Key]
-        public int Id { get; set; }
-
         [Required]
-        [DisplayName("Bar Name")]
+        [DisplayName("Bar Name")]       
         [MaxLength(40, ErrorMessage = "The Name cannot exceed 40 characters.")]
         public string Name { get; set; }
 
@@ -27,7 +24,5 @@ namespace CocktailMagician.Models
         public string Address { get; set; }
 
         public string PhotoPath { get; set; }
-
-
     }
 }

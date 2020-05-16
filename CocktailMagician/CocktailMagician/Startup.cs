@@ -9,9 +9,12 @@ using CocktailMagician.Services.DtoMappers;
 using CocktailMagician.Services.DtoMappers.Contracts;
 using CocktailMagician.Services.Providers;
 using CocktailMagician.Services.Providers.Contracts;
+using CocktailMagician.Web.Providers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -31,10 +34,19 @@ namespace CocktailMagician
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            
+            services.AddRazorPages();
+            services.AddIdentity<User, Role>(options => options.SignIn.RequireConfirmedAccount = false)
+                .AddEntityFrameworkStores<CocktailMagicianContext>()                
+                .AddDefaultTokenProviders();
+
             services.AddDbContext<CocktailMagicianContext>(options =>
            options
            .UseSqlServer(
                Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddScoped<IEmailSender, EmailSender>();
             services.AddScoped<IDtoMapper<Bar, BarDTO>, BarDTOMapper>();
             services.AddScoped<IDateTimeProvider, DateTimeProvider>();
             services.AddControllersWithViews();
@@ -59,12 +71,15 @@ namespace CocktailMagician
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapRazorPages();
             });
         }
     }

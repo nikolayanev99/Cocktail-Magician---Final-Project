@@ -23,6 +23,7 @@ namespace CocktailMagician.Services.DtoMappers
                 Name = entity.Name,
                 Info = entity.Info,
                 Address = entity.Address,
+                PhotoPath=entity.PhotoPath,
             };
         }
 
