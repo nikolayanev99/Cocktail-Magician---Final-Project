@@ -5,6 +5,10 @@ using System.Threading.Tasks;
 using CocktailMagician.Data;
 using CocktailMagician.Models;
 using CocktailMagician.Services;
+<<<<<<< HEAD
+=======
+using CocktailMagician.Services.Contracts;
+>>>>>>> CocktailIngredient
 using CocktailMagician.Services.DtoEntities;
 using CocktailMagician.Services.DtoMappers;
 using CocktailMagician.Services.DtoMappers.Contracts;
@@ -61,7 +65,11 @@ namespace CocktailMagician
             services.AddScoped<IDtoMapper<Bar, BarDTO>, BarDTOMapper>();
             services.AddScoped<IViewModelMapper<BarDTO, BarViewModel>,BarViewModelMapper>();
             services.AddScoped<IDtoMapper<Cocktail, CocktailDto>, CocktailDtoMapper>();
+            services.AddScoped<ICocktailService, CocktailService>();
+            services.AddScoped<IDtoMapper<CocktailComment, CocktailCommentDto>, CocktailCommentDtoMapper>();
+            services.AddScoped<ICocktailCommentService, CocktailCommentService>();
             services.AddScoped<IDtoMapper<Ingredient, IngredientDto>, IngredientDtoMapper>();
+            services.AddScoped<IIngredientService, IngredientService>();
             services.AddScoped<IDateTimeProvider, DateTimeProvider>();
             services.AddControllersWithViews();
         }

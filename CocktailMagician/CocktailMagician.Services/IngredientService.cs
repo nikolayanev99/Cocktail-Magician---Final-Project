@@ -1,5 +1,6 @@
 ﻿using CocktailMagician.Data;
 using CocktailMagician.Models;
+using CocktailMagician.Services.Contracts;
 using CocktailMagician.Services.DtoEntities;
 using CocktailMagician.Services.DtoMappers.Contracts;
 using CocktailMagician.Services.Providers.Contracts;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace CocktailMagician.Services
 {
-    public class IngredientService
+    public class IngredientService : IIngredientService
     {
         private readonly CocktailMagicianContext _context;
         private readonly IDtoMapper<Ingredient, IngredientDto> _ingredientDtoMapper;
