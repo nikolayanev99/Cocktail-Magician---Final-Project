@@ -9,6 +9,8 @@ namespace CocktailMagician.Web.Mappers.Contracts
     {
         TViewModel MapViewModel(TDto dtoEntity);
         ICollection<TViewModel> MapViewModel(ICollection<TDto> dtoEntities);
-       
+
+        TDto MapDTO(TViewModel entityViewModel);
+        ICollection<TDto> MapDTO(ICollection<TViewModel> entitiesViewModel);
     }
 }

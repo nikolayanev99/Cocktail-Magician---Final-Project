@@ -60,11 +60,50 @@ namespace CocktailMagician.Data.Migrations
                     IsDeleted = table.Column<bool>(nullable: false),
                     Name = table.Column<string>(maxLength: 40, nullable: false),
                     Info = table.Column<string>(maxLength: 500, nullable: false),
-                    Address = table.Column<string>(maxLength: 100, nullable: false)
+                    Address = table.Column<string>(maxLength: 100, nullable: false),
+                    PhotoPath = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Bars", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Cocktails",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CreatedOn = table.Column<DateTime>(nullable: false),
+                    ModifiedOn = table.Column<DateTime>(nullable: true),
+                    DeletedOn = table.Column<DateTime>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    Name = table.Column<string>(maxLength: 40, nullable: false),
+                    ShortDescription = table.Column<string>(maxLength: 100, nullable: false),
+                    LongDescription = table.Column<string>(nullable: true),
+                    ImageUrl = table.Column<string>(nullable: true),
+                    ImageThumbnailUrl = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Cocktails", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Ingredients",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CreatedOn = table.Column<DateTime>(nullable: false),
+                    ModifiedOn = table.Column<DateTime>(nullable: true),
+                    DeletedOn = table.Column<DateTime>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    Name = table.Column<string>(maxLength: 20, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Ingredients", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -173,20 +212,46 @@ namespace CocktailMagician.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.InsertData(
-                table: "AspNetRoles",
-                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { 1, "53bb0baa-c1af-4242-80a9-a14ab8446395", "bar crawler", "BAR CRAWLER" });
+            migrationBuilder.CreateTable(
+                name: "CocktailIngredients",
+                columns: table => new
+                {
+                    CocktailId = table.Column<int>(nullable: false),
+                    IngredientId = table.Column<int>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    DeletedOn = table.Column<DateTime>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CocktailIngredients", x => new { x.CocktailId, x.IngredientId });
+                    table.ForeignKey(
+                        name: "FK_CocktailIngredients_Cocktails_CocktailId",
+                        column: x => x.CocktailId,
+                        principalTable: "Cocktails",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CocktailIngredients_Ingredients_IngredientId",
+                        column: x => x.IngredientId,
+                        principalTable: "Ingredients",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { 2, "d8585729-fd3e-42b4-b099-394d9c66d8fb", "cocktail magician", "COCKTAIL MAGICIAN" });
+                values: new object[] { 1, "281afbc6-e241-4cad-9db3-b09daf76c463", "bar crawler", "BAR CRAWLER" });
+
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[] { 2, "c3505152-65d7-4b05-a796-aeb59b582223", "cocktail magician", "COCKTAIL MAGICIAN" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { 1, 0, "4c77ac38-9ddb-4767-86ce-924efb8c3ef1", "admin@admin.com", false, false, null, "ADMIN@ADMIN.COM", "ADMIN", "AQAAAAEAACcQAAAAEBGg6E3FQOP87WcBA5I0E9xBUmUVQ3KD8vP8a5zSPMozqbUTOHOm5ClNtPjSeN4DTw==", null, false, null, false, "Admin" });
+                values: new object[] { 1, 0, "aa6e1c93-8f1c-4261-8b1d-fa10d0225256", "admin@admin.com", false, false, null, "ADMIN@ADMIN.COM", "ADMIN", "AQAAAAEAACcQAAAAEGs2nJLUVozdMGHkis1Y8J3SU5YIGQBuyJmN6LiNg8kaRfirVnh9i9HZxxEW5Bd8Uw==", null, false, null, false, "Admin" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
@@ -231,6 +296,11 @@ namespace CocktailMagician.Data.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CocktailIngredients_IngredientId",
+                table: "CocktailIngredients",
+                column: "IngredientId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -254,10 +324,19 @@ namespace CocktailMagician.Data.Migrations
                 name: "Bars");
 
             migrationBuilder.DropTable(
+                name: "CocktailIngredients");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Cocktails");
+
+            migrationBuilder.DropTable(
+                name: "Ingredients");
         }
     }
 }

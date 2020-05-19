@@ -4,11 +4,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using CocktailMagician.Data;
 using CocktailMagician.Models;
+using CocktailMagician.Services;
 using CocktailMagician.Services.DtoEntities;
 using CocktailMagician.Services.DtoMappers;
 using CocktailMagician.Services.DtoMappers.Contracts;
 using CocktailMagician.Services.Providers;
 using CocktailMagician.Services.Providers.Contracts;
+using CocktailMagician.Web.Mappers;
+using CocktailMagician.Web.Mappers.Contracts;
+using CocktailMagician.Web.Models;
 using CocktailMagician.Web.Providers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -34,8 +38,15 @@ namespace CocktailMagician
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.SignIn.RequireConfirmedAccount = false;
+                options.Password.RequiredLength = 4;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+            });
 
-            
             services.AddRazorPages();
             services.AddIdentity<User, Role>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddEntityFrameworkStores<CocktailMagicianContext>()                
@@ -45,9 +56,10 @@ namespace CocktailMagician
            options
            .UseSqlServer(
                Configuration.GetConnectionString("DefaultConnection")));
-
+            services.AddScoped<IBarService, BarService>();
             services.AddScoped<IEmailSender, EmailSender>();
             services.AddScoped<IDtoMapper<Bar, BarDTO>, BarDTOMapper>();
+            services.AddScoped<IViewModelMapper<BarDTO, BarViewModel>,BarViewModelMapper>();
             services.AddScoped<IDtoMapper<Cocktail, CocktailDto>, CocktailDtoMapper>();
             services.AddScoped<IDtoMapper<Ingredient, IngredientDto>, IngredientDtoMapper>();
             services.AddScoped<IDateTimeProvider, DateTimeProvider>();

@@ -4,11 +4,15 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace CocktailMagician.Web.Models
 {
     public class BarViewModel
     {
+
+        public int Id { get; set; }
+
         [Required]
         [DisplayName("Bar Name")]       
         [MaxLength(40, ErrorMessage = "The Name cannot exceed 40 characters.")]
@@ -24,5 +28,6 @@ namespace CocktailMagician.Web.Models
         public string Address { get; set; }
 
         public string PhotoPath { get; set; }
+        public IFormFile Photo { get; set; }
     }
 }

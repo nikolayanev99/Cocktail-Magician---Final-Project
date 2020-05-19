@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CocktailMagician.Services
 {
-    public class BarService
+    public class BarService : IBarService
     {
         private readonly CocktailMagicianContext context;
         private readonly IDtoMapper<Bar, BarDTO> barDTOMapper;
@@ -39,7 +39,7 @@ namespace CocktailMagician.Services
             return barDTO;
         }
 
-        public async Task<ICollection<BarDTO>> GetAllBars()
+        public async Task<ICollection<BarDTO>> GetAllBarsAsync()
         {
             var bars = await this.context.Bars
                 .Where(b => b.IsDeleted == false)
@@ -67,6 +67,8 @@ namespace CocktailMagician.Services
                 Name = tempBarDTO.Name,
                 Info = tempBarDTO.Info,
                 Address = tempBarDTO.Address,
+                PhotoPath = tempBarDTO.PhotoPath,
+                CreatedOn = this.dateTimeProvider.GetDateTime(),
             };
 
             await this.context.Bars.AddAsync(bar);

@@ -10,14 +10,48 @@ namespace CocktailMagician.Web.Mappers
 {
     public class BarViewModelMapper : IViewModelMapper<BarDTO, BarViewModel>
     {
+        public BarDTO MapDTO(BarViewModel entityViewModel)
+        {
+            if (entityViewModel == null)
+            {
+                return null;
+            }
+
+            return new BarDTO
+            {
+                Id = entityViewModel.Id,
+                Name = entityViewModel.Name,
+                Info = entityViewModel.Info,
+                Address = entityViewModel.Address,
+                PhotoPath = entityViewModel.PhotoPath,
+            };
+        }
+
+        public ICollection<BarDTO> MapDTO(ICollection<BarViewModel> entitiesViewModel)
+        {
+            return entitiesViewModel.Select(this.MapDTO).ToList();
+        }
+
         public BarViewModel MapViewModel(BarDTO dtoEntity)
         {
-            throw new NotImplementedException();
+            if (dtoEntity == null)
+            {
+                return null;
+            }
+
+            return new BarViewModel
+            {
+                Id = dtoEntity.Id,
+                Name = dtoEntity.Name,
+                Info = dtoEntity.Info,
+                Address = dtoEntity.Address,
+                PhotoPath = dtoEntity.PhotoPath,
+            };
         }
 
         public ICollection<BarViewModel> MapViewModel(ICollection<BarDTO> dtoEntities)
         {
-            throw new NotImplementedException();
+            return dtoEntities.Select(this.MapViewModel).ToList();
         }
     }
 }
