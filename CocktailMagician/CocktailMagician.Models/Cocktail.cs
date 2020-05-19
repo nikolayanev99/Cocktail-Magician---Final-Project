@@ -13,6 +13,8 @@ namespace CocktailMagician.Models
         public Cocktail()
         {
             this.CocktailIngredients = new List<CocktailIngredient>();
+            this.CocktailRatings = new List<CocktailRating>();
+            this.CocktailComments = new List<CocktailComment>();
         }
 
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -26,16 +28,17 @@ namespace CocktailMagician.Models
 
         [DisplayName ("Cocktail Short Description")]
         [Required]
-        [StringLength(100, ErrorMessage = "The short description cannot exceed 100 characters.")]
+        [StringLength(250, ErrorMessage = "The short description cannot exceed 250 characters.")]
         public string ShortDescription { get; set; }
 
         [DisplayName ("Cocktail Long Description")]
+        [StringLength(2500, ErrorMessage = "The long description cannot exceed 2500 characters.")]
         public string LongDescription { get; set; }
         public string ImageUrl { get; set; }
         public string ImageThumbnailUrl { get; set; }
 
-        //public ICollection<CocktailComment> CocktailComments { get; set; }
-        //public ICollection<CocktailRating> CocktailRatings { get; set; }
+        public ICollection<CocktailComment> CocktailComments { get; set; }
+        public ICollection<CocktailRating> CocktailRatings { get; set; }
         public ICollection<CocktailIngredient> CocktailIngredients { get; set; }
         //public ICollection<BarCocktail> BarCocktails { get; set; }
     }
