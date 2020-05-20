@@ -5,10 +5,7 @@ using System.Threading.Tasks;
 using CocktailMagician.Data;
 using CocktailMagician.Models;
 using CocktailMagician.Services;
-<<<<<<< HEAD
-=======
 using CocktailMagician.Services.Contracts;
->>>>>>> CocktailIngredient
 using CocktailMagician.Services.DtoEntities;
 using CocktailMagician.Services.DtoMappers;
 using CocktailMagician.Services.DtoMappers.Contracts;

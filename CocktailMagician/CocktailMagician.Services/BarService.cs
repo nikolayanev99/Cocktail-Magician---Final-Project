@@ -94,7 +94,7 @@ namespace CocktailMagician.Services
             bar.Name = barDTO.Name == null ? bar.Name : barDTO.Name;
             bar.Info = barDTO.Info == null ? bar.Info : barDTO.Info;
             bar.Address = barDTO.Address == null ? bar.Address : barDTO.Address;
-
+            bar.ModifiedOn = this.dateTimeProvider.GetDateTime();
             this.context.Update(bar);
             await this.context.SaveChangesAsync();
             var newBarDto = this.barDTOMapper.MapDto(bar);

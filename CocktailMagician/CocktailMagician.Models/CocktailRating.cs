@@ -8,6 +8,7 @@ namespace CocktailMagician.Models
 {
     public class CocktailRating : Entity
     {
+
         [Required]
         [Range(1, 5, ErrorMessage = "Is not valid value")]
         public double Value { get; set; }

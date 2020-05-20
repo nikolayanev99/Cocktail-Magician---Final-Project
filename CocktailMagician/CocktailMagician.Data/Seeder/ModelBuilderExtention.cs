@@ -37,7 +37,7 @@ namespace CocktailMagician.Models.Seeder
 
             };
 
-            admin.PasswordHash = passHasher.HashPassword(admin, "123321abv@BG");
+            admin.PasswordHash = passHasher.HashPassword(admin, "123456");
 
             builder.Entity<User>().HasData(admin);
 
