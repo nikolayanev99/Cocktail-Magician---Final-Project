@@ -21,7 +21,7 @@ namespace CocktailMagician.Models
         
         [DisplayName("Ingredient Name")]
         [Required]
-        [StringLength(20, ErrorMessage = "The Name of ingredient cannot exceed 20 characters")]
+        [StringLength(35, ErrorMessage = "The Name of ingredient cannot exceed 35 characters")]
         public string Name { get; set; }
         public ICollection<CocktailIngredient> CocktailIngredients { get; set; }
 

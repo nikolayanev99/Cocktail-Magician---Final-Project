@@ -308,7 +308,7 @@ namespace CocktailMagician.Models.Seeder
                 ImageThumbnailUrl = ""
             };
 
-            builder.Entity<Cocktail>().HasData(margarita, maiTai, whiteRussian, caipirinha);
+            builder.Entity<Cocktail>().HasData(margarita, maiTai, whiteRussian, caipirinha, screwdriver, bloodyMary, whiskeySour, oldFashioned, manhattan, martini);
             
             // CocktailIngredients
 

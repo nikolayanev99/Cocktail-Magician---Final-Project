@@ -28,11 +28,11 @@ namespace CocktailMagician.Models
 
         [DisplayName ("Cocktail Short Description")]
         [Required]
-        [StringLength(250, ErrorMessage = "The short description cannot exceed 250 characters.")]
+        [StringLength(350, ErrorMessage = "The short description cannot exceed 350 characters.")]
         public string ShortDescription { get; set; }
 
         [DisplayName ("Cocktail Long Description")]
-        [StringLength(2500, ErrorMessage = "The long description cannot exceed 2500 characters.")]
+        [StringLength(3500, ErrorMessage = "The long description cannot exceed 3500 characters.")]
         public string LongDescription { get; set; }
         public string ImageUrl { get; set; }
         public string ImageThumbnailUrl { get; set; }
