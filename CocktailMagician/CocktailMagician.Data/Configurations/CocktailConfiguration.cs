@@ -21,9 +21,9 @@ namespace CocktailMagician.Data.Configurations
 
             builder.Property(i => i.ImageUrl);
 
-            builder.HasMany(i => i.CocktailIngredients)
-                .WithOne(c => c.Cocktail)
-                .HasForeignKey(co => co.CocktailId);
+            //builder.HasMany(i => i.CocktailIngredients)
+            //    .WithOne(c => c.Cocktail)
+            //    .HasForeignKey(co => co.CocktailId);
 
             builder.HasMany(r => r.CocktailRatings)
                 .WithOne(rr => rr.Cocktail);

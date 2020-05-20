@@ -5,10 +5,7 @@ using System.Threading.Tasks;
 using CocktailMagician.Data;
 using CocktailMagician.Models;
 using CocktailMagician.Services;
-<<<<<<< HEAD
-=======
 using CocktailMagician.Services.Contracts;
->>>>>>> CocktailIngredient
 using CocktailMagician.Services.DtoEntities;
 using CocktailMagician.Services.DtoMappers;
 using CocktailMagician.Services.DtoMappers.Contracts;
@@ -60,6 +57,8 @@ namespace CocktailMagician
            options
            .UseSqlServer(
                Configuration.GetConnectionString("DefaultConnection")));
+
+
             services.AddScoped<IBarService, BarService>();
             services.AddScoped<IEmailSender, EmailSender>();
             services.AddScoped<IDtoMapper<Bar, BarDTO>, BarDTOMapper>();
@@ -68,10 +67,13 @@ namespace CocktailMagician
             services.AddScoped<ICocktailService, CocktailService>();
             services.AddScoped<IDtoMapper<CocktailComment, CocktailCommentDto>, CocktailCommentDtoMapper>();
             services.AddScoped<ICocktailCommentService, CocktailCommentService>();
+            services.AddScoped<IDtoMapper<CocktailRating, CocktailRatingDto>, CocktailRatingDtoMapper>();
+            services.AddScoped<ICocktailRatingService, CocktailRatingService>();
             services.AddScoped<IDtoMapper<Ingredient, IngredientDto>, IngredientDtoMapper>();
             services.AddScoped<IIngredientService, IngredientService>();
             services.AddScoped<IDateTimeProvider, DateTimeProvider>();
             services.AddControllersWithViews();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
