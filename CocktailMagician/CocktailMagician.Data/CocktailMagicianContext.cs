@@ -31,12 +31,10 @@ namespace CocktailMagician.Data
             builder.ApplyConfiguration(new CocktailConfiguration());
             builder.ApplyConfiguration(new IngredientConfigration());
             builder.ApplyConfiguration(new CocktailIngredientConfiguration());
-<<<<<<< HEAD
-=======
             builder.ApplyConfiguration(new CocktailCommentConfiguration());
->>>>>>> c816df27f39902a56ab2fabd89474b9d76fe582f
             builder.ApplyConfiguration(new CocktailRatingConfiguration());
             
+
             builder.Seeder();
             base.OnModelCreating(builder);
         }

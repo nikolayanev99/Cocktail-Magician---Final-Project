@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CocktailMagician.Data.Migrations
 {
     [DbContext(typeof(CocktailMagicianContext))]
-    [Migration("20200520161357_Initial")]
+    [Migration("20200521154603_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -63,6 +63,45 @@ namespace CocktailMagician.Data.Migrations
                     b.ToTable("Bars");
                 });
 
+            modelBuilder.Entity("CocktailMagician.Models.BarComment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("BarId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(500)")
+                        .HasMaxLength(500);
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BarId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("BarComments");
+                });
+
             modelBuilder.Entity("CocktailMagician.Models.Cocktail", b =>
                 {
                     b.Property<int>("Id")
@@ -110,8 +149,8 @@ namespace CocktailMagician.Data.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 750, DateTimeKind.Utc).AddTicks(3106),
-                            ImageThumbnailUrl = "",
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ImageThumbnailUrl = "/storage/images/cocktails-thumbnails/Margarita-cocktail.jpg",
                             ImageUrl = "/storage/images/cocktails/Margarita-cocktail.jpg",
                             IsDeleted = false,
                             LongDescription = "A margarita is a cocktail consisting of tequila, orange liqueur, and lime juice often served with salt on the rim of the glass. The drink is served shaken with ice (on the rocks), blended with ice (frozen margarita), or without ice (straight up). Although it has become acceptable to serve a margarita in a wide variety of glass types, ranging from cocktail and wine glasses to pint glasses and even large schooners, the drink is traditionally served in the eponymous margarita glass, a stepped-diameter variant of a cocktail glass or champagne coupe.",
@@ -121,8 +160,8 @@ namespace CocktailMagician.Data.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 751, DateTimeKind.Utc).AddTicks(800),
-                            ImageThumbnailUrl = "",
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ImageThumbnailUrl = "/storage/images/cocktails-thumbnails/Mai-Tai-Cocktail.jpg",
                             ImageUrl = "/storage/images/cocktails/Mai-Tai-Cocktail.jpg",
                             IsDeleted = false,
                             LongDescription = "The Mai Tai cocktail was created by bartender  “Trader” Vic Bergeron. In 1970, “Trader Vic” Bergeron wrote the following: “I originated the Mai Tai and put together a bit of the background of the evolution of this drink…. In 1944, after success with several exotic rum drinks, I felt a new drink was needed. I thought about all the really successful drinks: martinis, manhattans, daiquiris… All basically simple drinks…. I took down a bottle of 17 year old rum. It was J. Wray Nephew from Jamaica; surprisingly golden in colour, medium bodied, but with rich pungent flavour particular to Jamaican blends…. I took a fresh lime, added some orange curaçao from Holland, a dash of Rock Candy Syrup, and a dollop of French Orgeat, for its subtle almond flavour. A generous amount of shaved ice and vigorous shaking by hand produced the marriage I was after. Half the lime shell went in for color…. I stuck in a branch of fresh mint and gave two of them to  Ham and Carrie Guide, friends from Tahiti, who were there that night. Carrie took one sip and said, “Mai Tai— Roa Ai.” In Tahitian this means “Out of This World — The Best.” Well, that was that. I named the drink “Mai Tai.” … In fairness to myself and to a truly great drink, I hope you will agree when I say, “let’s get the record straight on the Mai Tai.” The ingredients “Trader Vic” originally used are hard to come by today. So the above recipe is an excellent recipe that’s more accessible.",
@@ -132,8 +171,8 @@ namespace CocktailMagician.Data.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 751, DateTimeKind.Utc).AddTicks(958),
-                            ImageThumbnailUrl = "",
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ImageThumbnailUrl = "/storage/images/cocktails-thumbnails/White-Russian-Cocktail.jpg",
                             ImageUrl = "/storage/images/cocktails/White-Russian-Cocktail.jpg",
                             IsDeleted = false,
                             LongDescription = "The traditional cocktail known as a Black Russian, which first appeared in 1949, becomes a White Russian with the addition of cream. Neither drink is Russian in origin, but both are so named due to vodka being the primary ingredient. It is unclear which drink preceded the other.",
@@ -143,8 +182,8 @@ namespace CocktailMagician.Data.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 751, DateTimeKind.Utc).AddTicks(964),
-                            ImageThumbnailUrl = "",
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ImageThumbnailUrl = "/storage/images/cocktails-thumbnails/Caipirinha-cocktail.jpg",
                             ImageUrl = "/storage/images/cocktails/Caipirinha-cocktail.jpg",
                             IsDeleted = false,
                             LongDescription = "According to historians, the caipirinha was invented by landowning farmers in the region of Piracicaba, interior of the State of São Paulo during the 19th century as a local drink for 'high standard' events and parties, a reflection of the strong sugarcane culture in the region.",
@@ -154,8 +193,8 @@ namespace CocktailMagician.Data.Migrations
                         new
                         {
                             Id = 5,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 751, DateTimeKind.Utc).AddTicks(967),
-                            ImageThumbnailUrl = "",
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ImageThumbnailUrl = "/storage/images/cocktails-thumbnails/Screwdriver-cocktail.jpg",
                             ImageUrl = "/storage/images/cocktails/Screwdriver-cocktail.jpg",
                             IsDeleted = false,
                             LongDescription = "While the basic drink is simply the two ingredients, there are many variations. Many of the variations have different names in different parts of the world. The screwdriver is mentioned in 1944: A Screwdriver—a drink compounded of vodka and orange juice and supposedly invented by interned American fliers; the latest Yankee concoction of vodka and orange juice, called a 'screwdriver'.",
@@ -165,8 +204,8 @@ namespace CocktailMagician.Data.Migrations
                         new
                         {
                             Id = 6,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 751, DateTimeKind.Utc).AddTicks(971),
-                            ImageThumbnailUrl = "",
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ImageThumbnailUrl = "/storage/images/cocktails-thumbnails/Bloody-Mary-Cocktail.jpg",
                             ImageUrl = "/storage/images/cocktails/Bloody-Mary-Cocktail.jpg",
                             IsDeleted = false,
                             LongDescription = "Unlike most cocktails, the origins of the Bloody Mary cocktail are well known. It was created by bartender Fernand “Pete” Petiot at Harry’s New York bar in Paris around 1924 just after France started importing tinned tomatoes from America.In 1934, Petiot was brought to New York to head the bar at the St Regis Hotel during the prohibition era and he brought his creation with him. Americans have been drinking Bloody Mary’s ever since.When it was first created, it wasn’t very well liked. David Embury went as far as to describe the cocktail as “strictly vile” in his book ‘The Fine Art of Mixing Drinks.’ Today, many people still consider the Bloody Mary strictly vile, but it also has a loyal following of diehard fans that absolutely love it.Every bartender thinks they know ‘the best’ Bloody Mary recipe, but the truth, there is no 1 recipe because people’s preferences vary so widely. Some drinkers like it extra spicy, some prefer it mild. As such, you should always ask your guest how spicy they would like it on a scale of 1-10 and adjust the hot sauce you add appropriately.Despite it being individualized, there are a few general consensuses on how it should be made. Always use lemon juice over lime juice as it marries better with tomato juice. And it should always be rolled as opposed to shaking or stirring. Shaking emulsifies the tomato juice (a fancy way of saying, separating it and making it bubble), and stirring isn’t strong enough to adequately mix the ingredients.",
@@ -176,19 +215,19 @@ namespace CocktailMagician.Data.Migrations
                         new
                         {
                             Id = 7,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 751, DateTimeKind.Utc).AddTicks(974),
-                            ImageThumbnailUrl = "",
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ImageThumbnailUrl = "/storage/images/cocktails-thumbnails/Whiskey-Sour-Cocktail.jpg",
                             ImageUrl = "/storage/images/cocktails/Whiskey-Sour-Cocktail.jpg",
                             IsDeleted = false,
                             LongDescription = "The whiskey sour is a mixed drink containing whiskey (often bourbon), lemon juice, sugar, and optionally, a dash of egg white. With the egg white, it is sometimes called a Boston Sour. With a few bar spoons of full-bodied red wine floated on top, it is often referred to as a New York Sour. It is shaken and served either straight up or over ice. The traditional garnish is half an orange slice and a maraschino cherry. A variant of the whiskey sour is the Ward 8, which often is based on bourbon or rye whiskey, and includes both lemon and orange juices, and grenadine syrup as the sweetener. The egg white sometimes employed in other whiskey sours is not usually included.",
                             Name = "Whiskey Sour",
-                            ShortDescription = "Spirit, sugar, citrus—the original big three—come together in the Whiskey Sour"
+                            ShortDescription = "Spirit, sugar, citrus the original big three come together in the Whiskey Sour"
                         },
                         new
                         {
                             Id = 8,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 751, DateTimeKind.Utc).AddTicks(978),
-                            ImageThumbnailUrl = "",
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ImageThumbnailUrl = "/storage/images/cocktails-thumbnails/Old-fashioned-cocktail.jpg",
                             ImageUrl = "/storage/images/cocktails/Old-fashioned-cocktail.jpg",
                             IsDeleted = false,
                             LongDescription = "Yet for all of its suave simplicity, the drink remains as relevant today as it was when it first captured drinkers’ hearts 200 years ago. In truth, you could draw a straight line connecting this drink to the first recorded definition of the cocktail category in general (circa 1806), which calls for spirits, sugar, water and bitters. You could also skip the history lesson and simply make the drink. Do the latter. Start by using good bourbon, the rule being that if you wouldn’t sip it by itself it has no place at the helm of a Bourbon Old Fashioned. (There are other whiskey drinks for masking subpar booze—this isn’t one of them.) From there, the cocktail-minded seem to break into two camps: simple syrup or muddled sugar. While a barspoon of syrup can cut your prep time in half, it robs the drink of some of the weight and texture that makes it so appealing. And anyway, what’s the big rush? The Bourbon Old Fashioned isn’t going anywhere.",
@@ -198,8 +237,8 @@ namespace CocktailMagician.Data.Migrations
                         new
                         {
                             Id = 9,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 751, DateTimeKind.Utc).AddTicks(981),
-                            ImageThumbnailUrl = "",
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ImageThumbnailUrl = "/storage/images/cocktails-thumbnails/Manhattan-Cocktail.jpg",
                             ImageUrl = "/storage/images/cocktails/Manhattan-Cocktail.jpg",
                             IsDeleted = false,
                             LongDescription = "Originating in the late 1800s, the Manhattan is the grandfather to the infamous Martini cocktail and it’s one classics that every bartender should know. Legend has it a bartender at the Manhattan club created this drink when Jennie Churchill (mother of Winston Churchill) threw a party for her father’s friend, the newly elected governor of New York, Samuel James Tilden. In his book ‘The Joy of Mixology,’ Gary Regan describes it as “Quite simply, when properly constructed, it is the finest cocktail on the face of the earth.” From a bartender as influential and skilled as Regan, that’s quite a statement! As a non-Manhattan drinker, I disagree, but that doesn’t change how important it is to know how to make this cocktail well. Variations : If possible, you should always offer your customer their choice of whiskey – the brand and either bourbon or rye. Feel free to experiment with different brands until you find something you love serving. This is also a great drink to experiment with different types of bitters. Start with peychauds & orange bitters. It can also be made in a rocks / old-fashioned glass served over ice if your customer prefers. A Dry Manhattan is made with dry vermouth instead of sweet vermouth using the same proportions (i.e. 1 shot) and a lemon twist instead of the cherry for the garnish. A Perfect Manhattan is made with half dry & half sweet vermouth (1/2 shot of each), and both a lemon twist & cherry for the garnish.",
@@ -209,8 +248,8 @@ namespace CocktailMagician.Data.Migrations
                         new
                         {
                             Id = 10,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 751, DateTimeKind.Utc).AddTicks(985),
-                            ImageThumbnailUrl = "",
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ImageThumbnailUrl = "/storage/images/cocktails-thumbnails/Dry-Martini-Cocktail.jpg",
                             ImageUrl = "/storage/images/cocktails/Dry-Martini-Cocktail.jpg",
                             IsDeleted = false,
                             LongDescription = "The Dry martini cocktail is probably the most well-known cocktail of all time. James Bond may have had something to do with its modern-day resurgence but it has been popular since it first hit the market in the late 1800s. Today, the classic Martini is a sign of sophistication and martini drinks are often the most particular.  Perhaps for that reason, the Martini intimidates new bartenders. There are so many different variations and it has a lot consuming terminology surrounding it that make it seem far more complex than what it actually is. To make things more confusing, in the 90’s, bartenders started calling any cocktail that was served in a martini glass a ‘Martini.’ To clarify, most of these cocktails aren’t ‘real’ martinis. Most of them are, in fact, a type of sour cocktail, and have nothing to do with the classic recipe. It’s usually fairly obvious when someone wants a ‘new-age’ martini like a lychee martini or an espresso martini because that’s exactly what they’ll ask for. But for the classic martini order, you’ll need to get further clarification because people have different preferences and like I mentioned earlier, martini drinkers can be particular.",
@@ -481,210 +520,210 @@ namespace CocktailMagician.Data.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 749, DateTimeKind.Utc).AddTicks(7954),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "Lime Juice"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 750, DateTimeKind.Utc).AddTicks(932),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "Triple Sec"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 750, DateTimeKind.Utc).AddTicks(979),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "Tequila"
                         },
                         new
                         {
                             Id = 4,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 750, DateTimeKind.Utc).AddTicks(984),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "Drak Rum"
                         },
                         new
                         {
                             Id = 5,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 750, DateTimeKind.Utc).AddTicks(986),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "Orange Curacao"
                         },
                         new
                         {
                             Id = 6,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 750, DateTimeKind.Utc).AddTicks(988),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "Almond Surup"
                         },
                         new
                         {
                             Id = 7,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 750, DateTimeKind.Utc).AddTicks(990),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "Fresh Cream"
                         },
                         new
                         {
                             Id = 8,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 750, DateTimeKind.Utc).AddTicks(993),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "Kahlua"
                         },
                         new
                         {
                             Id = 9,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 750, DateTimeKind.Utc).AddTicks(995),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "Vodka"
                         },
                         new
                         {
                             Id = 10,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 750, DateTimeKind.Utc).AddTicks(997),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "Cachaca"
                         },
                         new
                         {
                             Id = 11,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 750, DateTimeKind.Utc).AddTicks(999),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "Orange Juice"
                         },
                         new
                         {
                             Id = 12,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 750, DateTimeKind.Utc).AddTicks(1002),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "Tomato Juice"
                         },
                         new
                         {
                             Id = 13,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 750, DateTimeKind.Utc).AddTicks(1003),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "Bourbon"
                         },
                         new
                         {
                             Id = 14,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 750, DateTimeKind.Utc).AddTicks(1005),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "Water"
                         },
                         new
                         {
                             Id = 15,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 750, DateTimeKind.Utc).AddTicks(1007),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "Italian Sweet Vermouth"
                         },
                         new
                         {
                             Id = 16,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 750, DateTimeKind.Utc).AddTicks(1009),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "French Dry Vermouth"
                         },
                         new
                         {
                             Id = 17,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 750, DateTimeKind.Utc).AddTicks(1012),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "Gin"
                         },
                         new
                         {
                             Id = 18,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 750, DateTimeKind.Utc).AddTicks(1014),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "White Rum"
                         },
                         new
                         {
                             Id = 19,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 750, DateTimeKind.Utc).AddTicks(1016),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "Pink Grapefruit Juice"
                         },
                         new
                         {
                             Id = 20,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 750, DateTimeKind.Utc).AddTicks(1018),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "Cointreau"
                         },
                         new
                         {
                             Id = 21,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 750, DateTimeKind.Utc).AddTicks(1020),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "Soda"
                         },
                         new
                         {
                             Id = 22,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 750, DateTimeKind.Utc).AddTicks(1022),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "Cherry Brandy"
                         },
                         new
                         {
                             Id = 23,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 750, DateTimeKind.Utc).AddTicks(1024),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "Lemon"
                         },
                         new
                         {
                             Id = 24,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 750, DateTimeKind.Utc).AddTicks(1026),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "Sloe Gin"
                         },
                         new
                         {
                             Id = 25,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 750, DateTimeKind.Utc).AddTicks(1028),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "Pineapple Juice"
                         },
                         new
                         {
                             Id = 26,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 750, DateTimeKind.Utc).AddTicks(1031),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "Coconut Cream"
                         },
                         new
                         {
                             Id = 27,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 750, DateTimeKind.Utc).AddTicks(1033),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "Grapefruit Juice"
                         },
                         new
                         {
                             Id = 28,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 750, DateTimeKind.Utc).AddTicks(1035),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "Cola"
                         },
                         new
                         {
                             Id = 29,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 750, DateTimeKind.Utc).AddTicks(1037),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "Peach"
                         },
                         new
                         {
                             Id = 30,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 750, DateTimeKind.Utc).AddTicks(1039),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "Prosecco"
                         });
@@ -722,14 +761,14 @@ namespace CocktailMagician.Data.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "cd7a4067-2b84-45d1-8b91-38f3f699bfaa",
+                            ConcurrencyStamp = "5481ac0b-0ca9-4c26-a39a-dff7f589c3ed",
                             Name = "bar crawler",
                             NormalizedName = "BAR CRAWLER"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "5fee4703-4b63-4577-b547-207e7fc4e644",
+                            ConcurrencyStamp = "778bcf3e-d267-4956-b87f-5fdc37753aa9",
                             Name = "cocktail magician",
                             NormalizedName = "COCKTAIL MAGICIAN"
                         });
@@ -806,13 +845,13 @@ namespace CocktailMagician.Data.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "aad0449a-e012-4936-992e-72095c6b6da0",
+                            ConcurrencyStamp = "bb8cc7c3-5f37-40f3-ad66-abcea7006f5b",
                             Email = "admin@admin.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEEFZFkYQggkvPInIYvikzSMDdajdItXQsOz9IKXzghlIXFqOw8fMTo4vqR5qrfHTEA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAECWefVJaX0QT0Xvc1gdgvREev1r5vRVLhzAP46TS0AYtzM/vxPtWRsDwnWTDHSHNiw==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
                             UserName = "Admin"
@@ -925,6 +964,21 @@ namespace CocktailMagician.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("CocktailMagician.Models.BarComment", b =>
+                {
+                    b.HasOne("CocktailMagician.Models.Bar", "Bar")
+                        .WithMany()
+                        .HasForeignKey("BarId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CocktailMagician.Models.User", "Author")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("CocktailMagician.Models.CocktailComment", b =>

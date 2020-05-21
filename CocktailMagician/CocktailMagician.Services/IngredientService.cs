@@ -41,6 +41,20 @@ namespace CocktailMagician.Services
             return ingredientDto;
         }
 
+        public async Task<Ingredient> GetIngredientByNameAsync(string ingredientName)
+        {
+            var ingredient = await this._context.Ingredients
+                .Where(i => i.IsDeleted == false)
+                .FirstOrDefaultAsync(x => x.Name == ingredientName);
+
+            if (ingredient == null)
+            {
+                return null;
+            }
+
+            return ingredient;
+        }
+
         public async Task<ICollection<IngredientDto>> GetAllIngredientsAsync() 
         {
             var ingredients = await this._context.Ingredients

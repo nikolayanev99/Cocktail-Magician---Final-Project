@@ -58,19 +58,35 @@ namespace CocktailMagician
            .UseSqlServer(
                Configuration.GetConnectionString("DefaultConnection")));
 
+            //bars services
+            //bars services
 
             services.AddScoped<IBarService, BarService>();
             services.AddScoped<IEmailSender, EmailSender>();
             services.AddScoped<IDtoMapper<Bar, BarDTO>, BarDTOMapper>();
             services.AddScoped<IViewModelMapper<BarDTO, BarViewModel>,BarViewModelMapper>();
-            services.AddScoped<IDtoMapper<Cocktail, CocktailDto>, CocktailDtoMapper>();
+
+            //cocktails services
+            //cocktails services
+
+
             services.AddScoped<ICocktailService, CocktailService>();
+            services.AddScoped<IDtoMapper<Cocktail, CocktailDto>, CocktailDtoMapper>();
+            services.AddScoped<IViewModelMapper<CocktailDto, CocktailViewModel>, CocktailViewModelMapper>();
+
             services.AddScoped<IDtoMapper<CocktailComment, CocktailCommentDto>, CocktailCommentDtoMapper>();
             services.AddScoped<ICocktailCommentService, CocktailCommentService>();
+            
             services.AddScoped<IDtoMapper<CocktailRating, CocktailRatingDto>, CocktailRatingDtoMapper>();
             services.AddScoped<ICocktailRatingService, CocktailRatingService>();
+
+            //ingredients services
+            //ingredients services
+
             services.AddScoped<IDtoMapper<Ingredient, IngredientDto>, IngredientDtoMapper>();
             services.AddScoped<IIngredientService, IngredientService>();
+            services.AddScoped<ICocktailIngredientService, CocktailIngredientService>();
+            
             services.AddScoped<IDateTimeProvider, DateTimeProvider>();
             services.AddControllersWithViews();
 

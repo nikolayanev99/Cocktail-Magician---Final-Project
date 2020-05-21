@@ -1,4 +1,5 @@
-﻿using CocktailMagician.Services.DtoEntities;
+﻿using CocktailMagician.Models;
+using CocktailMagician.Services.DtoEntities;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,6 +14,6 @@ namespace CocktailMagician.Services.Contracts
         public Task<IngredientDto> CreateIngredientAsync(IngredientDto ingredientDto);
         public Task<IngredientDto> EditIngredientAsync(int id, string newName);
         public Task<IngredientDto> DeleteIngredientAsync(int id);
-
+        public Task<Ingredient> GetIngredientByNameAsync(string ingredientName);
     }
 }
