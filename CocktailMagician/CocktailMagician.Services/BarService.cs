@@ -27,6 +27,7 @@ namespace CocktailMagician.Services
         public async Task<BarDTO> GetBarAsync(int id)
         {
             var bar = await this.context.Bars
+                .Include(b=>b.Comments)               
                 .Where(b => b.IsDeleted == false)
                 .FirstOrDefaultAsync(b => b.Id == id);
 

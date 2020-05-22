@@ -29,5 +29,9 @@ namespace CocktailMagician.Web.Models
 
         public string PhotoPath { get; set; }
         public IFormFile Photo { get; set; }
+
+        public string CurrentComment { get; set; }
+
+        public ICollection<BarCommentViewModel> Comments { get; set; }
     }
 }

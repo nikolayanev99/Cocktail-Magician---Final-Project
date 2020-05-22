@@ -4,16 +4,14 @@ using CocktailMagician.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CocktailMagician.Data.Migrations
 {
     [DbContext(typeof(CocktailMagicianContext))]
-    [Migration("20200520161357_Initial")]
-    partial class Initial
+    partial class CocktailMagicianContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -63,6 +61,45 @@ namespace CocktailMagician.Data.Migrations
                     b.ToTable("Bars");
                 });
 
+            modelBuilder.Entity("CocktailMagician.Models.BarComment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("BarId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(500)")
+                        .HasMaxLength(500);
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BarId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("BarComments");
+                });
+
             modelBuilder.Entity("CocktailMagician.Models.Cocktail", b =>
                 {
                     b.Property<int>("Id")
@@ -110,7 +147,7 @@ namespace CocktailMagician.Data.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 750, DateTimeKind.Utc).AddTicks(3106),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ImageThumbnailUrl = "",
                             ImageUrl = "/storage/images/cocktails/Margarita-cocktail.jpg",
                             IsDeleted = false,
@@ -121,7 +158,7 @@ namespace CocktailMagician.Data.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 751, DateTimeKind.Utc).AddTicks(800),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ImageThumbnailUrl = "",
                             ImageUrl = "/storage/images/cocktails/Mai-Tai-Cocktail.jpg",
                             IsDeleted = false,
@@ -132,7 +169,7 @@ namespace CocktailMagician.Data.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 751, DateTimeKind.Utc).AddTicks(958),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ImageThumbnailUrl = "",
                             ImageUrl = "/storage/images/cocktails/White-Russian-Cocktail.jpg",
                             IsDeleted = false,
@@ -143,7 +180,7 @@ namespace CocktailMagician.Data.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 751, DateTimeKind.Utc).AddTicks(964),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ImageThumbnailUrl = "",
                             ImageUrl = "/storage/images/cocktails/Caipirinha-cocktail.jpg",
                             IsDeleted = false,
@@ -154,7 +191,7 @@ namespace CocktailMagician.Data.Migrations
                         new
                         {
                             Id = 5,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 751, DateTimeKind.Utc).AddTicks(967),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ImageThumbnailUrl = "",
                             ImageUrl = "/storage/images/cocktails/Screwdriver-cocktail.jpg",
                             IsDeleted = false,
@@ -165,7 +202,7 @@ namespace CocktailMagician.Data.Migrations
                         new
                         {
                             Id = 6,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 751, DateTimeKind.Utc).AddTicks(971),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ImageThumbnailUrl = "",
                             ImageUrl = "/storage/images/cocktails/Bloody-Mary-Cocktail.jpg",
                             IsDeleted = false,
@@ -176,7 +213,7 @@ namespace CocktailMagician.Data.Migrations
                         new
                         {
                             Id = 7,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 751, DateTimeKind.Utc).AddTicks(974),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ImageThumbnailUrl = "",
                             ImageUrl = "/storage/images/cocktails/Whiskey-Sour-Cocktail.jpg",
                             IsDeleted = false,
@@ -187,7 +224,7 @@ namespace CocktailMagician.Data.Migrations
                         new
                         {
                             Id = 8,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 751, DateTimeKind.Utc).AddTicks(978),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ImageThumbnailUrl = "",
                             ImageUrl = "/storage/images/cocktails/Old-fashioned-cocktail.jpg",
                             IsDeleted = false,
@@ -198,7 +235,7 @@ namespace CocktailMagician.Data.Migrations
                         new
                         {
                             Id = 9,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 751, DateTimeKind.Utc).AddTicks(981),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ImageThumbnailUrl = "",
                             ImageUrl = "/storage/images/cocktails/Manhattan-Cocktail.jpg",
                             IsDeleted = false,
@@ -209,7 +246,7 @@ namespace CocktailMagician.Data.Migrations
                         new
                         {
                             Id = 10,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 751, DateTimeKind.Utc).AddTicks(985),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ImageThumbnailUrl = "",
                             ImageUrl = "/storage/images/cocktails/Dry-Martini-Cocktail.jpg",
                             IsDeleted = false,
@@ -481,210 +518,210 @@ namespace CocktailMagician.Data.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 749, DateTimeKind.Utc).AddTicks(7954),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "Lime Juice"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 750, DateTimeKind.Utc).AddTicks(932),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "Triple Sec"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 750, DateTimeKind.Utc).AddTicks(979),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "Tequila"
                         },
                         new
                         {
                             Id = 4,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 750, DateTimeKind.Utc).AddTicks(984),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "Drak Rum"
                         },
                         new
                         {
                             Id = 5,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 750, DateTimeKind.Utc).AddTicks(986),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "Orange Curacao"
                         },
                         new
                         {
                             Id = 6,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 750, DateTimeKind.Utc).AddTicks(988),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "Almond Surup"
                         },
                         new
                         {
                             Id = 7,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 750, DateTimeKind.Utc).AddTicks(990),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "Fresh Cream"
                         },
                         new
                         {
                             Id = 8,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 750, DateTimeKind.Utc).AddTicks(993),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "Kahlua"
                         },
                         new
                         {
                             Id = 9,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 750, DateTimeKind.Utc).AddTicks(995),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "Vodka"
                         },
                         new
                         {
                             Id = 10,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 750, DateTimeKind.Utc).AddTicks(997),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "Cachaca"
                         },
                         new
                         {
                             Id = 11,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 750, DateTimeKind.Utc).AddTicks(999),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "Orange Juice"
                         },
                         new
                         {
                             Id = 12,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 750, DateTimeKind.Utc).AddTicks(1002),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "Tomato Juice"
                         },
                         new
                         {
                             Id = 13,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 750, DateTimeKind.Utc).AddTicks(1003),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "Bourbon"
                         },
                         new
                         {
                             Id = 14,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 750, DateTimeKind.Utc).AddTicks(1005),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "Water"
                         },
                         new
                         {
                             Id = 15,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 750, DateTimeKind.Utc).AddTicks(1007),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "Italian Sweet Vermouth"
                         },
                         new
                         {
                             Id = 16,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 750, DateTimeKind.Utc).AddTicks(1009),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "French Dry Vermouth"
                         },
                         new
                         {
                             Id = 17,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 750, DateTimeKind.Utc).AddTicks(1012),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "Gin"
                         },
                         new
                         {
                             Id = 18,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 750, DateTimeKind.Utc).AddTicks(1014),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "White Rum"
                         },
                         new
                         {
                             Id = 19,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 750, DateTimeKind.Utc).AddTicks(1016),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "Pink Grapefruit Juice"
                         },
                         new
                         {
                             Id = 20,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 750, DateTimeKind.Utc).AddTicks(1018),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "Cointreau"
                         },
                         new
                         {
                             Id = 21,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 750, DateTimeKind.Utc).AddTicks(1020),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "Soda"
                         },
                         new
                         {
                             Id = 22,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 750, DateTimeKind.Utc).AddTicks(1022),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "Cherry Brandy"
                         },
                         new
                         {
                             Id = 23,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 750, DateTimeKind.Utc).AddTicks(1024),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "Lemon"
                         },
                         new
                         {
                             Id = 24,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 750, DateTimeKind.Utc).AddTicks(1026),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "Sloe Gin"
                         },
                         new
                         {
                             Id = 25,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 750, DateTimeKind.Utc).AddTicks(1028),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "Pineapple Juice"
                         },
                         new
                         {
                             Id = 26,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 750, DateTimeKind.Utc).AddTicks(1031),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "Coconut Cream"
                         },
                         new
                         {
                             Id = 27,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 750, DateTimeKind.Utc).AddTicks(1033),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "Grapefruit Juice"
                         },
                         new
                         {
                             Id = 28,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 750, DateTimeKind.Utc).AddTicks(1035),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "Cola"
                         },
                         new
                         {
                             Id = 29,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 750, DateTimeKind.Utc).AddTicks(1037),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "Peach"
                         },
                         new
                         {
                             Id = 30,
-                            CreatedOn = new DateTime(2020, 5, 20, 16, 13, 56, 750, DateTimeKind.Utc).AddTicks(1039),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "Prosecco"
                         });
@@ -722,14 +759,14 @@ namespace CocktailMagician.Data.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "cd7a4067-2b84-45d1-8b91-38f3f699bfaa",
+                            ConcurrencyStamp = "2e0acf5a-15e8-4cbe-8326-4285483f5126",
                             Name = "bar crawler",
                             NormalizedName = "BAR CRAWLER"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "5fee4703-4b63-4577-b547-207e7fc4e644",
+                            ConcurrencyStamp = "603d2272-3ff0-46ca-8938-ad2ec5e6979f",
                             Name = "cocktail magician",
                             NormalizedName = "COCKTAIL MAGICIAN"
                         });
@@ -806,16 +843,17 @@ namespace CocktailMagician.Data.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "aad0449a-e012-4936-992e-72095c6b6da0",
+                            ConcurrencyStamp = "37e36ffc-937c-4e3d-a0fe-cf95d267c9b5",
                             Email = "admin@admin.com",
                             EmailConfirmed = false,
-                            LockoutEnabled = false,
+                            LockoutEnabled = true,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
-                            NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEEFZFkYQggkvPInIYvikzSMDdajdItXQsOz9IKXzghlIXFqOw8fMTo4vqR5qrfHTEA==",
+                            NormalizedUserName = "ADMIN@ADMIN.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDOECLlWZ743ZCCFNXe93CrHoMo3nr4ieZfTab8tkYQeEbvQ44I8xMbLMvzlYXhtvQ==",
                             PhoneNumberConfirmed = false,
+                            SecurityStamp = "d12a8993 - 382a - 4680 - 845f - 39c744d04ca1",
                             TwoFactorEnabled = false,
-                            UserName = "Admin"
+                            UserName = "admin@admin.com"
                         });
                 });
 
@@ -925,6 +963,21 @@ namespace CocktailMagician.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("CocktailMagician.Models.BarComment", b =>
+                {
+                    b.HasOne("CocktailMagician.Models.Bar", "Bar")
+                        .WithMany()
+                        .HasForeignKey("BarId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CocktailMagician.Models.User", "Author")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("CocktailMagician.Models.CocktailComment", b =>

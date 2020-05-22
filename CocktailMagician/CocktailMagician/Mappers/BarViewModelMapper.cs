@@ -45,7 +45,7 @@ namespace CocktailMagician.Web.Mappers
                 Name = dtoEntity.Name,
                 Info = dtoEntity.Info,
                 Address = dtoEntity.Address,
-                PhotoPath = dtoEntity.PhotoPath,
+                PhotoPath = dtoEntity.PhotoPath,               
             };
         }
 

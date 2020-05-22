@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CocktailMagician.Services
 {
-    public class BarCommentsService
+    public class BarCommentsService : IBarCommentsService
     {
         private readonly CocktailMagicianContext context;
         private readonly IDtoMapper<BarComment, BarCommentDto> dtoMapper;
@@ -24,6 +24,19 @@ namespace CocktailMagician.Services
             this.dtoMapper = dtoMapper ?? throw new ArgumentNullException(nameof(dtoMapper));
             this.dateTimeProvider = dateTimeProvider ?? throw new ArgumentNullException(nameof(dateTimeProvider));
         }
+        //public async Task<bool> HasUserCommented(int userId,int barId)
+        //{
+        //    var userComments = await this.context.BarComments
+        //        .Where(c => c.IsDeleted == false)
+        //        .Where(c => c.BarId == barId && c.UserId == userId)
+        //        .ToListAsync();
+
+        //    if (userComments != null)
+        //    {
+        //        return true;
+        //    }
+        //    return false;
+        //}
         public async Task<ICollection<BarCommentDto>> GetBarCommentsAsync(int barId)
         {
             var barComment = await this.context.BarComments
@@ -43,10 +56,11 @@ namespace CocktailMagician.Services
             {
                 return null;
             }
-            if(tempBarComment.Text == null || tempBarComment.UserId < 1 || tempBarComment.BarId < 1)
+            if (tempBarComment.Text == null || tempBarComment.UserId < 1 || tempBarComment.BarId < 1)
             {
                 return null;
             }
+         
 
             var newBarComment = new BarComment
             {
@@ -54,6 +68,8 @@ namespace CocktailMagician.Services
                 Text = tempBarComment.Text,
                 BarId = tempBarComment.BarId,
                 UserId = tempBarComment.UserId,
+                Author = this.context.Users
+                .FirstOrDefault(a => a.UserName == tempBarComment.Author),
                 CreatedOn = this.dateTimeProvider.GetDateTime(),
             };
 
@@ -105,7 +121,7 @@ namespace CocktailMagician.Services
             var barCommentDto = this.dtoMapper.MapDto(barComment);
 
             return barCommentDto;
-                
+
         }
     }
 }

@@ -30,10 +30,12 @@ namespace CocktailMagician.Models.Seeder
             User admin = new User
             {
                 Id = 1,
-                UserName = "Admin",
-                NormalizedUserName = "ADMIN",
+                UserName = "admin@admin.com",
+                NormalizedUserName = "ADMIN@ADMIN.COM",
                 Email = "admin@admin.com",
                 NormalizedEmail = "ADMIN@ADMIN.COM",
+                LockoutEnabled = true,
+                SecurityStamp = "d12a8993 - 382a - 4680 - 845f - 39c744d04ca1",
 
             };
 
@@ -44,8 +46,8 @@ namespace CocktailMagician.Models.Seeder
             builder.Entity<IdentityUserRole<int>>().HasData(
                 new IdentityUserRole<int>
                 {
+                    UserId = admin.Id,
                     RoleId = 2,
-                    UserId = 1,
                 }
                 );
 
@@ -309,7 +311,7 @@ namespace CocktailMagician.Models.Seeder
             };
 
             builder.Entity<Cocktail>().HasData(margarita, maiTai, whiteRussian, caipirinha, screwdriver, bloodyMary, whiskeySour, oldFashioned, manhattan, martini);
-            
+
             // CocktailIngredients
 
             //     ||

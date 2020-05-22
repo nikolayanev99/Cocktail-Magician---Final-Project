@@ -14,6 +14,7 @@ using CocktailMagician.Web.Models;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.Security.Claims;
 
 namespace CocktailMagician.Web.Controllers
 {
@@ -21,17 +22,25 @@ namespace CocktailMagician.Web.Controllers
     {
 
         private readonly IBarService barService;
+        private readonly IBarCommentsService barCommentsService;
+        private readonly IViewModelMapper<BarCommentDto, BarCommentViewModel> barCommentVmMapper;
         private readonly IViewModelMapper<BarDTO, BarViewModel> barVmMapper;
         private readonly IWebHostEnvironment webHostEnvironment;
 
-        public BarsController(IBarService barService,
+        public BarsController(IBarService barService, 
+                              IBarCommentsService barCommentsService,
+                              IViewModelMapper<BarCommentDto, BarCommentViewModel> barCommentVmMapper,
                               IViewModelMapper<BarDTO, BarViewModel> barVmMapper,
                               IWebHostEnvironment webHostEnvironment)
         {
             this.barService = barService ?? throw new ArgumentNullException(nameof(barService));
+            this.barCommentsService = barCommentsService ?? throw new ArgumentNullException(nameof(barCommentsService));
+            this.barCommentVmMapper = barCommentVmMapper ?? throw new ArgumentNullException(nameof(barCommentVmMapper));
             this.barVmMapper = barVmMapper ?? throw new ArgumentNullException(nameof(barVmMapper));
             this.webHostEnvironment = webHostEnvironment ?? throw new ArgumentNullException(nameof(webHostEnvironment));
         }
+
+
 
 
 
@@ -55,6 +64,8 @@ namespace CocktailMagician.Web.Controllers
                 return NotFound();
             }
             var barVM = this.barVmMapper.MapViewModel(bar);
+            var barCommentDtos = await this.barCommentsService.GetBarCommentsAsync(id);
+            barVM.Comments = this.barCommentVmMapper.MapViewModel(barCommentDtos);
 
             return View(barVM);
         }
@@ -73,7 +84,7 @@ namespace CocktailMagician.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                
+
                 if (bar.Photo != null)
                 {
                     string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "images");
@@ -106,7 +117,7 @@ namespace CocktailMagician.Web.Controllers
         }
 
         // POST: Bars/Edit/5
-        [HttpPost]
+        [HttpPut]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, BarViewModel bar)
         {
@@ -141,13 +152,40 @@ namespace CocktailMagician.Web.Controllers
         }
 
         // POST: Bars/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpDelete, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             await this.barService.DeleteBarAsync(id);
             return RedirectToAction(nameof(Index));
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddComment(BarViewModel bar)
+        {
+            int userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            var author = HttpContext.User.Identity.Name;
 
+            var barComment = new BarCommentViewModel
+            {
+                Text = bar.CurrentComment,
+                BarId = bar.Id,
+                UserId = userId,
+                Author = author,
+            };
+
+            var barCommentDto = this.barCommentVmMapper.MapDTO(barComment);
+
+            var comment = await this.barCommentsService.CreateCommentAsync(barCommentDto);
+
+            var currentBar = await this.barService.GetBarAsync(comment.BarId);
+
+            var barVM = this.barVmMapper.MapViewModel(currentBar);
+            var DtoComments = await this.barCommentsService.GetBarCommentsAsync(barVM.Id);
+            barVM.Comments = this.barCommentVmMapper.MapViewModel(DtoComments);
+                
+
+            return View("Details", barVM);
+        }
     }
 }

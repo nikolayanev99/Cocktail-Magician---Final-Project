@@ -20,6 +20,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.Mvc.ViewEngines;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -60,18 +61,37 @@ namespace CocktailMagician
 
 
             services.AddScoped<IBarService, BarService>();
+
             services.AddScoped<IEmailSender, EmailSender>();
+
             services.AddScoped<IDtoMapper<Bar, BarDTO>, BarDTOMapper>();
+
             services.AddScoped<IViewModelMapper<BarDTO, BarViewModel>,BarViewModelMapper>();
+
             services.AddScoped<IDtoMapper<Cocktail, CocktailDto>, CocktailDtoMapper>();
+
             services.AddScoped<ICocktailService, CocktailService>();
+
             services.AddScoped<IDtoMapper<CocktailComment, CocktailCommentDto>, CocktailCommentDtoMapper>();
+
+            services.AddScoped<IBarCommentsService, BarCommentsService>();
+
+            services.AddScoped<IDtoMapper<BarComment, BarCommentDto>,BarCommentDtoMapper>();
+
+            services.AddScoped<IViewModelMapper<BarCommentDto, BarCommentViewModel>,BarCommentViewModelMapper>();
+
             services.AddScoped<ICocktailCommentService, CocktailCommentService>();
+
             services.AddScoped<IDtoMapper<CocktailRating, CocktailRatingDto>, CocktailRatingDtoMapper>();
+
             services.AddScoped<ICocktailRatingService, CocktailRatingService>();
+
             services.AddScoped<IDtoMapper<Ingredient, IngredientDto>, IngredientDtoMapper>();
+
             services.AddScoped<IIngredientService, IngredientService>();
+
             services.AddScoped<IDateTimeProvider, DateTimeProvider>();
+
             services.AddControllersWithViews();
 
         }

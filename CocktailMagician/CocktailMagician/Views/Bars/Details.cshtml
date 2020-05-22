@@ -12,27 +12,77 @@
 <div>
     <h4>Bar</h4>
     <hr />
-        <img class="card-img-top" src="@photoPath" />
+    <img class="card-img-top" src="@photoPath" />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Name)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Name)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Info)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Info)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Address)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Address)
         </dd>
     </dl>
+</div>
+<div class="form-group">
+
+
+    <input type="hidden" asp-for="@Model.CurrentComment" class="form-control">
+    @using (Html.BeginForm("AddComment", "Bars"))
+    {
+        <input type="hidden" asp-for="@Model.Id" value="@Model.Id" />
+
+        <input class=" form-control" id="CurrentComment" name="CurrentComment" type="text" placeholder="Write your Comment here" />
+        <input asp-controller="Bars" asp-action="AddComment" type="submit" value="Submit" />
+
+    }
+</div>
+<div>
+@if (Model.Comments.Count == 0 || Model.Comments == null)
+{
+    <h4>Be the first to add a Comment!!!</h4>
+}
+else
+{
+    <h4>Reviews:</h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    User Name
+                </th>
+                <th>
+                    Comment
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Comments)
+            {
+                <tr>
+
+                    <td>
+                        @item.Author
+                    </td>
+                    <td>
+                        @item.Text
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
