@@ -1,0 +1,26 @@
+﻿@model IEnumerable<CocktailViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+
+}
+
+<h1>Cocktails</h1>
+
+@foreach (var cocktail in Model)
+{
+    <div class="col-sm-4 col-lg-4 col-md-4">
+        <div class="thumbnail">
+            <img src="@cocktail.ImageUrl" alt="" width="200" height="320">
+            <div class="caption">
+                <h3>
+                    <a asp-controller="Cocktails" asp-action="Details" asp-route-id="@cocktail.Id">@cocktail.Name</a>
+                </h3>
+                <p>@cocktail.ShortDescription</p>
+
+            </div>
+        </div>
+    </div>
+}

@@ -59,6 +59,8 @@ namespace CocktailMagician
            .UseSqlServer(
                Configuration.GetConnectionString("DefaultConnection")));
 
+            //bars services
+            //bars services
 
             services.AddScoped<IBarService, BarService>();
 
@@ -68,9 +70,19 @@ namespace CocktailMagician
 
             services.AddScoped<IViewModelMapper<BarDTO, BarViewModel>,BarViewModelMapper>();
 
+<<<<<<< HEAD
             services.AddScoped<IDtoMapper<Cocktail, CocktailDto>, CocktailDtoMapper>();
 
             services.AddScoped<ICocktailService, CocktailService>();
+=======
+            //cocktails services
+            //cocktails services
+
+
+            services.AddScoped<ICocktailService, CocktailService>();
+            services.AddScoped<IDtoMapper<Cocktail, CocktailDto>, CocktailDtoMapper>();
+            services.AddScoped<IViewModelMapper<CocktailDto, CocktailViewModel>, CocktailViewModelMapper>();
+>>>>>>> 9a19e1663d1a026e197b3cc13ca54a06f4ae076b
 
             services.AddScoped<IDtoMapper<CocktailComment, CocktailCommentDto>, CocktailCommentDtoMapper>();
 
@@ -81,15 +93,30 @@ namespace CocktailMagician
             services.AddScoped<IViewModelMapper<BarCommentDto, BarCommentViewModel>,BarCommentViewModelMapper>();
 
             services.AddScoped<ICocktailCommentService, CocktailCommentService>();
+<<<<<<< HEAD
 
+=======
+            
+>>>>>>> 9a19e1663d1a026e197b3cc13ca54a06f4ae076b
             services.AddScoped<IDtoMapper<CocktailRating, CocktailRatingDto>, CocktailRatingDtoMapper>();
 
             services.AddScoped<ICocktailRatingService, CocktailRatingService>();
 
+<<<<<<< HEAD
+=======
+            //ingredients services
+            //ingredients services
+
+>>>>>>> 9a19e1663d1a026e197b3cc13ca54a06f4ae076b
             services.AddScoped<IDtoMapper<Ingredient, IngredientDto>, IngredientDtoMapper>();
 
             services.AddScoped<IIngredientService, IngredientService>();
+<<<<<<< HEAD
 
+=======
+            services.AddScoped<ICocktailIngredientService, CocktailIngredientService>();
+            
+>>>>>>> 9a19e1663d1a026e197b3cc13ca54a06f4ae076b
             services.AddScoped<IDateTimeProvider, DateTimeProvider>();
 
             services.AddControllersWithViews();

@@ -18,18 +18,24 @@ namespace CocktailMagician.Services
         private readonly CocktailMagicianContext _context;
         private readonly IDtoMapper<Cocktail, CocktailDto> _cocktailDtoMapper;
         private readonly IDateTimeProvider _provider;
+        private readonly ICocktailIngredientService _cocktailIngredientService;
+        private readonly IIngredientService _ingredientService;
 
-        public CocktailService(CocktailMagicianContext context, IDtoMapper<Cocktail, CocktailDto> cocktailDtoMapper, IDateTimeProvider provider)
+        public CocktailService(CocktailMagicianContext context, IDtoMapper<Cocktail, CocktailDto> cocktailDtoMapper, IDateTimeProvider provider, ICocktailIngredientService cocktailIngredientService, IIngredientService ingredientService)
         {
             this._context = context ?? throw new ArgumentNullException(nameof(context));
             this._cocktailDtoMapper = cocktailDtoMapper ?? throw new ArgumentNullException(nameof(cocktailDtoMapper));
             this._provider = provider ?? throw new ArgumentNullException(nameof(provider));
+            this._cocktailIngredientService = cocktailIngredientService ?? throw new ArgumentNullException(nameof(cocktailIngredientService));
+            this._ingredientService = ingredientService ?? throw new ArgumentNullException(nameof(ingredientService));
         }
 
         public async Task<CocktailDto> GetCokctailAsync(int id)
         {
             var cocktail = await this._context.Cocktails
                 .Where(v => v.IsDeleted == false)
+                .Include(i => i.CocktailIngredients)
+                .ThenInclude(ii => ii.Ingredient)
                 .FirstOrDefaultAsync(i => i.Id == id);
 
             if (cocktail == null)
@@ -72,11 +78,24 @@ namespace CocktailMagician.Services
                 ShortDescription = tempCocktailDto.ShortDescription,
                 ImageUrl = tempCocktailDto.ImageUrl,
                 ImageThumbnailUrl = tempCocktailDto.ImageThumbnailUrl,
-                // TODO: CocktailIngredients
             };
 
             await _context.Cocktails.AddAsync(cocktail);
             await _context.SaveChangesAsync();
+
+            foreach (var item in tempCocktailDto.Ingredients)
+            {
+                var ingredient = await this._ingredientService.GetIngredientByNameAsync(item);
+
+                if (ingredient == null)
+                {
+                    return null;
+                }
+
+                var cocktailIngredient = await this._cocktailIngredientService.CreateCocktailIngredientAsync(cocktail.Id, ingredient.Id);
+                cocktail.CocktailIngredients.Add(cocktailIngredient);
+                await this._context.SaveChangesAsync();
+            }
 
             var cocktailDto = this._cocktailDtoMapper.MapDto(cocktail);
 
