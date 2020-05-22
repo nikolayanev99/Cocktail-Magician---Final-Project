@@ -1,0 +1,24 @@
+﻿
+@model CocktailViewModel
+
+<h2>@Model.Name Cocktail</h2>
+
+@*<head>
+    <style>
+        .thumbnail img {
+            height: 320px;
+            width: 200px;
+        }
+    </style>
+</head>*@
+
+<div class="thumbnail">
+    <img alt="@Model.Name" src="@Model.ImageUrl" width="300" height="200">
+    <div class="caption-full">
+        <h3>
+            <a href="#">@Model.Name</a>
+        </h3>
+        <h4>@Model.ShortDescription</h4>
+        <p>@Model.LongDescription</p>
+    </div>
+</div>

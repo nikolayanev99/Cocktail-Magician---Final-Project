@@ -16,7 +16,7 @@
             <img src="@cocktail.ImageUrl" alt="" width="200" height="320">
             <div class="caption">
                 <h3>
-                    <a>@cocktail.Name</a>
+                    <a asp-controller="Cocktails" asp-action="Details" asp-route-id="@cocktail.Id">@cocktail.Name</a>
                 </h3>
                 <p>@cocktail.ShortDescription</p>
 

@@ -37,5 +37,18 @@ namespace CocktailMagician.Web.Controllers
 
             return View(result);
         }
+
+        public async Task<IActionResult> Details(int id)
+        {
+            var cocktail = await this._cocktailService.GetCokctailAsync(id);
+            if (cocktail == null)
+            {
+                return NotFound();
+            }
+
+            var result = this._cocktailVmMapper.MapViewModel(cocktail);
+
+            return View(result);
+        }
     }
 }

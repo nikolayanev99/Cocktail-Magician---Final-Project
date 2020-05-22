@@ -34,6 +34,8 @@ namespace CocktailMagician.Services
         {
             var cocktail = await this._context.Cocktails
                 .Where(v => v.IsDeleted == false)
+                .Include(i => i.CocktailIngredients)
+                .ThenInclude(ii => ii.Ingredient)
                 .FirstOrDefaultAsync(i => i.Id == id);
 
             if (cocktail == null)
