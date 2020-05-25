@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using CocktailMagician.Models.Abstract;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -76,7 +77,7 @@ namespace CocktailMagician.Models.Seeder
             var darkRum = new Ingredient
             {
                 Id = 4,
-                Name = "Drak Rum"
+                Name = "Dark Rum"
             };
             var orangeCuracao = new Ingredient
             {
@@ -436,6 +437,33 @@ namespace CocktailMagician.Models.Seeder
             };
 
             builder.Entity<CocktailIngredient>().HasData(cocktailIngredientMargarita1, cocktailIngredientMargarita2, cocktailIngredientMargarita3, cocktailIngredientMaiTai1, cocktailIngredientMaiTai2, cocktailIngredientMaiTai3, cocktailIngredientMaiTai4, cocktailIngredientWhiteRussian1, cocktailIngredientWhiteRussian2, cocktailIngredientWhiteRussian3, cocktailIngredientCaipirinha, cocktailIngredientScrewdriver1, cocktailIngredientScrewdriver2, cocktailIngredientBloodyMary1, cocktailIngredientBloodyMary2, cocktailIngredientWhiskeySour1, cocktailIngredientWhiskeySour2, cocktailIngredientOldFashioned1, cocktailIngredientOldFashioned2, cocktailIngredientManhattan1, cocktailIngredientManhattan2, cocktailIngredientMartini1, cocktailIngredientMartini2);
+
+            // Bars
+
+            //     ||
+            //     ||
+            //   ()()()
+            //    ()()
+            //     ()
+
+            var bar1 = new Bar
+            {
+                Id = 1,
+                Name = "Outside Voices",
+                Info = "Great place with great people, awesome !",
+                Address = "Armitage Avenue 17, USA, Chicago",
+                PhotoPath = "3254b2f3-f185-4586-860f-5516c1a0bc11 20191102_Outside_Voices_0634.0.jpg",
+            };
+            var bar2 = new Bar
+            {
+                Id = 2,
+                Name = "Mood Rooftop Lounge",
+                Info = "There’s a new contender for the bar with the best view of Dubai. Mood Rooftop Lounge, the bold new bar on top of Meydan Hotel, has now officially opened and it boasts some seriously wow-worthy views.",
+                Address = "Meydan Hotel, Dubai, Nad Al Sheba",
+                PhotoPath = "2083d8d2-0b15-42c0-850d-739cb8ac5783 Mood-bar.jpg",
+            };
+
+            builder.Entity<Bar>().HasData(bar1, bar2);
         }
     }
 }

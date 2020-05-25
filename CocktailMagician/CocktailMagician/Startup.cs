@@ -51,7 +51,7 @@ namespace CocktailMagician
 
             services.AddRazorPages();
             services.AddIdentity<User, Role>(options => options.SignIn.RequireConfirmedAccount = false)
-                .AddEntityFrameworkStores<CocktailMagicianContext>()                
+                .AddEntityFrameworkStores<CocktailMagicianContext>()
                 .AddDefaultTokenProviders();
 
             services.AddDbContext<CocktailMagicianContext>(options =>
@@ -59,15 +59,21 @@ namespace CocktailMagician
            .UseSqlServer(
                Configuration.GetConnectionString("DefaultConnection")));
 
+            
+            services.AddScoped<IEmailSender, EmailSender>();
+            services.AddScoped<IDateTimeProvider, DateTimeProvider>();
+
             //bars services
             //bars services
 
             services.AddScoped<IBarService, BarService>();
-
-            services.AddScoped<IEmailSender, EmailSender>();
-
             services.AddScoped<IDtoMapper<Bar, BarDTO>, BarDTOMapper>();
+            services.AddScoped<IViewModelMapper<BarDTO, BarViewModel>, BarViewModelMapper>();
+            services.AddScoped<IBarCommentsService, BarCommentsService>();
+            services.AddScoped<IDtoMapper<BarComment, BarCommentDto>, BarCommentDtoMapper>();
+            services.AddScoped<IViewModelMapper<BarCommentDto, BarCommentViewModel>, BarCommentViewModelMapper>();
 
+<<<<<<< HEAD
             services.AddScoped<IViewModelMapper<BarDTO, BarViewModel>,BarViewModelMapper>();
 
 
@@ -75,37 +81,49 @@ namespace CocktailMagician
 
             services.AddScoped<ICocktailService, CocktailService>();
 
-
+=======
+            //cocktails services
+            //cocktails services
+>>>>>>> ff48e4352f41f1f2e39037c2f3b0685156fce66d
 
             services.AddScoped<ICocktailService, CocktailService>();
             services.AddScoped<IDtoMapper<Cocktail, CocktailDto>, CocktailDtoMapper>();
             services.AddScoped<IViewModelMapper<CocktailDto, CocktailViewModel>, CocktailViewModelMapper>();
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> ff48e4352f41f1f2e39037c2f3b0685156fce66d
             services.AddScoped<IDtoMapper<CocktailComment, CocktailCommentDto>, CocktailCommentDtoMapper>();
-
-            services.AddScoped<IBarCommentsService, BarCommentsService>();
-
-            services.AddScoped<IDtoMapper<BarComment, BarCommentDto>,BarCommentDtoMapper>();
-
-            services.AddScoped<IViewModelMapper<BarCommentDto, BarCommentViewModel>,BarCommentViewModelMapper>();
-
+            services.AddScoped<IViewModelMapper<CocktailCommentDto, CocktailCommentViewModel>, CocktailCommentViewModelMapper>();
             services.AddScoped<ICocktailCommentService, CocktailCommentService>();
+<<<<<<< HEAD
 
+=======
+>>>>>>> ff48e4352f41f1f2e39037c2f3b0685156fce66d
             services.AddScoped<IDtoMapper<CocktailRating, CocktailRatingDto>, CocktailRatingDtoMapper>();
-
+            services.AddScoped<IDtoMapper<Cocktail, CocktailDto>, CocktailDtoMapper>();
+            services.AddScoped<ICocktailService, CocktailService>();
             services.AddScoped<ICocktailRatingService, CocktailRatingService>();
 
+<<<<<<< HEAD
+=======
+            //ingredients services
+            //ingredients services
+>>>>>>> ff48e4352f41f1f2e39037c2f3b0685156fce66d
 
             services.AddScoped<IDtoMapper<Ingredient, IngredientDto>, IngredientDtoMapper>();
-
             services.AddScoped<IIngredientService, IngredientService>();
+<<<<<<< HEAD
 
 
          services.AddScoped<ICocktailIngredientService, CocktailIngredientService>();
             
 
             services.AddScoped<IDateTimeProvider, DateTimeProvider>();
+=======
+            services.AddScoped<ICocktailIngredientService, CocktailIngredientService>();
+>>>>>>> ff48e4352f41f1f2e39037c2f3b0685156fce66d
 
             services.AddControllersWithViews();
 
@@ -124,6 +142,8 @@ namespace CocktailMagician
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

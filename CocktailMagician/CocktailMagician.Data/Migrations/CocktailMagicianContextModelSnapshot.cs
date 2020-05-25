@@ -59,6 +59,28 @@ namespace CocktailMagician.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Bars");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Address = "Armitage Avenue 17, USA, Chicago",
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Info = "Great place with great people, awesome !",
+                            IsDeleted = false,
+                            Name = "Outside Voices",
+                            PhotoPath = "3254b2f3-f185-4586-860f-5516c1a0bc11 20191102_Outside_Voices_0634.0.jpg"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Address = "Meydan Hotel, Dubai, Nad Al Sheba",
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Info = "There’s a new contender for the bar with the best view of Dubai. Mood Rooftop Lounge, the bold new bar on top of Meydan Hotel, has now officially opened and it boasts some seriously wow-worthy views.",
+                            IsDeleted = false,
+                            Name = "Mood Rooftop Lounge",
+                            PhotoPath = "2083d8d2-0b15-42c0-850d-739cb8ac5783 Mood-bar.jpg"
+                        });
                 });
 
             modelBuilder.Entity("CocktailMagician.Models.BarComment", b =>
@@ -759,14 +781,22 @@ namespace CocktailMagician.Data.Migrations
                         new
                         {
                             Id = 1,
+<<<<<<< HEAD
                             ConcurrencyStamp = "a05b1a2e-63cf-448a-90d6-9ea50df77ea2",
+=======
+                            ConcurrencyStamp = "66e3b888-0039-40cb-b58c-199ffa327daa",
+>>>>>>> ff48e4352f41f1f2e39037c2f3b0685156fce66d
                             Name = "bar crawler",
                             NormalizedName = "BAR CRAWLER"
                         },
                         new
                         {
                             Id = 2,
+<<<<<<< HEAD
                             ConcurrencyStamp = "d81371bb-25f7-4947-882e-905f74928d5f",
+=======
+                            ConcurrencyStamp = "f49a4713-e79a-4ff1-9c64-c26c16bf3e5d",
+>>>>>>> ff48e4352f41f1f2e39037c2f3b0685156fce66d
                             Name = "cocktail magician",
                             NormalizedName = "COCKTAIL MAGICIAN"
                         });
@@ -843,13 +873,21 @@ namespace CocktailMagician.Data.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
+<<<<<<< HEAD
                             ConcurrencyStamp = "27225f2c-ca09-4d37-ac3b-35555cb1c222",
+=======
+                            ConcurrencyStamp = "202c250a-f8eb-435d-aa6e-677e51e80a99",
+>>>>>>> ff48e4352f41f1f2e39037c2f3b0685156fce66d
                             Email = "admin@admin.com",
                             EmailConfirmed = false,
                             LockoutEnabled = true,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
+<<<<<<< HEAD
                             PasswordHash = "AQAAAAEAACcQAAAAEAy+8/JpTBT6U3htXxXC2CxYtKFITfNZZU2u0UXW0oRL60dzUMWiZfweNwKuYlCEsg==",
+=======
+                            PasswordHash = "AQAAAAEAACcQAAAAEObMvUp06XZNRXtvUwmftSbuVmgxrorKovu9nBwh+6N0UjMKpwf2ThVUaa3kk6kpWA==",
+>>>>>>> ff48e4352f41f1f2e39037c2f3b0685156fce66d
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "d12a8993 - 382a - 4680 - 845f - 39c744d04ca1",
                             TwoFactorEnabled = false,
