@@ -55,6 +55,8 @@ namespace CocktailMagician.Services
                 commentText = cocktailCommentDto.commentText,
                 UserId = cocktailCommentDto.UserId,
                 CocktailId = cocktailCommentDto.CocktailId,
+                User = await this._context.Users
+                .FirstOrDefaultAsync(a => a.UserName == cocktailCommentDto.Username),
                 CreatedOn = this._dateTimeProvider.GetDateTime(),
                 ModifiedOn = cocktailCommentDto.ModifiedOn,
                 DeletedOn = cocktailCommentDto.DeletedOn,

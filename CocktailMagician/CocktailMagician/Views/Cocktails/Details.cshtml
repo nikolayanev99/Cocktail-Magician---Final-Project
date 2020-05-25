@@ -3,22 +3,95 @@
 
 <h2>@Model.Name Cocktail</h2>
 
-@*<head>
+<head>
     <style>
         .thumbnail img {
-            height: 320px;
-            width: 200px;
+            height: 480px;
+            width: 300px;
+        }
+
+        .picture {
+            height: 480px;
+            width: 300px;
         }
     </style>
-</head>*@
-
+</head>
+<img class="picture" alt="@Model.Name" src="@Model.ImageUrl" width="300" height="200">
 <div class="thumbnail">
-    <img alt="@Model.Name" src="@Model.ImageUrl" width="300" height="200">
     <div class="caption-full">
         <h3>
             <a href="#">@Model.Name</a>
         </h3>
-        <h4>@Model.ShortDescription</h4>
+        @*<h4>@Model.ShortDescription</h4>*@
+        <h3>About <span>&#9759;</span></h3>
         <p>@Model.LongDescription</p>
+        <h3>Ingredients:</h3>
+        @foreach (var item in Model.Ingredients)
+        {
+
+            <h4> <span>&#9728;</span> @item</h4>
+        }
     </div>
+</div>
+<h3>Leave a Comment</h3>
+<div class="form-group">
+
+    @if (!(User.Identity.IsAuthenticated))
+    {
+        <h4 class="card-title"><a asp-area="Identity" asp-page="/Account/Login">Login</a> or <a asp-area="Identity" asp-page="/Account/Login">register</a> to add comments</h4>
+    }
+    else
+    {
+
+
+        <input type="hidden" asp-for="@Model.CurrentComment" class="form-control">
+        @using (Html.BeginForm("AddComment", "Cocktails"))
+        {
+            <input type="hidden" asp-for="@Model.Id" value="@Model.Id" />
+
+            <input class=" form-control" id="CurrentComment" name="CurrentComment" type="text" placeholder="Write your Comment here" />
+            <input asp-controller="Cocktails" asp-action="AddComment" type="submit" value="Submit" />
+
+        }
+    }
+</div>
+<div>
+    @if (Model.Comments.Count == 0 || Model.Comments == null)
+    {
+        <h4>Be the first to add a Comment!!!</h4>
+    }
+    else
+    {
+        <h4>Comments:</h4>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Username
+                    </th>
+                    <th>
+                        Comment
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Comments)
+                {
+                    <tr>
+
+                        <td>
+                            @item.Author
+                        </td>
+                        <td>
+                            @item.Text
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+
+</div>
+<div>
+    <a asp-action="List">Back to List</a>
 </div>

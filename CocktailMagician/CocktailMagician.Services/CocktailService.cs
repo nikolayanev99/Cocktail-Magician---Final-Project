@@ -36,6 +36,7 @@ namespace CocktailMagician.Services
                 .Where(v => v.IsDeleted == false)
                 .Include(i => i.CocktailIngredients)
                 .ThenInclude(ii => ii.Ingredient)
+                .Include(c => c.CocktailComments)
                 .FirstOrDefaultAsync(i => i.Id == id);
 
             if (cocktail == null)

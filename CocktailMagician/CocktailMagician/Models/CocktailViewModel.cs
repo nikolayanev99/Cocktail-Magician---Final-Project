@@ -33,5 +33,7 @@ namespace CocktailMagician.Web.Models
         public string ImageThumbnailUrl { get; set; }
         public double? AverageRating { get; set; }
         public ICollection<string> Ingredients { get; set; }
+        public string CurrentComment { get; set; }
+        public ICollection<CocktailCommentViewModel> Comments { get; set; }
     }
 }

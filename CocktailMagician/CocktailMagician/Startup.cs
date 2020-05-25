@@ -51,7 +51,7 @@ namespace CocktailMagician
 
             services.AddRazorPages();
             services.AddIdentity<User, Role>(options => options.SignIn.RequireConfirmedAccount = false)
-                .AddEntityFrameworkStores<CocktailMagicianContext>()                
+                .AddEntityFrameworkStores<CocktailMagicianContext>()
                 .AddDefaultTokenProviders();
 
             services.AddDbContext<CocktailMagicianContext>(options =>
@@ -59,65 +59,40 @@ namespace CocktailMagician
            .UseSqlServer(
                Configuration.GetConnectionString("DefaultConnection")));
 
+            
+            services.AddScoped<IEmailSender, EmailSender>();
+            services.AddScoped<IDateTimeProvider, DateTimeProvider>();
+
             //bars services
             //bars services
 
             services.AddScoped<IBarService, BarService>();
-
-            services.AddScoped<IEmailSender, EmailSender>();
-
             services.AddScoped<IDtoMapper<Bar, BarDTO>, BarDTOMapper>();
+            services.AddScoped<IViewModelMapper<BarDTO, BarViewModel>, BarViewModelMapper>();
+            services.AddScoped<IBarCommentsService, BarCommentsService>();
+            services.AddScoped<IDtoMapper<BarComment, BarCommentDto>, BarCommentDtoMapper>();
+            services.AddScoped<IViewModelMapper<BarCommentDto, BarCommentViewModel>, BarCommentViewModelMapper>();
 
-            services.AddScoped<IViewModelMapper<BarDTO, BarViewModel>,BarViewModelMapper>();
-
-<<<<<<< HEAD
-            services.AddScoped<IDtoMapper<Cocktail, CocktailDto>, CocktailDtoMapper>();
-
-            services.AddScoped<ICocktailService, CocktailService>();
-=======
             //cocktails services
             //cocktails services
-
 
             services.AddScoped<ICocktailService, CocktailService>();
             services.AddScoped<IDtoMapper<Cocktail, CocktailDto>, CocktailDtoMapper>();
             services.AddScoped<IViewModelMapper<CocktailDto, CocktailViewModel>, CocktailViewModelMapper>();
->>>>>>> 9a19e1663d1a026e197b3cc13ca54a06f4ae076b
-
             services.AddScoped<IDtoMapper<CocktailComment, CocktailCommentDto>, CocktailCommentDtoMapper>();
-
-            services.AddScoped<IBarCommentsService, BarCommentsService>();
-
-            services.AddScoped<IDtoMapper<BarComment, BarCommentDto>,BarCommentDtoMapper>();
-
-            services.AddScoped<IViewModelMapper<BarCommentDto, BarCommentViewModel>,BarCommentViewModelMapper>();
-
+            services.AddScoped<IViewModelMapper<CocktailCommentDto, CocktailCommentViewModel>, CocktailCommentViewModelMapper>();
             services.AddScoped<ICocktailCommentService, CocktailCommentService>();
-<<<<<<< HEAD
-
-=======
-            
->>>>>>> 9a19e1663d1a026e197b3cc13ca54a06f4ae076b
             services.AddScoped<IDtoMapper<CocktailRating, CocktailRatingDto>, CocktailRatingDtoMapper>();
-
+            services.AddScoped<IDtoMapper<Cocktail, CocktailDto>, CocktailDtoMapper>();
+            services.AddScoped<ICocktailService, CocktailService>();
             services.AddScoped<ICocktailRatingService, CocktailRatingService>();
 
-<<<<<<< HEAD
-=======
             //ingredients services
             //ingredients services
 
->>>>>>> 9a19e1663d1a026e197b3cc13ca54a06f4ae076b
             services.AddScoped<IDtoMapper<Ingredient, IngredientDto>, IngredientDtoMapper>();
-
             services.AddScoped<IIngredientService, IngredientService>();
-<<<<<<< HEAD
-
-=======
             services.AddScoped<ICocktailIngredientService, CocktailIngredientService>();
-            
->>>>>>> 9a19e1663d1a026e197b3cc13ca54a06f4ae076b
-            services.AddScoped<IDateTimeProvider, DateTimeProvider>();
 
             services.AddControllersWithViews();
 
@@ -136,6 +111,8 @@ namespace CocktailMagician
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
