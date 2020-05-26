@@ -60,80 +60,13 @@ namespace CocktailMagician
            .UseSqlServer(
                Configuration.GetConnectionString("DefaultConnection")));
 
-<<<<<<< HEAD
-            
-            services.AddScoped<IEmailSender, EmailSender>();
-            services.AddScoped<IDateTimeProvider, DateTimeProvider>();
-
-            //bars services
-            //bars services
-
-            services.AddScoped<IBarService, BarService>();
-            services.AddScoped<IDtoMapper<Bar, BarDTO>, BarDTOMapper>();
-            services.AddScoped<IViewModelMapper<BarDTO, BarViewModel>, BarViewModelMapper>();
-            services.AddScoped<IBarCommentsService, BarCommentsService>();
-            services.AddScoped<IDtoMapper<BarComment, BarCommentDto>, BarCommentDtoMapper>();
-            services.AddScoped<IViewModelMapper<BarCommentDto, BarCommentViewModel>, BarCommentViewModelMapper>();
-
-<<<<<<< HEAD
-            services.AddScoped<IViewModelMapper<BarDTO, BarViewModel>,BarViewModelMapper>();
-
-
-            services.AddScoped<IDtoMapper<Cocktail, CocktailDto>, CocktailDtoMapper>();
-
-            services.AddScoped<ICocktailService, CocktailService>();
-
-=======
-            //cocktails services
-            //cocktails services
->>>>>>> ff48e4352f41f1f2e39037c2f3b0685156fce66d
-
-            services.AddScoped<ICocktailService, CocktailService>();
-            services.AddScoped<IDtoMapper<Cocktail, CocktailDto>, CocktailDtoMapper>();
-            services.AddScoped<IViewModelMapper<CocktailDto, CocktailViewModel>, CocktailViewModelMapper>();
-<<<<<<< HEAD
-
-
-=======
->>>>>>> ff48e4352f41f1f2e39037c2f3b0685156fce66d
-            services.AddScoped<IDtoMapper<CocktailComment, CocktailCommentDto>, CocktailCommentDtoMapper>();
-            services.AddScoped<IViewModelMapper<CocktailCommentDto, CocktailCommentViewModel>, CocktailCommentViewModelMapper>();
-            services.AddScoped<ICocktailCommentService, CocktailCommentService>();
-<<<<<<< HEAD
-
-=======
->>>>>>> ff48e4352f41f1f2e39037c2f3b0685156fce66d
-            services.AddScoped<IDtoMapper<CocktailRating, CocktailRatingDto>, CocktailRatingDtoMapper>();
-            services.AddScoped<IDtoMapper<Cocktail, CocktailDto>, CocktailDtoMapper>();
-            services.AddScoped<ICocktailService, CocktailService>();
-            services.AddScoped<ICocktailRatingService, CocktailRatingService>();
-
-<<<<<<< HEAD
-=======
-            //ingredients services
-            //ingredients services
->>>>>>> ff48e4352f41f1f2e39037c2f3b0685156fce66d
-
-            services.AddScoped<IDtoMapper<Ingredient, IngredientDto>, IngredientDtoMapper>();
-            services.AddScoped<IIngredientService, IngredientService>();
-<<<<<<< HEAD
-
-
-         services.AddScoped<ICocktailIngredientService, CocktailIngredientService>();
-            
-
-            services.AddScoped<IDateTimeProvider, DateTimeProvider>();
-=======
-            services.AddScoped<ICocktailIngredientService, CocktailIngredientService>();
->>>>>>> ff48e4352f41f1f2e39037c2f3b0685156fce66d
-
             services.AddCloudscribePagination();
-=======
+
             services.RegisterServices();
             services.RegisterDtoMappers();
             services.RegisterViewModelMappers();
             services.RegisterProvides();
->>>>>>> BarRating
+
             services.AddControllersWithViews();
 
         }
