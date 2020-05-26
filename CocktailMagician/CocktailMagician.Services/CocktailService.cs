@@ -61,6 +61,22 @@ namespace CocktailMagician.Services
             return cocktailDto;
         }
 
+        public async Task<ICollection<CocktailDto>> GetThreeCocktailsAsync(int pageSize = 1, int pageNumber = 1)
+        {
+            int excludeRecodrds = (pageSize * pageNumber) - pageSize;
+            
+            var cocktails = await this._context.Cocktails
+                .Where(v => v.IsDeleted == false)
+                .OrderBy(n => n.Name)
+                .Skip(excludeRecodrds)
+                .Take(pageSize)
+                .ToListAsync();
+
+            var cocktailDto = this._cocktailDtoMapper.MapDto(cocktails);
+
+            return cocktailDto;
+        }
+
         public async Task<CocktailDto> CreateCocktailAsync(CocktailDto tempCocktailDto)
         {
             if (tempCocktailDto == null)

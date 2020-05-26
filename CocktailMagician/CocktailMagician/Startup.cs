@@ -94,6 +94,7 @@ namespace CocktailMagician
             services.AddScoped<IIngredientService, IngredientService>();
             services.AddScoped<ICocktailIngredientService, CocktailIngredientService>();
 
+            services.AddCloudscribePagination();
             services.AddControllersWithViews();
 
         }

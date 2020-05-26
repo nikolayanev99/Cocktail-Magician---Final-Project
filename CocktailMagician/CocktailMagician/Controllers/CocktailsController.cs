@@ -9,6 +9,9 @@ using CocktailMagician.Web.Mappers;
 using CocktailMagician.Web.Mappers.Contracts;
 using CocktailMagician.Web.Models;
 using Microsoft.AspNetCore.Mvc;
+using cloudscribe.Pagination.Models;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.EntityFrameworkCore;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -39,13 +42,32 @@ namespace CocktailMagician.Web.Controllers
             return View();
         }
 
-        public async Task<IActionResult> List()
+        //public async Task<IActionResult> List()
+        //{
+        //    var models = await this._cocktailService.GetAllCocktailsAsync();
+
+        //    var result = this._cocktailVmMapper.MapViewModel(models);
+
+        //    return View(result);
+        //}
+
+        public async Task<IActionResult> List(int pageNumber=1, int pageSize=3)
         {
-            var models = await this._cocktailService.GetAllCocktailsAsync();
+
+            var models = await this._cocktailService.GetThreeCocktailsAsync(pageSize, pageNumber);
+            var countModels = await this._cocktailService.GetAllCocktailsAsync();
 
             var result = this._cocktailVmMapper.MapViewModel(models);
 
-            return View(result);
+            var newResult = new PagedResult<CocktailViewModel>
+            {
+                Data = result.ToList(),
+                TotalItems = countModels.Count(),
+                PageNumber = pageNumber,
+                PageSize = pageSize,
+            };
+
+            return View(newResult);
         }
 
         public async Task<IActionResult> Details(int id)
