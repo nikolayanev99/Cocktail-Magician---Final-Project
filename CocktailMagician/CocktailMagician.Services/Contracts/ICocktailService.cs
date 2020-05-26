@@ -13,5 +13,6 @@ namespace CocktailMagician.Services.Contracts
         public Task<CocktailDto> CreateCocktailAsync(CocktailDto tempCocktailDto);
         public Task<CocktailDto> UpdateCocktailAsync(int id, string newName, string shortDescription, string longDescription);
         public Task<CocktailDto> DeleteCocktailAsync(int id);
+        public Task<ICollection<CocktailDto>> GetThreeCocktailsAsync(int pageSize = 1, int pageNumber = 1);
     }
 }

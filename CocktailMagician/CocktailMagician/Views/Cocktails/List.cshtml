@@ -1,4 +1,5 @@
-﻿@model IEnumerable<CocktailViewModel>
+﻿@model cloudscribe.Pagination.Models.PagedResult<CocktailViewModel>
+
 
 @{
     ViewData["Title"] = "Index";
@@ -9,7 +10,7 @@
 
 <h1>Cocktails</h1>
 
-@foreach (var cocktail in Model)
+@foreach (var cocktail in Model.Data)
 {
     <div class="col-sm-4 col-lg-4 col-md-4">
         <div class="thumbnail">
@@ -19,8 +20,16 @@
                     <a asp-controller="Cocktails" asp-action="Details" asp-route-id="@cocktail.Id">@cocktail.Name</a>
                 </h3>
                 <p>@cocktail.ShortDescription</p>
-
             </div>
         </div>
     </div>
 }
+<div>
+    <cs-pager cs-paging-pagenumber="Model.PageNumber"
+              cs-paging-totalitems="Model.TotalItems"
+              cs-paging-pagesize="Model.PageSize"
+              cs-pagenumber-param="pageNumber"
+              asp-controller="Cocktails"
+              asp-action="List">
+    </cs-pager>
+</div>
