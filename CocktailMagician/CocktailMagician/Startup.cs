@@ -15,6 +15,7 @@ using CocktailMagician.Web.Mappers;
 using CocktailMagician.Web.Mappers.Contracts;
 using CocktailMagician.Web.Models;
 using CocktailMagician.Web.Providers;
+using CocktailMagician.Web.Utilities.ServiceRegistration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -59,6 +60,7 @@ namespace CocktailMagician
            .UseSqlServer(
                Configuration.GetConnectionString("DefaultConnection")));
 
+<<<<<<< HEAD
             
             services.AddScoped<IEmailSender, EmailSender>();
             services.AddScoped<IDateTimeProvider, DateTimeProvider>();
@@ -126,6 +128,12 @@ namespace CocktailMagician
 >>>>>>> ff48e4352f41f1f2e39037c2f3b0685156fce66d
 
             services.AddCloudscribePagination();
+=======
+            services.RegisterServices();
+            services.RegisterDtoMappers();
+            services.RegisterViewModelMappers();
+            services.RegisterProvides();
+>>>>>>> BarRating
             services.AddControllersWithViews();
 
         }

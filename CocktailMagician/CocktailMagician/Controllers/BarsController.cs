@@ -23,8 +23,10 @@ namespace CocktailMagician.Web.Controllers
 
         private readonly IBarService barService;
         private readonly IBarCommentsService barCommentsService;
+        private readonly IBarRatingService barRatingService;
         private readonly IViewModelMapper<BarCommentDto, BarCommentViewModel> barCommentVmMapper;
         private readonly IViewModelMapper<BarDTO, BarViewModel> barVmMapper;
+        private readonly IViewModelMapper<BarRatingDto, BarRatingViewModel> barRatingVmMapper;
         private readonly IWebHostEnvironment webHostEnvironment;
 
         public BarsController(IBarService barService, 
@@ -187,5 +189,19 @@ namespace CocktailMagician.Web.Controllers
 
             return View("Details", barVM);
         }
+
+        //public async Task<IActionResult> AddRating(BarViewModel bar)
+        //{
+        //    int userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+        //    var barRating = new BarRatingViewModel
+        //    {
+        //        Value = (bar.CurrentRating),
+        //        BarId = bar.Id,
+        //        UserId = userId,
+        //    };
+
+        //    var barCommentDto = 
+        //}
     }
 }
