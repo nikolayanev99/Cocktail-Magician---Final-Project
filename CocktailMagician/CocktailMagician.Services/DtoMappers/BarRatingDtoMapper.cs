@@ -8,31 +8,29 @@ using CocktailMagician.Services.DtoMappers.Contracts;
 
 namespace CocktailMagician.Services.DtoMappers
 {
-    public class BarDTOMapper : IDtoMapper<Bar, BarDTO>
+    public class BarRatingDtoMapper : IDtoMapper<BarRating, BarRatingDto>
     {
-        public BarDTO MapDto(Bar entity)
+        public BarRatingDto MapDto(BarRating entity)
         {
             if (entity == null)
             {
                 return null;
             }
 
-            return new BarDTO
+            return new BarRatingDto
             {
                 Id = entity.Id,
-                Name = entity.Name,
-                Info = entity.Info,
-                Address = entity.Address,
-                PhotoPath = entity.PhotoPath,
-                //AverageRating = entity.Ratings.Any() ? entity.Ratings.Average(r => r.Value):0.00,
-                CreatedOn=entity.CreatedOn,
-                ModifiedOn=entity.ModifiedOn,
+                Value = entity.Value,
+                UserId = entity.UserId,
+                BarId = entity.BarId,               
+                CreatedOn = entity.CreatedOn,
+                ModifiedOn = entity.ModifiedOn,
                 DeletedOn = entity.DeletedOn,
                 IsDeleted = entity.IsDeleted,
             };
         }
 
-        public ICollection<BarDTO> MapDto(ICollection<Bar> entities)
+        public ICollection<BarRatingDto> MapDto(ICollection<BarRating> entities)
         {
             return entities.Select(this.MapDto).ToList();
         }

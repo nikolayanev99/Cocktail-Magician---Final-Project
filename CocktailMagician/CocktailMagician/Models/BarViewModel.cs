@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using CocktailMagician.Models;
 using Microsoft.AspNetCore.Http;
 
 namespace CocktailMagician.Web.Models
@@ -32,6 +33,10 @@ namespace CocktailMagician.Web.Models
 
         public string CurrentComment { get; set; }
 
+        public int CurrentRating { get; set; }
+
         public ICollection<BarCommentViewModel> Comments { get; set; }
+
+        public ICollection<BarRatingViewModel> Ratings { get; set; }
     }
 }
