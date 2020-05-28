@@ -30,17 +30,23 @@ namespace CocktailMagician.Web.Controllers
         private readonly IWebHostEnvironment webHostEnvironment;
 
         public BarsController(IBarService barService, 
-                              IBarCommentsService barCommentsService,
-                              IViewModelMapper<BarCommentDto, BarCommentViewModel> barCommentVmMapper,
-                              IViewModelMapper<BarDTO, BarViewModel> barVmMapper,
+                              IBarCommentsService barCommentsService, 
+                              IBarRatingService barRatingService, 
+                              IViewModelMapper<BarCommentDto, BarCommentViewModel> barCommentVmMapper, 
+                              IViewModelMapper<BarDTO, BarViewModel> barVmMapper, 
+                              IViewModelMapper<BarRatingDto, BarRatingViewModel> barRatingVmMapper, 
                               IWebHostEnvironment webHostEnvironment)
         {
             this.barService = barService ?? throw new ArgumentNullException(nameof(barService));
             this.barCommentsService = barCommentsService ?? throw new ArgumentNullException(nameof(barCommentsService));
+            this.barRatingService = barRatingService ?? throw new ArgumentNullException(nameof(barRatingService));
             this.barCommentVmMapper = barCommentVmMapper ?? throw new ArgumentNullException(nameof(barCommentVmMapper));
             this.barVmMapper = barVmMapper ?? throw new ArgumentNullException(nameof(barVmMapper));
+            this.barRatingVmMapper = barRatingVmMapper ?? throw new ArgumentNullException(nameof(barRatingVmMapper));
             this.webHostEnvironment = webHostEnvironment ?? throw new ArgumentNullException(nameof(webHostEnvironment));
         }
+
+
 
 
 
@@ -68,7 +74,7 @@ namespace CocktailMagician.Web.Controllers
             var barVM = this.barVmMapper.MapViewModel(bar);
             var barCommentDtos = await this.barCommentsService.GetBarCommentsAsync(id);
             barVM.Comments = this.barCommentVmMapper.MapViewModel(barCommentDtos);
-
+            barVM.AverageRating = this.barRatingService.GetAverageBarRating(id);
             return View(barVM);
         }
 
@@ -185,23 +191,35 @@ namespace CocktailMagician.Web.Controllers
             var barVM = this.barVmMapper.MapViewModel(currentBar);
             var DtoComments = await this.barCommentsService.GetBarCommentsAsync(barVM.Id);
             barVM.Comments = this.barCommentVmMapper.MapViewModel(DtoComments);
-                
+            barVM.AverageRating = this.barRatingService.GetAverageBarRating(bar.Id);
 
             return View("Details", barVM);
         }
 
-        //public async Task<IActionResult> AddRating(BarViewModel bar)
-        //{
-        //    int userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+        public async Task<IActionResult> AddRating(BarViewModel bar)
+        {
+            int userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
 
-        //    var barRating = new BarRatingViewModel
-        //    {
-        //        Value = (bar.CurrentRating),
-        //        BarId = bar.Id,
-        //        UserId = userId,
-        //    };
+            var barRating = new BarRatingViewModel
+            {
+                Value = (bar.SelectedRating),
+                BarId = bar.Id,
+                UserId = userId,
+            };
 
-        //    var barCommentDto = 
-        //}
+            var barRatingDto = this.barRatingVmMapper.MapDTO(barRating);
+
+            var rating = await this.barRatingService.CreateRatingAsync(barRatingDto);
+
+            var currentBar = await this.barService.GetBarAsync(rating.BarId);
+
+            var barVM = this.barVmMapper.MapViewModel(currentBar);
+
+            var DtoComments = await this.barCommentsService.GetBarCommentsAsync(barVM.Id);
+            barVM.Comments = this.barCommentVmMapper.MapViewModel(DtoComments);
+            barVM.AverageRating = this.barRatingService.GetAverageBarRating(bar.Id);
+            return View("Details", barVM);
+
+        }
     }
 }

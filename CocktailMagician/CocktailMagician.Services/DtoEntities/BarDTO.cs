@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using CocktailMagician.Models;
 
 namespace CocktailMagician.Services.DtoEntities
 {
@@ -16,7 +17,8 @@ namespace CocktailMagician.Services.DtoEntities
 
         public string PhotoPath { get; set; }
 
-        public double AverageRating { get; set; }
+        public double? AverageRating { get; set; }
+
 
         public DateTime CreatedOn { get; set; }
         public DateTime? ModifiedOn { get; set; }

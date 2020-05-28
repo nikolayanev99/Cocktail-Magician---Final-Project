@@ -11,6 +11,10 @@ namespace CocktailMagician.Web.Models
 {
     public class BarViewModel
     {
+        public BarViewModel()
+        {
+            AverageRating = 0.00;
+        }
 
         public int Id { get; set; }
 
@@ -29,11 +33,14 @@ namespace CocktailMagician.Web.Models
         public string Address { get; set; }
 
         public string PhotoPath { get; set; }
+
         public IFormFile Photo { get; set; }
+
+        public double? AverageRating { get; set; }
 
         public string CurrentComment { get; set; }
 
-        public int CurrentRating { get; set; }
+        public double SelectedRating { get; set; }
 
         public ICollection<BarCommentViewModel> Comments { get; set; }
 

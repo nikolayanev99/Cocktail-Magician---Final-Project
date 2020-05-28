@@ -80,6 +80,66 @@ namespace CocktailMagician.Data.Migrations
                             IsDeleted = false,
                             Name = "Mood Rooftop Lounge",
                             PhotoPath = "2083d8d2-0b15-42c0-850d-739cb8ac5783 Mood-bar.jpg"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Address = "531 Hudson St, New York, NY 10014",
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Info = "Katana Kitten is the winner of the Best New Opening Award 2019, sponsored by Thomas Henry.",
+                            IsDeleted = false,
+                            Name = "Katana Kitten",
+                            PhotoPath = "8fd0b021-d0f5-47fd-ae8d-a655b76c7257 KatanaKitten.jpg"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Address = "Piazza San Martino Ai Monti, 8, Rome, Italy",
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Info = "Set in the Eternal City a stone’s throw from its millennia-old iconic monuments, Drink Kong feels like a scene from a sci-fi movie. The unique bar is a collection of eclectic spaces that evoke different moods from London modernity and high-energy New York to Japanese minimalism.",
+                            IsDeleted = false,
+                            Name = "Drink Kong",
+                            PhotoPath = "003fe4d8-3807-4ab4-a993-6d8a86690868 DrinkKong.jpg"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Address = "Av. Pardo y Aliaga 662, San Isidro 15073, Lima",
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Info = "Two years ago the revolving door of Carnaval, the venue of bartender Aaron Diaz’s imagination for eight years, finally opened. He is not only the creative mind behind the trendiest bar in Lima, he is also the prophet of a gospel called “coctelería conceptual”. ",
+                            IsDeleted = false,
+                            Name = "Carnaval",
+                            PhotoPath = "501708bf-2e89-4f5e-9c4c-f347c36ffa11 Carnival.jpg"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Address = "20 Keong Saik Road, Singapore 089127",
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Info = "A cutting-edge all-day concept combining the best of cocktails, coffee and cuisine",
+                            IsDeleted = false,
+                            Name = "No Sleep Club",
+                            PhotoPath = "1ee23b9c-b898-479c-af24-dad3788f3e85 NoSleepClub.jpg"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Address = "55 Keong Saik Road, #01-04, Outram, Singapore, 089158",
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Info = "The Singapore outpost of The Old Man opened to fanfare and while the concept is the same, the larger space gives drinkers more room to breathe. Having launched around the same time as Asia’s 50 Best Bars 2019 was announced in May, the bar’s momentum gathered quickly, landing in the 2020 ranking at No.22 and earning it the London Essence Best New Opening Award.",
+                            IsDeleted = false,
+                            Name = "The Old Man",
+                            PhotoPath = "cbc4bb48-089b-4e8e-b2ae-8dbc6393aa30 The Old Man.jpg"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Address = "364 Kamiyachō, Nakagyō-ku, Kyoto, 604-8024, Japan",
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Info = "To get into Bee’s Knees, you first need to find it, so keep an eye out for a yellow door with ‘The Book Store’ written on it and a discreet emblem of a bee. This New York-inspired speakeasy opened in April 2018 and has been serving up Prohibition-era cocktails (with a twist), throwback hip hop tunes, and a fun, casual vibe ever since. ",
+                            IsDeleted = false,
+                            Name = "Bee's Knees",
+                            PhotoPath = "302a3f55-1642-4f16-bfc4-00dbb50c6fc9 Bees Knees.jpg"
                         });
                 });
 
@@ -120,6 +180,43 @@ namespace CocktailMagician.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("BarComments");
+                });
+
+            modelBuilder.Entity("CocktailMagician.Models.BarRating", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("BarId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<double>("Value")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BarId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("BarRatings");
                 });
 
             modelBuilder.Entity("CocktailMagician.Models.Cocktail", b =>
@@ -781,14 +878,14 @@ namespace CocktailMagician.Data.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "087aa7c2-701d-4eca-8880-177c1fc34ccf",
+                            ConcurrencyStamp = "f7a14e97-cd13-451a-a7d5-323170684572",
                             Name = "bar crawler",
                             NormalizedName = "BAR CRAWLER"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "676c8581-9228-41f7-ab46-cab3bf9c4725",
+                            ConcurrencyStamp = "87fa5c23-162c-42a1-a6f3-f5c8a5097396",
                             Name = "cocktail magician",
                             NormalizedName = "COCKTAIL MAGICIAN"
                         });
@@ -865,13 +962,13 @@ namespace CocktailMagician.Data.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "a3e8c34f-a64d-46c7-a810-1d1a984e6c29",
+                            ConcurrencyStamp = "7a857e6f-a43f-4076-96a6-abd1fff572c9",
                             Email = "admin@admin.com",
                             EmailConfirmed = false,
                             LockoutEnabled = true,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEHnttrJxO+ewfo+RX/B5oHqEjwp6hg6hRxZQvct+fyoypXAKXEWCxOZHw0hHEs+1/g==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJ7HaDYd7Jq9rU5jv6ICTgPemg9a+NO7qPs4z5iRg1H4XyU3MS00+htspgmCzwMziQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "d12a8993 - 382a - 4680 - 845f - 39c744d04ca1",
                             TwoFactorEnabled = false,
@@ -996,6 +1093,21 @@ namespace CocktailMagician.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("CocktailMagician.Models.User", "Author")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("CocktailMagician.Models.BarRating", b =>
+                {
+                    b.HasOne("CocktailMagician.Models.Bar", "Bar")
+                        .WithMany("Ratings")
+                        .HasForeignKey("BarId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CocktailMagician.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

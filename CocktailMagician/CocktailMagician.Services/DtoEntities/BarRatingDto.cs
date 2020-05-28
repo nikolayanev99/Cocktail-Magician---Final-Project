@@ -9,7 +9,7 @@ namespace CocktailMagician.Services.DtoEntities
 
         public int Id { get; set; }
 
-        public int Value { get; set; }
+        public double Value { get; set; }
 
         public int BarId { get; set; }
 

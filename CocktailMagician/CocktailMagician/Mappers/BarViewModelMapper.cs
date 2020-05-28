@@ -24,6 +24,8 @@ namespace CocktailMagician.Web.Mappers
                 Info = entityViewModel.Info,
                 Address = entityViewModel.Address,
                 PhotoPath = entityViewModel.PhotoPath,
+                AverageRating = entityViewModel.AverageRating,
+                
             };
         }
 
@@ -45,7 +47,8 @@ namespace CocktailMagician.Web.Mappers
                 Name = dtoEntity.Name,
                 Info = dtoEntity.Info,
                 Address = dtoEntity.Address,
-                PhotoPath = dtoEntity.PhotoPath,               
+                PhotoPath = dtoEntity.PhotoPath,
+                AverageRating = dtoEntity.AverageRating,
             };
         }
 

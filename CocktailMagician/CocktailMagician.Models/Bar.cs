@@ -31,7 +31,7 @@ namespace CocktailMagician.Models
 
         public ICollection<BarComment> Comments { get; set; }
 
-        public ICollection<BarRating> Ratings { get; set; }
+        public ICollection<BarRating> Ratings { get; set; } = new List<BarRating>();
 
 
     }

@@ -42,6 +42,26 @@ namespace CocktailMagician.Services
             return barRatingDto;
 
         }
+        public double GetAverageBarRating(int barId)
+        {
+            var anyResults = this.context.BarRatings
+                .Any(r => r.BarId == barId);
+            if (anyResults == false)
+            {
+                return 0;
+            }
+            var result = this.context.BarRatings
+                .Where(r => r.BarId == barId)
+                .ToList()
+                .Average(r => r.Value);
+            if (result == 0)
+            {
+                return 0;
+            }
+
+            return Double.Parse($"{result:f1}");
+
+        }
 
         public async Task<ICollection<BarRatingDto>> GetAllBarRatingAsync(int barId)
         {
@@ -58,6 +78,28 @@ namespace CocktailMagician.Services
 
         }
 
+        public async Task<BarRatingDto> EditRatingAsync(int barId,int userId, double newValue)
+        {
+            var rating = await this.context.BarRatings
+                .Include(r => r.User)
+                .Include(r => r.Bar)
+                .Where(r => r.IsDeleted == false)
+                .FirstOrDefaultAsync(r => r.UserId == userId && r.BarId == barId);
+
+            if (rating == null)
+            {
+                return null;
+            }
+
+            rating.Value = newValue;
+
+            this.context.Update(rating);
+            await this.context.SaveChangesAsync();
+
+            var ratingDto = this.dtoMapper.MapDto(rating);
+            return ratingDto;
+        }
+
         public async Task<BarRatingDto> CreateRatingAsync(BarRatingDto tempBarRating)
         {
             if (tempBarRating == null)
@@ -68,23 +110,30 @@ namespace CocktailMagician.Services
             {
                 return null;
             }
-
-
-            var newBarRating = new BarRating
+            var rating = await this.GetRatingAsync(tempBarRating.BarId, tempBarRating.UserId);
+            if (rating == null)
             {
-                Id = tempBarRating.Id,
-                Value = tempBarRating.Value,
-                BarId = tempBarRating.BarId,
-                UserId = tempBarRating.UserId,
-                CreatedOn = this.dateTimeProvider.GetDateTime(),
-            };
+                var newBarRating = new BarRating
+                {
+                    Id = tempBarRating.Id,
+                    Value = tempBarRating.Value,
+                    BarId = tempBarRating.BarId,
+                    UserId = tempBarRating.UserId,
+                    CreatedOn = this.dateTimeProvider.GetDateTime(),
+                };
 
-            await this.context.AddAsync(newBarRating);
-            await this.context.SaveChangesAsync();
 
-            var barRatingDto = this.dtoMapper.MapDto(newBarRating);
 
-            return barRatingDto;
+                await this.context.AddAsync(newBarRating);
+                await this.context.SaveChangesAsync();
+
+                var barRatingDto = this.dtoMapper.MapDto(newBarRating);
+
+                return barRatingDto;
+            }
+            var editdRating = await this.EditRatingAsync(tempBarRating.BarId, tempBarRating.UserId, tempBarRating.Value);
+            return editdRating;
+
         }
 
     }

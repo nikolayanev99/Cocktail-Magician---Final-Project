@@ -462,8 +462,56 @@ namespace CocktailMagician.Models.Seeder
                 Address = "Meydan Hotel, Dubai, Nad Al Sheba",
                 PhotoPath = "2083d8d2-0b15-42c0-850d-739cb8ac5783 Mood-bar.jpg",
             };
+            var bar6 = new Bar
+            {
+                Id = 6,
+                Name = "Katana Kitten",
+                Info = "Katana Kitten is the winner of the Best New Opening Award 2019, sponsored by Thomas Henry.",
+                Address = "531 Hudson St, New York, NY 10014",
+                PhotoPath = "8fd0b021-d0f5-47fd-ae8d-a655b76c7257 KatanaKitten.jpg",
+            };
+            var bar7 = new Bar
+            {
+                Id = 7,
+                Name = "Drink Kong",
+                Info = "Set in the Eternal City a stone’s throw from its millennia-old iconic monuments, Drink Kong feels like a scene from a sci-fi movie. The unique bar is a collection of eclectic spaces that evoke different moods from London modernity and high-energy New York to Japanese minimalism.",
+                Address = "Piazza San Martino Ai Monti, 8, Rome, Italy",
+                PhotoPath = "003fe4d8-3807-4ab4-a993-6d8a86690868 DrinkKong.jpg",
+            };
+            var bar8 = new Bar
+            {
+                Id = 8,
+                Name = "Carnaval",
+                Info = "Two years ago the revolving door of Carnaval, the venue of bartender Aaron Diaz’s imagination for eight years, finally opened. He is not only the creative mind behind the trendiest bar in Lima, he is also the prophet of a gospel called “coctelería conceptual”. ",
+                Address = "Av. Pardo y Aliaga 662, San Isidro 15073, Lima",
+                PhotoPath = "501708bf-2e89-4f5e-9c4c-f347c36ffa11 Carnival.jpg",
+            };
+            var bar9 = new Bar
+            {
+                Id = 9,
+                Name = "No Sleep Club",
+                Info = "A cutting-edge all-day concept combining the best of cocktails, coffee and cuisine",
+                Address = "20 Keong Saik Road, Singapore 089127",
+                PhotoPath = "1ee23b9c-b898-479c-af24-dad3788f3e85 NoSleepClub.jpg",
+            };
+            var bar10 = new Bar
+            {
+                Id = 10,
+                Name = "The Old Man",
+                Info = "The Singapore outpost of The Old Man opened to fanfare and while the concept is the same, the larger space gives drinkers more room to breathe. Having launched around the same time as Asia’s 50 Best Bars 2019 was announced in May, the bar’s momentum gathered quickly, landing in the 2020 ranking at No.22 and earning it the London Essence Best New Opening Award.",
+                Address = "55 Keong Saik Road, #01-04, Outram, Singapore, 089158",
+                PhotoPath = "cbc4bb48-089b-4e8e-b2ae-8dbc6393aa30 The Old Man.jpg",
+            };
+            var bar11 = new Bar
+            {
+                Id = 11,
+                Name = "Bee's Knees",
+                Info = "To get into Bee’s Knees, you first need to find it, so keep an eye out for a yellow door with ‘The Book Store’ written on it and a discreet emblem of a bee. This New York-inspired speakeasy opened in April 2018 and has been serving up Prohibition-era cocktails (with a twist), throwback hip hop tunes, and a fun, casual vibe ever since. ",
+                Address = "364 Kamiyachō, Nakagyō-ku, Kyoto, 604-8024, Japan",
+                PhotoPath = "302a3f55-1642-4f16-bfc4-00dbb50c6fc9 Bees Knees.jpg",
+            };
 
-            builder.Entity<Bar>().HasData(bar1, bar2);
+            builder.Entity<Bar>().HasData(bar1, bar2,bar6,bar7,bar8,bar9,bar10,bar11);
         }
     }
 }

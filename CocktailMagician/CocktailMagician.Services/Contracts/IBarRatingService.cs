@@ -9,5 +9,6 @@ namespace CocktailMagician.Services
         Task<BarRatingDto> CreateRatingAsync(BarRatingDto tempBarRating);
         Task<ICollection<BarRatingDto>> GetAllBarRatingAsync(int barId);
         Task<BarRatingDto> GetRatingAsync(int barId, int userId);
+        double GetAverageBarRating(int barId);
     }
 }

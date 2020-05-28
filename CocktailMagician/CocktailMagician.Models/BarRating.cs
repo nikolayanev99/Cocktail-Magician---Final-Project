@@ -17,7 +17,7 @@ namespace CocktailMagician.Models
         [Required]
         [DisplayName("Rating Value")]
         [Range(1,5, ErrorMessage ="Please enter a value between 1 and 5")]
-        public int Value { get; set; }
+        public double Value { get; set; }
 
         public int BarId { get; set; }
 
