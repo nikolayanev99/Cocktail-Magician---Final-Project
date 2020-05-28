@@ -244,6 +244,37 @@ namespace CocktailMagician.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "BarRatings",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CreatedOn = table.Column<DateTime>(nullable: false),
+                    ModifiedOn = table.Column<DateTime>(nullable: true),
+                    DeletedOn = table.Column<DateTime>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    Value = table.Column<int>(nullable: false),
+                    BarId = table.Column<int>(nullable: false),
+                    UserId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BarRatings", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_BarRatings_Bars_BarId",
+                        column: x => x.BarId,
+                        principalTable: "Bars",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_BarRatings_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "CocktailComments",
                 columns: table => new
                 {
@@ -334,22 +365,25 @@ namespace CocktailMagician.Data.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { 1, "087aa7c2-701d-4eca-8880-177c1fc34ccf", "bar crawler", "BAR CRAWLER" },
-                    { 2, "676c8581-9228-41f7-ab46-cab3bf9c4725", "cocktail magician", "COCKTAIL MAGICIAN" }
+                    { 1, "ab47bc74-2890-475c-aa7d-cf691c2e2b5e", "bar crawler", "BAR CRAWLER" },
+                    { 2, "80d9a45c-5dd9-421b-a150-c1b14c645a9d", "cocktail magician", "COCKTAIL MAGICIAN" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { 1, 0, "a3e8c34f-a64d-46c7-a810-1d1a984e6c29", "admin@admin.com", false, true, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEHnttrJxO+ewfo+RX/B5oHqEjwp6hg6hRxZQvct+fyoypXAKXEWCxOZHw0hHEs+1/g==", null, false, "d12a8993 - 382a - 4680 - 845f - 39c744d04ca1", false, "admin@admin.com" });
+                values: new object[] { 1, 0, "e8a4913f-7e7f-42d4-9ccc-8d13eb94b842", "admin@admin.com", false, true, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEHgq4BxAYexCvFEFBmpDxD4ZS2nCEZqYvURxgQEe841F2QJn6KrzDcoTtsLReJRTfg==", null, false, "d12a8993 - 382a - 4680 - 845f - 39c744d04ca1", false, "admin@admin.com" });
 
             migrationBuilder.InsertData(
                 table: "Bars",
                 columns: new[] { "Id", "Address", "CreatedOn", "DeletedOn", "Info", "IsDeleted", "ModifiedOn", "Name", "PhotoPath" },
                 values: new object[,]
                 {
-                    { 1, "Armitage Avenue 17, USA, Chicago", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Great place with great people, awesome !", false, null, "Outside Voices", "3254b2f3-f185-4586-860f-5516c1a0bc11 20191102_Outside_Voices_0634.0.jpg" },
-                    { 2, "Meydan Hotel, Dubai, Nad Al Sheba", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "There’s a new contender for the bar with the best view of Dubai. Mood Rooftop Lounge, the bold new bar on top of Meydan Hotel, has now officially opened and it boasts some seriously wow-worthy views.", false, null, "Mood Rooftop Lounge", "2083d8d2-0b15-42c0-850d-739cb8ac5783 Mood-bar.jpg" }
+                    { 5, "Jett Lane 88, USA-Illinois, Easton", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "This vast, 9,000-square-foot restaurant and bar consists of several dining rooms and upper- and lower-level patios. The cocktail menu features original creations as well as reinvented classics like the Smoked Manhattan.", false, null, "Hannover", "bar_hannover.jpeg" },
+                    { 1, "Armitage Avenue 17, USA, Chicago", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Great place with great people, awesome !", false, null, "Outside Voices", "bar_OutsideVoices.jpg" },
+                    { 3, "Young Road 14, Usa-Idaho, Caldwell", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Star bartenders Rob Raglin and Roy Hollinger run this 1900s-style bar, where they serve period-appropriate cocktails and snacks like whiskey-cured gravlax on rye toast with dill sour cream.", false, null, "Rob Roy", "bar_RobRoy.jpg" },
+                    { 4, "Howard Street 101, Usa-Michigan, Ionia", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "The menu at this smart, stylish bar in the former Japanese Commercial Bank ranges from classic riffs (like the Darker Stormy, tweaked with a ginger-stout reduction) to the unexpected (the Axl Brose, with Scotch, Drambuie, honey, oatmeal cream, nutmed and egg yolk).", false, null, "Good Bar", "bar_GoodBar.jpg" },
+                    { 2, "Meydan Hotel, Dubai, Nad Al Sheba", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "There’s a new contender for the bar with the best view of Dubai. Mood Rooftop Lounge, the bold new bar on top of Meydan Hotel, has now officially opened and it boasts some seriously wow-worthy views.", false, null, "Mood Rooftop Lounge", "bar_mood.jpg" }
                 });
 
             migrationBuilder.InsertData(
@@ -357,15 +391,15 @@ namespace CocktailMagician.Data.Migrations
                 columns: new[] { "Id", "CreatedOn", "DeletedOn", "ImageThumbnailUrl", "ImageUrl", "IsDeleted", "LongDescription", "ModifiedOn", "Name", "ShortDescription" },
                 values: new object[,]
                 {
-                    { 3, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "/storage/images/cocktails-thumbnails/White-Russian-Cocktail.jpg", "/storage/images/cocktails/White-Russian-Cocktail.jpg", false, "The traditional cocktail known as a Black Russian, which first appeared in 1949, becomes a White Russian with the addition of cream. Neither drink is Russian in origin, but both are so named due to vodka being the primary ingredient. It is unclear which drink preceded the other.", null, "White Russian", " It’s simply a black Russian with the addition of cream." },
-                    { 4, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "/storage/images/cocktails-thumbnails/Caipirinha-cocktail.jpg", "/storage/images/cocktails/Caipirinha-cocktail.jpg", false, "According to historians, the caipirinha was invented by landowning farmers in the region of Piracicaba, interior of the State of São Paulo during the 19th century as a local drink for 'high standard' events and parties, a reflection of the strong sugarcane culture in the region.", null, "Caipirinha", "Caipirinha is Brazil's national cocktail, made with cachaça (sugarcane hard liquor), sugar, and lime." },
-                    { 5, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "/storage/images/cocktails-thumbnails/Screwdriver-cocktail.jpg", "/storage/images/cocktails/Screwdriver-cocktail.jpg", false, "While the basic drink is simply the two ingredients, there are many variations. Many of the variations have different names in different parts of the world. The screwdriver is mentioned in 1944: A Screwdriver—a drink compounded of vodka and orange juice and supposedly invented by interned American fliers; the latest Yankee concoction of vodka and orange juice, called a 'screwdriver'.", null, "Screwdriver", "A screwdriver is a popular alcoholic highball drink made with orange juice and vodka." },
-                    { 6, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "/storage/images/cocktails-thumbnails/Bloody-Mary-Cocktail.jpg", "/storage/images/cocktails/Bloody-Mary-Cocktail.jpg", false, "Unlike most cocktails, the origins of the Bloody Mary cocktail are well known. It was created by bartender Fernand “Pete” Petiot at Harry’s New York bar in Paris around 1924 just after France started importing tinned tomatoes from America.In 1934, Petiot was brought to New York to head the bar at the St Regis Hotel during the prohibition era and he brought his creation with him. Americans have been drinking Bloody Mary’s ever since.When it was first created, it wasn’t very well liked. David Embury went as far as to describe the cocktail as “strictly vile” in his book ‘The Fine Art of Mixing Drinks.’ Today, many people still consider the Bloody Mary strictly vile, but it also has a loyal following of diehard fans that absolutely love it.Every bartender thinks they know ‘the best’ Bloody Mary recipe, but the truth, there is no 1 recipe because people’s preferences vary so widely. Some drinkers like it extra spicy, some prefer it mild. As such, you should always ask your guest how spicy they would like it on a scale of 1-10 and adjust the hot sauce you add appropriately.Despite it being individualized, there are a few general consensuses on how it should be made. Always use lemon juice over lime juice as it marries better with tomato juice. And it should always be rolled as opposed to shaking or stirring. Shaking emulsifies the tomato juice (a fancy way of saying, separating it and making it bubble), and stirring isn’t strong enough to adequately mix the ingredients.", null, "Bloody Mary", "The Bloody Mary was invented in the 1920s or 1930s." },
-                    { 7, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "/storage/images/cocktails-thumbnails/Whiskey-Sour-Cocktail.jpg", "/storage/images/cocktails/Whiskey-Sour-Cocktail.jpg", false, "The whiskey sour is a mixed drink containing whiskey (often bourbon), lemon juice, sugar, and optionally, a dash of egg white. With the egg white, it is sometimes called a Boston Sour. With a few bar spoons of full-bodied red wine floated on top, it is often referred to as a New York Sour. It is shaken and served either straight up or over ice. The traditional garnish is half an orange slice and a maraschino cherry. A variant of the whiskey sour is the Ward 8, which often is based on bourbon or rye whiskey, and includes both lemon and orange juices, and grenadine syrup as the sweetener. The egg white sometimes employed in other whiskey sours is not usually included.", null, "Whiskey Sour", "Spirit, sugar, citrus the original big three come together in the Whiskey Sour" },
-                    { 8, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "/storage/images/cocktails-thumbnails/Old-fashioned-cocktail.jpg", "/storage/images/cocktails/Old-fashioned-cocktail.jpg", false, "Yet for all of its suave simplicity, the drink remains as relevant today as it was when it first captured drinkers’ hearts 200 years ago. In truth, you could draw a straight line connecting this drink to the first recorded definition of the cocktail category in general (circa 1806), which calls for spirits, sugar, water and bitters. You could also skip the history lesson and simply make the drink. Do the latter. Start by using good bourbon, the rule being that if you wouldn’t sip it by itself it has no place at the helm of a Bourbon Old Fashioned. (There are other whiskey drinks for masking subpar booze—this isn’t one of them.) From there, the cocktail-minded seem to break into two camps: simple syrup or muddled sugar. While a barspoon of syrup can cut your prep time in half, it robs the drink of some of the weight and texture that makes it so appealing. And anyway, what’s the big rush? The Bourbon Old Fashioned isn’t going anywhere.", null, "Old Fashioned", "When you get right down to it, the Bourbon Old Fashioned is little more than a slug of whiskey, seasoned and sweetened" },
-                    { 9, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "/storage/images/cocktails-thumbnails/Manhattan-Cocktail.jpg", "/storage/images/cocktails/Manhattan-Cocktail.jpg", false, "Originating in the late 1800s, the Manhattan is the grandfather to the infamous Martini cocktail and it’s one classics that every bartender should know. Legend has it a bartender at the Manhattan club created this drink when Jennie Churchill (mother of Winston Churchill) threw a party for her father’s friend, the newly elected governor of New York, Samuel James Tilden. In his book ‘The Joy of Mixology,’ Gary Regan describes it as “Quite simply, when properly constructed, it is the finest cocktail on the face of the earth.” From a bartender as influential and skilled as Regan, that’s quite a statement! As a non-Manhattan drinker, I disagree, but that doesn’t change how important it is to know how to make this cocktail well. Variations : If possible, you should always offer your customer their choice of whiskey – the brand and either bourbon or rye. Feel free to experiment with different brands until you find something you love serving. This is also a great drink to experiment with different types of bitters. Start with peychauds & orange bitters. It can also be made in a rocks / old-fashioned glass served over ice if your customer prefers. A Dry Manhattan is made with dry vermouth instead of sweet vermouth using the same proportions (i.e. 1 shot) and a lemon twist instead of the cherry for the garnish. A Perfect Manhattan is made with half dry & half sweet vermouth (1/2 shot of each), and both a lemon twist & cherry for the garnish.", null, "Manhattan", "Of all the whiskey-based classic cocktails, the Manhattan is easily the best. " },
                     { 10, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "/storage/images/cocktails-thumbnails/Dry-Martini-Cocktail.jpg", "/storage/images/cocktails/Dry-Martini-Cocktail.jpg", false, "The Dry martini cocktail is probably the most well-known cocktail of all time. James Bond may have had something to do with its modern-day resurgence but it has been popular since it first hit the market in the late 1800s. Today, the classic Martini is a sign of sophistication and martini drinks are often the most particular.  Perhaps for that reason, the Martini intimidates new bartenders. There are so many different variations and it has a lot consuming terminology surrounding it that make it seem far more complex than what it actually is. To make things more confusing, in the 90’s, bartenders started calling any cocktail that was served in a martini glass a ‘Martini.’ To clarify, most of these cocktails aren’t ‘real’ martinis. Most of them are, in fact, a type of sour cocktail, and have nothing to do with the classic recipe. It’s usually fairly obvious when someone wants a ‘new-age’ martini like a lychee martini or an espresso martini because that’s exactly what they’ll ask for. But for the classic martini order, you’ll need to get further clarification because people have different preferences and like I mentioned earlier, martini drinkers can be particular.", null, "Martini", "The first Martini, was it in California" },
+                    { 8, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "/storage/images/cocktails-thumbnails/Old-fashioned-cocktail.jpg", "/storage/images/cocktails/Old-fashioned-cocktail.jpg", false, "Yet for all of its suave simplicity, the drink remains as relevant today as it was when it first captured drinkers’ hearts 200 years ago. In truth, you could draw a straight line connecting this drink to the first recorded definition of the cocktail category in general (circa 1806), which calls for spirits, sugar, water and bitters. You could also skip the history lesson and simply make the drink. Do the latter. Start by using good bourbon, the rule being that if you wouldn’t sip it by itself it has no place at the helm of a Bourbon Old Fashioned. (There are other whiskey drinks for masking subpar booze—this isn’t one of them.) From there, the cocktail-minded seem to break into two camps: simple syrup or muddled sugar. While a barspoon of syrup can cut your prep time in half, it robs the drink of some of the weight and texture that makes it so appealing. And anyway, what’s the big rush? The Bourbon Old Fashioned isn’t going anywhere.", null, "Old Fashioned", "When you get right down to it, the Bourbon Old Fashioned is little more than a slug of whiskey, seasoned and sweetened" },
+                    { 7, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "/storage/images/cocktails-thumbnails/Whiskey-Sour-Cocktail.jpg", "/storage/images/cocktails/Whiskey-Sour-Cocktail.jpg", false, "The whiskey sour is a mixed drink containing whiskey (often bourbon), lemon juice, sugar, and optionally, a dash of egg white. With the egg white, it is sometimes called a Boston Sour. With a few bar spoons of full-bodied red wine floated on top, it is often referred to as a New York Sour. It is shaken and served either straight up or over ice. The traditional garnish is half an orange slice and a maraschino cherry. A variant of the whiskey sour is the Ward 8, which often is based on bourbon or rye whiskey, and includes both lemon and orange juices, and grenadine syrup as the sweetener. The egg white sometimes employed in other whiskey sours is not usually included.", null, "Whiskey Sour", "Spirit, sugar, citrus the original big three come together in the Whiskey Sour" },
+                    { 9, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "/storage/images/cocktails-thumbnails/Manhattan-Cocktail.jpg", "/storage/images/cocktails/Manhattan-Cocktail.jpg", false, "Originating in the late 1800s, the Manhattan is the grandfather to the infamous Martini cocktail and it’s one classics that every bartender should know. Legend has it a bartender at the Manhattan club created this drink when Jennie Churchill (mother of Winston Churchill) threw a party for her father’s friend, the newly elected governor of New York, Samuel James Tilden. In his book ‘The Joy of Mixology,’ Gary Regan describes it as “Quite simply, when properly constructed, it is the finest cocktail on the face of the earth.” From a bartender as influential and skilled as Regan, that’s quite a statement! As a non-Manhattan drinker, I disagree, but that doesn’t change how important it is to know how to make this cocktail well. Variations : If possible, you should always offer your customer their choice of whiskey – the brand and either bourbon or rye. Feel free to experiment with different brands until you find something you love serving. This is also a great drink to experiment with different types of bitters. Start with peychauds & orange bitters. It can also be made in a rocks / old-fashioned glass served over ice if your customer prefers. A Dry Manhattan is made with dry vermouth instead of sweet vermouth using the same proportions (i.e. 1 shot) and a lemon twist instead of the cherry for the garnish. A Perfect Manhattan is made with half dry & half sweet vermouth (1/2 shot of each), and both a lemon twist & cherry for the garnish.", null, "Manhattan", "Of all the whiskey-based classic cocktails, the Manhattan is easily the best. " },
+                    { 5, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "/storage/images/cocktails-thumbnails/Screwdriver-cocktail.jpg", "/storage/images/cocktails/Screwdriver-cocktail.jpg", false, "While the basic drink is simply the two ingredients, there are many variations. Many of the variations have different names in different parts of the world. The screwdriver is mentioned in 1944: A Screwdriver—a drink compounded of vodka and orange juice and supposedly invented by interned American fliers; the latest Yankee concoction of vodka and orange juice, called a 'screwdriver'.", null, "Screwdriver", "A screwdriver is a popular alcoholic highball drink made with orange juice and vodka." },
+                    { 4, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "/storage/images/cocktails-thumbnails/Caipirinha-cocktail.jpg", "/storage/images/cocktails/Caipirinha-cocktail.jpg", false, "According to historians, the caipirinha was invented by landowning farmers in the region of Piracicaba, interior of the State of São Paulo during the 19th century as a local drink for 'high standard' events and parties, a reflection of the strong sugarcane culture in the region.", null, "Caipirinha", "Caipirinha is Brazil's national cocktail, made with cachaça (sugarcane hard liquor), sugar, and lime." },
+                    { 3, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "/storage/images/cocktails-thumbnails/White-Russian-Cocktail.jpg", "/storage/images/cocktails/White-Russian-Cocktail.jpg", false, "The traditional cocktail known as a Black Russian, which first appeared in 1949, becomes a White Russian with the addition of cream. Neither drink is Russian in origin, but both are so named due to vodka being the primary ingredient. It is unclear which drink preceded the other.", null, "White Russian", " It’s simply a black Russian with the addition of cream." },
                     { 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "/storage/images/cocktails-thumbnails/Mai-Tai-Cocktail.jpg", "/storage/images/cocktails/Mai-Tai-Cocktail.jpg", false, "The Mai Tai cocktail was created by bartender  “Trader” Vic Bergeron. In 1970, “Trader Vic” Bergeron wrote the following: “I originated the Mai Tai and put together a bit of the background of the evolution of this drink…. In 1944, after success with several exotic rum drinks, I felt a new drink was needed. I thought about all the really successful drinks: martinis, manhattans, daiquiris… All basically simple drinks…. I took down a bottle of 17 year old rum. It was J. Wray Nephew from Jamaica; surprisingly golden in colour, medium bodied, but with rich pungent flavour particular to Jamaican blends…. I took a fresh lime, added some orange curaçao from Holland, a dash of Rock Candy Syrup, and a dollop of French Orgeat, for its subtle almond flavour. A generous amount of shaved ice and vigorous shaking by hand produced the marriage I was after. Half the lime shell went in for color…. I stuck in a branch of fresh mint and gave two of them to  Ham and Carrie Guide, friends from Tahiti, who were there that night. Carrie took one sip and said, “Mai Tai— Roa Ai.” In Tahitian this means “Out of This World — The Best.” Well, that was that. I named the drink “Mai Tai.” … In fairness to myself and to a truly great drink, I hope you will agree when I say, “let’s get the record straight on the Mai Tai.” The ingredients “Trader Vic” originally used are hard to come by today. So the above recipe is an excellent recipe that’s more accessible.", null, "Mai Tai", "A modern classic and arguably the most popular tiki drink on the planet." },
+                    { 6, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "/storage/images/cocktails-thumbnails/Bloody-Mary-Cocktail.jpg", "/storage/images/cocktails/Bloody-Mary-Cocktail.jpg", false, "Unlike most cocktails, the origins of the Bloody Mary cocktail are well known. It was created by bartender Fernand “Pete” Petiot at Harry’s New York bar in Paris around 1924 just after France started importing tinned tomatoes from America.In 1934, Petiot was brought to New York to head the bar at the St Regis Hotel during the prohibition era and he brought his creation with him. Americans have been drinking Bloody Mary’s ever since.When it was first created, it wasn’t very well liked. David Embury went as far as to describe the cocktail as “strictly vile” in his book ‘The Fine Art of Mixing Drinks.’ Today, many people still consider the Bloody Mary strictly vile, but it also has a loyal following of diehard fans that absolutely love it.Every bartender thinks they know ‘the best’ Bloody Mary recipe, but the truth, there is no 1 recipe because people’s preferences vary so widely. Some drinkers like it extra spicy, some prefer it mild. As such, you should always ask your guest how spicy they would like it on a scale of 1-10 and adjust the hot sauce you add appropriately.Despite it being individualized, there are a few general consensuses on how it should be made. Always use lemon juice over lime juice as it marries better with tomato juice. And it should always be rolled as opposed to shaking or stirring. Shaking emulsifies the tomato juice (a fancy way of saying, separating it and making it bubble), and stirring isn’t strong enough to adequately mix the ingredients.", null, "Bloody Mary", "The Bloody Mary was invented in the 1920s or 1930s." },
                     { 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "/storage/images/cocktails-thumbnails/Margarita-cocktail.jpg", "/storage/images/cocktails/Margarita-cocktail.jpg", false, "A margarita is a cocktail consisting of tequila, orange liqueur, and lime juice often served with salt on the rim of the glass. The drink is served shaken with ice (on the rocks), blended with ice (frozen margarita), or without ice (straight up). Although it has become acceptable to serve a margarita in a wide variety of glass types, ranging from cocktail and wine glasses to pint glasses and even large schooners, the drink is traditionally served in the eponymous margarita glass, a stepped-diameter variant of a cocktail glass or champagne coupe.", null, "Margarita", "The margarita is a popular Mexican and American drink" }
                 });
 
@@ -374,26 +408,26 @@ namespace CocktailMagician.Data.Migrations
                 columns: new[] { "Id", "CreatedOn", "DeletedOn", "IsDeleted", "ModifiedOn", "Name" },
                 values: new object[,]
                 {
+                    { 23, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, false, null, "Lemon" },
                     { 20, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, false, null, "Cointreau" },
                     { 21, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, false, null, "Soda" },
                     { 22, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, false, null, "Cherry Brandy" },
-                    { 23, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, false, null, "Lemon" },
-                    { 28, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, false, null, "Cola" },
+                    { 29, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, false, null, "Peach" },
                     { 25, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, false, null, "Pineapple Juice" },
                     { 26, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, false, null, "Coconut Cream" },
                     { 27, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, false, null, "Grapefruit Juice" },
+                    { 28, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, false, null, "Cola" },
                     { 19, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, false, null, "Pink Grapefruit Juice" },
-                    { 29, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, false, null, "Peach" },
                     { 30, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, false, null, "Prosecco" },
                     { 24, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, false, null, "Sloe Gin" },
                     { 18, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, false, null, "White Rum" },
-                    { 13, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, false, null, "Bourbon" },
+                    { 12, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, false, null, "Tomato Juice" },
                     { 16, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, false, null, "French Dry Vermouth" },
                     { 15, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, false, null, "Italian Sweet Vermouth" },
                     { 14, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, false, null, "Water" },
-                    { 12, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, false, null, "Tomato Juice" },
+                    { 13, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, false, null, "Bourbon" },
+                    { 11, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, false, null, "Orange Juice" },
                     { 10, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, false, null, "Cachaca" },
-                    { 9, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, false, null, "Vodka" },
                     { 8, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, false, null, "Kahlua" },
                     { 7, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, false, null, "Fresh Cream" },
                     { 6, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, false, null, "Almond Surup" },
@@ -403,7 +437,7 @@ namespace CocktailMagician.Data.Migrations
                     { 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, false, null, "Triple Sec" },
                     { 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, false, null, "Lime Juice" },
                     { 17, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, false, null, "Gin" },
-                    { 11, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, false, null, "Orange Juice" }
+                    { 9, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, false, null, "Vodka" }
                 });
 
             migrationBuilder.InsertData(
@@ -491,6 +525,16 @@ namespace CocktailMagician.Data.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_BarRatings_BarId",
+                table: "BarRatings",
+                column: "BarId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BarRatings_UserId",
+                table: "BarRatings",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_CocktailComments_CocktailId",
                 table: "CocktailComments",
                 column: "CocktailId");
@@ -530,6 +574,9 @@ namespace CocktailMagician.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "BarComments");
+
+            migrationBuilder.DropTable(
+                name: "BarRatings");
 
             migrationBuilder.DropTable(
                 name: "CocktailComments");

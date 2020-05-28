@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Hosting;
 using System.IO;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Security.Claims;
+using cloudscribe.Pagination.Models;
 
 namespace CocktailMagician.Web.Controllers
 {
@@ -47,13 +48,32 @@ namespace CocktailMagician.Web.Controllers
 
 
         // GET: Bars
-        public async Task<IActionResult> Index()
+        //public async Task<IActionResult> Index()
+        //{
+        //    var models = await this.barService.GetAllBarsAsync();
+
+        //    var result = this.barVmMapper.MapViewModel(models);
+
+        //    return View(result);
+        //}
+
+        public async Task<IActionResult> Index(int pageNumber = 1, int pageSize = 4)
         {
-            var models = await this.barService.GetAllBarsAsync();
+
+            var models = await this.barService.GetBarsForPeginationAsync(pageSize, pageNumber);
+            var countModels = await this.barService.GetAllBarsAsync();
 
             var result = this.barVmMapper.MapViewModel(models);
 
-            return View(result);
+            var newResult = new PagedResult<BarViewModel>
+            {
+                Data = result.ToList(),
+                TotalItems = countModels.Count(),
+                PageNumber = pageNumber,
+                PageSize = pageSize,
+            };
+
+            return View(newResult);
         }
 
         // GET: Bars/Details/5

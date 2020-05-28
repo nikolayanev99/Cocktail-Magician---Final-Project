@@ -61,7 +61,7 @@ namespace CocktailMagician.Services
             return cocktailDto;
         }
 
-        public async Task<ICollection<CocktailDto>> GetThreeCocktailsAsync(int pageSize = 1, int pageNumber = 1)
+        public async Task<ICollection<CocktailDto>> GetCocktailsForPeginationAsync(int pageSize = 1, int pageNumber = 1)
         {
             int excludeRecodrds = (pageSize * pageNumber) - pageSize;
             

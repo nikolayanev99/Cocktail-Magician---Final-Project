@@ -51,10 +51,10 @@ namespace CocktailMagician.Web.Controllers
         //    return View(result);
         //}
 
-        public async Task<IActionResult> List(int pageNumber=1, int pageSize=3)
+        public async Task<IActionResult> List(int pageNumber=1, int pageSize=4)
         {
 
-            var models = await this._cocktailService.GetThreeCocktailsAsync(pageSize, pageNumber);
+            var models = await this._cocktailService.GetCocktailsForPeginationAsync(pageSize, pageNumber);
             var countModels = await this._cocktailService.GetAllCocktailsAsync();
 
             var result = this._cocktailVmMapper.MapViewModel(models);

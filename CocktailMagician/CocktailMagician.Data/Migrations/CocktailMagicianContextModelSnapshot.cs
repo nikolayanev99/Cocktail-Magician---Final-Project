@@ -69,7 +69,7 @@ namespace CocktailMagician.Data.Migrations
                             Info = "Great place with great people, awesome !",
                             IsDeleted = false,
                             Name = "Outside Voices",
-                            PhotoPath = "3254b2f3-f185-4586-860f-5516c1a0bc11 20191102_Outside_Voices_0634.0.jpg"
+                            PhotoPath = "bar_OutsideVoices.jpg"
                         },
                         new
                         {
@@ -79,7 +79,37 @@ namespace CocktailMagician.Data.Migrations
                             Info = "There’s a new contender for the bar with the best view of Dubai. Mood Rooftop Lounge, the bold new bar on top of Meydan Hotel, has now officially opened and it boasts some seriously wow-worthy views.",
                             IsDeleted = false,
                             Name = "Mood Rooftop Lounge",
-                            PhotoPath = "2083d8d2-0b15-42c0-850d-739cb8ac5783 Mood-bar.jpg"
+                            PhotoPath = "bar_mood.jpg"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Address = "Young Road 14, Usa-Idaho, Caldwell",
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Info = "Star bartenders Rob Raglin and Roy Hollinger run this 1900s-style bar, where they serve period-appropriate cocktails and snacks like whiskey-cured gravlax on rye toast with dill sour cream.",
+                            IsDeleted = false,
+                            Name = "Rob Roy",
+                            PhotoPath = "bar_RobRoy.jpg"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Address = "Howard Street 101, Usa-Michigan, Ionia",
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Info = "The menu at this smart, stylish bar in the former Japanese Commercial Bank ranges from classic riffs (like the Darker Stormy, tweaked with a ginger-stout reduction) to the unexpected (the Axl Brose, with Scotch, Drambuie, honey, oatmeal cream, nutmed and egg yolk).",
+                            IsDeleted = false,
+                            Name = "Good Bar",
+                            PhotoPath = "bar_GoodBar.jpg"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Address = "Jett Lane 88, USA-Illinois, Easton",
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Info = "This vast, 9,000-square-foot restaurant and bar consists of several dining rooms and upper- and lower-level patios. The cocktail menu features original creations as well as reinvented classics like the Smoked Manhattan.",
+                            IsDeleted = false,
+                            Name = "Hannover",
+                            PhotoPath = "bar_hannover.jpeg"
                         });
                 });
 
@@ -120,6 +150,43 @@ namespace CocktailMagician.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("BarComments");
+                });
+
+            modelBuilder.Entity("CocktailMagician.Models.BarRating", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("BarId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Value")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BarId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("BarRatings");
                 });
 
             modelBuilder.Entity("CocktailMagician.Models.Cocktail", b =>
@@ -781,14 +848,14 @@ namespace CocktailMagician.Data.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "087aa7c2-701d-4eca-8880-177c1fc34ccf",
+                            ConcurrencyStamp = "ab47bc74-2890-475c-aa7d-cf691c2e2b5e",
                             Name = "bar crawler",
                             NormalizedName = "BAR CRAWLER"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "676c8581-9228-41f7-ab46-cab3bf9c4725",
+                            ConcurrencyStamp = "80d9a45c-5dd9-421b-a150-c1b14c645a9d",
                             Name = "cocktail magician",
                             NormalizedName = "COCKTAIL MAGICIAN"
                         });
@@ -865,13 +932,13 @@ namespace CocktailMagician.Data.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "a3e8c34f-a64d-46c7-a810-1d1a984e6c29",
+                            ConcurrencyStamp = "e8a4913f-7e7f-42d4-9ccc-8d13eb94b842",
                             Email = "admin@admin.com",
                             EmailConfirmed = false,
                             LockoutEnabled = true,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEHnttrJxO+ewfo+RX/B5oHqEjwp6hg6hRxZQvct+fyoypXAKXEWCxOZHw0hHEs+1/g==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHgq4BxAYexCvFEFBmpDxD4ZS2nCEZqYvURxgQEe841F2QJn6KrzDcoTtsLReJRTfg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "d12a8993 - 382a - 4680 - 845f - 39c744d04ca1",
                             TwoFactorEnabled = false,
@@ -996,6 +1063,21 @@ namespace CocktailMagician.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("CocktailMagician.Models.User", "Author")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("CocktailMagician.Models.BarRating", b =>
+                {
+                    b.HasOne("CocktailMagician.Models.Bar", "Bar")
+                        .WithMany("Ratings")
+                        .HasForeignKey("BarId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CocktailMagician.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
