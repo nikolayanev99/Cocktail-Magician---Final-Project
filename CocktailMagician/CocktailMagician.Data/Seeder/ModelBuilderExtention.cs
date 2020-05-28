@@ -452,7 +452,7 @@ namespace CocktailMagician.Models.Seeder
                 Name = "Outside Voices",
                 Info = "Great place with great people, awesome !",
                 Address = "Armitage Avenue 17, USA, Chicago",
-                PhotoPath = "3254b2f3-f185-4586-860f-5516c1a0bc11 20191102_Outside_Voices_0634.0.jpg",
+                PhotoPath = "bar_OutsideVoices.jpg",
             };
             var bar2 = new Bar
             {
@@ -460,7 +460,31 @@ namespace CocktailMagician.Models.Seeder
                 Name = "Mood Rooftop Lounge",
                 Info = "There’s a new contender for the bar with the best view of Dubai. Mood Rooftop Lounge, the bold new bar on top of Meydan Hotel, has now officially opened and it boasts some seriously wow-worthy views.",
                 Address = "Meydan Hotel, Dubai, Nad Al Sheba",
-                PhotoPath = "2083d8d2-0b15-42c0-850d-739cb8ac5783 Mood-bar.jpg",
+                PhotoPath = "bar_mood.jpg",
+            };
+            var bar3 = new Bar
+            {
+                Id = 3,
+                Name = "Rob Roy",
+                Info = "Star bartenders Rob Raglin and Roy Hollinger run this 1900s-style bar, where they serve period-appropriate cocktails and snacks like whiskey-cured gravlax on rye toast with dill sour cream.",
+                Address = "Young Road 14, Usa-Idaho, Caldwell",
+                PhotoPath = "bar_RobRoy.jpg",
+            };
+            var bar4 = new Bar
+            {
+                Id = 4,
+                Name = "Good Bar",
+                Info = "The menu at this smart, stylish bar in the former Japanese Commercial Bank ranges from classic riffs (like the Darker Stormy, tweaked with a ginger-stout reduction) to the unexpected (the Axl Brose, with Scotch, Drambuie, honey, oatmeal cream, nutmed and egg yolk).",
+                Address = "Howard Street 101, Usa-Michigan, Ionia",
+                PhotoPath = "bar_GoodBar.jpg",
+            };
+            var bar5 = new Bar
+            {
+                Id = 5,
+                Name = "Hannover",
+                Info = "This vast, 9,000-square-foot restaurant and bar consists of several dining rooms and upper- and lower-level patios. The cocktail menu features original creations as well as reinvented classics like the Smoked Manhattan.",
+                Address = "Jett Lane 88, USA-Illinois, Easton",
+                PhotoPath = "bar_hannover.jpeg",
             };
             var bar6 = new Bar
             {
@@ -511,7 +535,11 @@ namespace CocktailMagician.Models.Seeder
                 PhotoPath = "302a3f55-1642-4f16-bfc4-00dbb50c6fc9 Bees Knees.jpg",
             };
 
+<<<<<<< HEAD
             builder.Entity<Bar>().HasData(bar1, bar2,bar6,bar7,bar8,bar9,bar10,bar11);
+=======
+            builder.Entity<Bar>().HasData(bar1, bar2, bar3, bar4, bar5);
+>>>>>>> a1080597457d877e21183ff9352bcf3b16476e6d
         }
     }
 }

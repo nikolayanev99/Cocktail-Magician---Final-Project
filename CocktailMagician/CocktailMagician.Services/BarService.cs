@@ -119,5 +119,21 @@ namespace CocktailMagician.Services
             await this.context.SaveChangesAsync();
             return true;
         }
+
+        public async Task<ICollection<BarDTO>> GetBarsForPeginationAsync(int pageSize = 1, int pageNumber = 1) 
+        {
+            int excludeRecodrds = (pageSize * pageNumber) - pageSize;
+
+            var bars = await this.context.Bars
+                .Where(v => v.IsDeleted == false)
+                .OrderBy(n => n.Name)
+                .Skip(excludeRecodrds)
+                .Take(pageSize)
+                .ToListAsync();
+
+            var barDto = this.barDTOMapper.MapDto(bars);
+
+            return barDto;
+        }
     }
 }
