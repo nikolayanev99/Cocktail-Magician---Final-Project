@@ -27,7 +27,7 @@ namespace CocktailMagician.Services
         public async Task<BarDTO> GetBarAsync(int id)
         {
             var bar = await this.context.Bars
-                .Include(b=>b.Comments)               
+                .Include(b => b.Comments)
                 .Where(b => b.IsDeleted == false)
                 .FirstOrDefaultAsync(b => b.Id == id);
 
@@ -120,7 +120,7 @@ namespace CocktailMagician.Services
             return true;
         }
 
-        public async Task<ICollection<BarDTO>> GetBarsForPeginationAsync(int pageSize = 1, int pageNumber = 1) 
+        public async Task<ICollection<BarDTO>> GetBarsForPeginationAsync(int pageSize = 1, int pageNumber = 1)
         {
             int excludeRecodrds = (pageSize * pageNumber) - pageSize;
 
@@ -135,5 +135,6 @@ namespace CocktailMagician.Services
 
             return barDto;
         }
+     
     }
 }

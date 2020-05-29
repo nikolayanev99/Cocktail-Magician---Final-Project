@@ -535,11 +535,10 @@ namespace CocktailMagician.Models.Seeder
                 PhotoPath = "302a3f55-1642-4f16-bfc4-00dbb50c6fc9 Bees Knees.jpg",
             };
 
-<<<<<<< HEAD
-            builder.Entity<Bar>().HasData(bar1, bar2,bar6,bar7,bar8,bar9,bar10,bar11);
-=======
-            builder.Entity<Bar>().HasData(bar1, bar2, bar3, bar4, bar5);
->>>>>>> a1080597457d877e21183ff9352bcf3b16476e6d
+
+            builder.Entity<Bar>().HasData(bar1, bar2, bar3, bar4, bar5,bar6, bar7,bar8,bar9,bar10,bar11);
+
+           
         }
     }
 }

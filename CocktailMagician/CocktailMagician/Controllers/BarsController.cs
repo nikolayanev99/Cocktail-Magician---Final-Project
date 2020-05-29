@@ -16,6 +16,7 @@ using System.IO;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Security.Claims;
 using cloudscribe.Pagination.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CocktailMagician.Web.Controllers
 {
@@ -49,19 +50,6 @@ namespace CocktailMagician.Web.Controllers
 
 
 
-
-
-
-
-        // GET: Bars
-        //public async Task<IActionResult> Index()
-        //{
-        //    var models = await this.barService.GetAllBarsAsync();
-
-        //    var result = this.barVmMapper.MapViewModel(models);
-
-        //    return View(result);
-        //}
 
         public async Task<IActionResult> Index(int pageNumber = 1, int pageSize = 4)
         {
@@ -213,9 +201,10 @@ namespace CocktailMagician.Web.Controllers
             barVM.Comments = this.barCommentVmMapper.MapViewModel(DtoComments);
             barVM.AverageRating = this.barRatingService.GetAverageBarRating(bar.Id);
 
-            return View("Details", barVM);
+            return RedirectToAction("Details", barVM);
         }
-
+        [HttpPost]
+        [ValidateAntiForgeryToken]        
         public async Task<IActionResult> AddRating(BarViewModel bar)
         {
             int userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
@@ -238,7 +227,7 @@ namespace CocktailMagician.Web.Controllers
             var DtoComments = await this.barCommentsService.GetBarCommentsAsync(barVM.Id);
             barVM.Comments = this.barCommentVmMapper.MapViewModel(DtoComments);
             barVM.AverageRating = this.barRatingService.GetAverageBarRating(bar.Id);
-            return View("Details", barVM);
+            return RedirectToAction("Details", barVM);
 
         }
     }

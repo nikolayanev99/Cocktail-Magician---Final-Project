@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CocktailMagician.Data.Migrations
 {
     [DbContext(typeof(CocktailMagicianContext))]
-    [Migration("20200528115414_Initial")]
+    [Migration("20200529155231_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -71,7 +71,7 @@ namespace CocktailMagician.Data.Migrations
                             Info = "Great place with great people, awesome !",
                             IsDeleted = false,
                             Name = "Outside Voices",
-                            PhotoPath = "3254b2f3-f185-4586-860f-5516c1a0bc11 20191102_Outside_Voices_0634.0.jpg"
+                            PhotoPath = "bar_OutsideVoices.jpg"
                         },
                         new
                         {
@@ -81,7 +81,37 @@ namespace CocktailMagician.Data.Migrations
                             Info = "There’s a new contender for the bar with the best view of Dubai. Mood Rooftop Lounge, the bold new bar on top of Meydan Hotel, has now officially opened and it boasts some seriously wow-worthy views.",
                             IsDeleted = false,
                             Name = "Mood Rooftop Lounge",
-                            PhotoPath = "2083d8d2-0b15-42c0-850d-739cb8ac5783 Mood-bar.jpg"
+                            PhotoPath = "bar_mood.jpg"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Address = "Young Road 14, Usa-Idaho, Caldwell",
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Info = "Star bartenders Rob Raglin and Roy Hollinger run this 1900s-style bar, where they serve period-appropriate cocktails and snacks like whiskey-cured gravlax on rye toast with dill sour cream.",
+                            IsDeleted = false,
+                            Name = "Rob Roy",
+                            PhotoPath = "bar_RobRoy.jpg"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Address = "Howard Street 101, Usa-Michigan, Ionia",
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Info = "The menu at this smart, stylish bar in the former Japanese Commercial Bank ranges from classic riffs (like the Darker Stormy, tweaked with a ginger-stout reduction) to the unexpected (the Axl Brose, with Scotch, Drambuie, honey, oatmeal cream, nutmed and egg yolk).",
+                            IsDeleted = false,
+                            Name = "Good Bar",
+                            PhotoPath = "bar_GoodBar.jpg"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Address = "Jett Lane 88, USA-Illinois, Easton",
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Info = "This vast, 9,000-square-foot restaurant and bar consists of several dining rooms and upper- and lower-level patios. The cocktail menu features original creations as well as reinvented classics like the Smoked Manhattan.",
+                            IsDeleted = false,
+                            Name = "Hannover",
+                            PhotoPath = "bar_hannover.jpeg"
                         },
                         new
                         {
@@ -579,10 +609,12 @@ namespace CocktailMagician.Data.Migrations
 
             modelBuilder.Entity("CocktailMagician.Models.CocktailRating", b =>
                 {
-                    b.Property<int>("CocktailId")
-                        .HasColumnType("int");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("UserId")
+                    b.Property<int>("CocktailId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedOn")
@@ -597,10 +629,15 @@ namespace CocktailMagician.Data.Migrations
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.Property<double>("Value")
                         .HasColumnType("float");
 
-                    b.HasKey("CocktailId", "UserId");
+                    b.HasKey("Id");
+
+                    b.HasIndex("CocktailId");
 
                     b.HasIndex("UserId");
 
@@ -880,14 +917,14 @@ namespace CocktailMagician.Data.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "f7a14e97-cd13-451a-a7d5-323170684572",
+                            ConcurrencyStamp = "ea4c080f-5374-49ba-b2d9-509870d178bf",
                             Name = "bar crawler",
                             NormalizedName = "BAR CRAWLER"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "87fa5c23-162c-42a1-a6f3-f5c8a5097396",
+                            ConcurrencyStamp = "5f1c0fb0-8f0b-415f-8a98-2295c397397e",
                             Name = "cocktail magician",
                             NormalizedName = "COCKTAIL MAGICIAN"
                         });
@@ -964,13 +1001,13 @@ namespace CocktailMagician.Data.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "7a857e6f-a43f-4076-96a6-abd1fff572c9",
+                            ConcurrencyStamp = "9c23a4c0-4656-4a44-b36a-11a8720cf4a8",
                             Email = "admin@admin.com",
                             EmailConfirmed = false,
                             LockoutEnabled = true,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJ7HaDYd7Jq9rU5jv6ICTgPemg9a+NO7qPs4z5iRg1H4XyU3MS00+htspgmCzwMziQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAELz0bVJlxM9CDn2NGKzlpI7EjVSpwmA0jbRsztQP2pMAkKbbu3wStduUiHepBdz3MQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "d12a8993 - 382a - 4680 - 845f - 39c744d04ca1",
                             TwoFactorEnabled = false,

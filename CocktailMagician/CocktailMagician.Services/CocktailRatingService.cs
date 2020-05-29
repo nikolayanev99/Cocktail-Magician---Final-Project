@@ -41,90 +41,94 @@ namespace CocktailMagician.Services
 
             return this._cocktailRatingDtoMapper.MapDto(rating);
         }
+        public double GetAverageCocktailRating(int cocktailId)
+        {
+            var anyResults = this._context.CocktailRatings
+                .Any(r => r.CocktailId == cocktailId);
+            if (anyResults == false)
+            {
+                return 0;
+            }
+            var result = this._context.CocktailRatings
+                .Where(r => r.CocktailId == cocktailId)
+                .ToList()
+                .Average(r => r.Value);
+            if (result == 0)
+            {
+                return 0;
+            }
+
+            return Double.Parse($"{result:f1}");
+
+        }
 
         public async Task<ICollection<CocktailRatingDto>> GetAllRatingsAsync(int cocktailId)
         {
             var ratings = await this._context.CocktailRatings
+                .Include(cc => cc.Cocktail)
+                .Include(cc => cc.User)
                 .Where(cc => cc.IsDeleted == false)
                 .Where(cc => cc.CocktailId == cocktailId)
                 .ToListAsync();
 
-            if (ratings.Count == 0)
-            {
-                return null;
-            }
-
             return this._cocktailRatingDtoMapper.MapDto(ratings);
         }
 
-        public async Task<CocktailRatingDto> CreateRatingAsync(CocktailRatingDto cocktailRatingDto) 
+        public async Task<CocktailRatingDto> CreateRatingAsync(CocktailRatingDto cocktailRatingDto)
         {
             if (cocktailRatingDto == null)
             {
                 throw new ArgumentNullException("No cocktail rating found.");
             }
-
-            var cocktailRating = new CocktailRating
+            if (cocktailRatingDto.Value == 0 || cocktailRatingDto.UserId < 1 || cocktailRatingDto.CocktailId < 1)
             {
-                Value = cocktailRatingDto.Value,
-                UserId = cocktailRatingDto.UserId,
-                CocktailId = cocktailRatingDto.CocktailId,
-                CreatedOn = this._dateTimeProvider.GetDateTime(),
-                ModifiedOn = cocktailRatingDto.ModifiedOn,
-                DeletedOn = cocktailRatingDto.DeletedOn,
-                IsDeleted = cocktailRatingDto.IsDeleted
-            };
+                return null;
+            }
+            var rating = await this.GetRatingAsync(cocktailRatingDto.UserId, cocktailRatingDto.CocktailId);
 
-            await this._context.CocktailRatings.AddAsync(cocktailRating);
-            await this._context.SaveChangesAsync();
+            if (rating == null)
+            {
+                var cocktailRating = new CocktailRating
+                {
+                    Id = cocktailRatingDto.Id,
+                    Value = cocktailRatingDto.Value,
+                    UserId = cocktailRatingDto.UserId,
+                    CocktailId = cocktailRatingDto.CocktailId,
+                    CreatedOn = this._dateTimeProvider.GetDateTime(),
+                };
 
-            return this._cocktailRatingDtoMapper.MapDto(cocktailRating);
+                await this._context.CocktailRatings.AddAsync(cocktailRating);
+                await this._context.SaveChangesAsync();
+
+                return this._cocktailRatingDtoMapper.MapDto(cocktailRating);
+
+            }
+            var editedRating = await this.UpdateRatingAsync(cocktailRatingDto.CocktailId, cocktailRatingDto.UserId, cocktailRatingDto.Value);
+
+            return editedRating;
         }
 
-        public async Task<CocktailRatingDto> UpdateRatingAsync(CocktailRatingDto newCocktailRatingDto)
+        public async Task<CocktailRatingDto> UpdateRatingAsync(int cocktailId, int userId, double newValue)
         {
-            if (newCocktailRatingDto == null)
-            {
-                throw new ArgumentNullException("No cocktail rating found.");
-            }
 
-            var cocktailRatingDto = await this.GetRatingAsync(newCocktailRatingDto.UserId, newCocktailRatingDto.CocktailId);
-            
-            if (cocktailRatingDto == null)
+            var rating = await this._context.CocktailRatings
+                .Where(r => r.IsDeleted == false)
+                .Where(rr => rr.UserId == userId)
+                .FirstOrDefaultAsync(c => c.CocktailId == cocktailId && c.UserId == userId);
+
+            if (rating == null)
             {
                 return null;
             }
 
-            cocktailRatingDto.Value = cocktailRatingDto.Value;
-            
-            this._context.Update(cocktailRatingDto);
+            rating.Value = newValue;
+
+            this._context.Update(rating);
             await this._context.SaveChangesAsync();
 
 
-            return cocktailRatingDto;
+            return this._cocktailRatingDtoMapper.MapDto(rating);
         }
 
-        public async Task<CocktailRatingDto> AddEditRatingAsync(CocktailRatingDto newCocktailRatingDto)
-        {
-            if (newCocktailRatingDto == null)
-            {
-                throw new ArgumentNullException("No cocktail rating found.");
-            }
-
-            var cocktailRatingDto = await this.GetRatingAsync(newCocktailRatingDto.UserId, newCocktailRatingDto.CocktailId);
-
-            if (cocktailRatingDto == null)
-            {
-                cocktailRatingDto = await this.CreateRatingAsync(newCocktailRatingDto);
-                
-                return cocktailRatingDto;
-            }
-
-            cocktailRatingDto.Value = newCocktailRatingDto.Value;
-            cocktailRatingDto = await this.UpdateRatingAsync(newCocktailRatingDto);
-            
-            
-            return cocktailRatingDto;
-        }
     }
 }

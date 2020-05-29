@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using cloudscribe.Pagination.Models;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.EntityFrameworkCore;
+using CocktailMagician.Web.Areas.Member.Models;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -20,21 +21,29 @@ namespace CocktailMagician.Web.Controllers
     public class CocktailsController : Controller
     {
         private readonly ICocktailService _cocktailService;
-        private readonly ICocktailCommentService _cocktailCommentService;
         private readonly IViewModelMapper<CocktailDto, CocktailViewModel> _cocktailVmMapper;
+        private readonly ICocktailCommentService _cocktailCommentService;
         private readonly IViewModelMapper<CocktailCommentDto, CocktailCommentViewModel> _cocktailCommentVmMapper;
-
+        private readonly IViewModelMapper<CocktailRatingDto, CocktailRatingViewModel> cocktailRatingVmMapper;
+        private readonly ICocktailRatingService cocktailRatingService;
 
         public CocktailsController(ICocktailService cocktailService,
                                    IViewModelMapper<CocktailDto, CocktailViewModel> cocktailVmMapper,
                                    ICocktailCommentService cocktailCommentService,
-                                   IViewModelMapper<CocktailCommentDto, CocktailCommentViewModel> cocktailCommentVmMapper)
+                                   IViewModelMapper<CocktailCommentDto, CocktailCommentViewModel> cocktailCommentVmMapper,
+                                   IViewModelMapper<CocktailRatingDto, CocktailRatingViewModel> cocktailRatingVmMapper,
+                                   ICocktailRatingService cocktailRatingService)
         {
-            this._cocktailService = cocktailService ?? throw new ArgumentNullException(nameof(cocktailService));
-            this._cocktailVmMapper = cocktailVmMapper ?? throw new ArgumentNullException(nameof(cocktailVmMapper));
-            this._cocktailCommentService = cocktailCommentService ?? throw new ArgumentNullException(nameof(cocktailCommentService));
-            this._cocktailCommentVmMapper = cocktailCommentVmMapper ?? throw new ArgumentNullException(nameof(cocktailCommentVmMapper));
+            _cocktailService = cocktailService ?? throw new ArgumentNullException(nameof(cocktailService));
+            _cocktailVmMapper = cocktailVmMapper ?? throw new ArgumentNullException(nameof(cocktailVmMapper));
+            _cocktailCommentService = cocktailCommentService ?? throw new ArgumentNullException(nameof(cocktailCommentService));
+            _cocktailCommentVmMapper = cocktailCommentVmMapper ?? throw new ArgumentNullException(nameof(cocktailCommentVmMapper));
+            this.cocktailRatingVmMapper = cocktailRatingVmMapper ?? throw new ArgumentNullException(nameof(cocktailRatingVmMapper));
+            this.cocktailRatingService = cocktailRatingService ?? throw new ArgumentNullException(nameof(cocktailRatingService));
         }
+
+
+
 
         // GET: /<controller>/
         public IActionResult Index()
@@ -51,7 +60,7 @@ namespace CocktailMagician.Web.Controllers
         //    return View(result);
         //}
 
-        public async Task<IActionResult> List(int pageNumber=1, int pageSize=4)
+        public async Task<IActionResult> List(int pageNumber = 1, int pageSize = 4)
         {
 
             var models = await this._cocktailService.GetCocktailsForPeginationAsync(pageSize, pageNumber);
@@ -79,9 +88,10 @@ namespace CocktailMagician.Web.Controllers
             }
 
             var result = this._cocktailVmMapper.MapViewModel(cocktail);
-            var cocktailComments = await this._cocktailCommentService.GetCocktailCommentAsync(id);
+            var cocktailComments = await this._cocktailCommentService.GetCocktailCommentsAsync(id);
             result.Comments = this._cocktailCommentVmMapper.MapViewModel(cocktailComments);
             result.Ingredients = cocktail.Ingredients;
+            result.AverageRating = this.cocktailRatingService.GetAverageCocktailRating(id);
 
             return View(result);
         }
@@ -108,10 +118,38 @@ namespace CocktailMagician.Web.Controllers
             var currentCocktail = await this._cocktailService.GetCokctailAsync(comment.CocktailId);
 
             var cocktailVm = this._cocktailVmMapper.MapViewModel(currentCocktail);
-            var dtoComments = await this._cocktailCommentService.GetCocktailCommentAsync(cocktailVm.Id);
+            var dtoComments = await this._cocktailCommentService.GetCocktailCommentsAsync(cocktailVm.Id);
             cocktailVm.Comments = this._cocktailCommentVmMapper.MapViewModel(dtoComments);
-
+            cocktailVm.AverageRating = this.cocktailRatingService.GetAverageCocktailRating(cocktailComment.Id);
             return View("Details", cocktailVm);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddRating(CocktailViewModel cocktail)
+        {
+
+            int userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+            var cocktailRating = new CocktailRatingViewModel
+            {
+                Value = (cocktail.SelectedRating),
+                CocktailId = cocktail.Id,
+                UserId = userId,
+            };
+
+            var cocktailRatingDto = this.cocktailRatingVmMapper.MapDTO(cocktailRating);
+
+            var rating = await this.cocktailRatingService.CreateRatingAsync(cocktailRatingDto);
+
+            var currentCocktail = await this._cocktailService.GetCokctailAsync(rating.CocktailId);
+
+            var cocktailVM = this._cocktailVmMapper.MapViewModel(currentCocktail);
+
+            var DtoComments = await this._cocktailCommentService.GetCocktailCommentsAsync(cocktailVM.Id);
+            cocktailVM.Comments = this._cocktailCommentVmMapper.MapViewModel(DtoComments);
+            cocktailVM.AverageRating = this.cocktailRatingService.GetAverageCocktailRating(cocktail.Id);
+
+            return View("Details", cocktailVM);
         }
     }
 }

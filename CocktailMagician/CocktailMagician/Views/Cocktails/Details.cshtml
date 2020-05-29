@@ -1,5 +1,8 @@
 ﻿
 @model CocktailViewModel
+@{ 
+    var star = "/images/star.png";
+}
 
 <h2>@Model.Name Cocktail</h2>
 
@@ -17,7 +20,7 @@
     </style>
 </head>
 <img class="picture" alt="@Model.Name" src="@Model.ImageUrl" width="300" height="200">
-<div class="thumbnail">
+<div>
     <div class="caption-full">
         <h3>
             <a href="#">@Model.Name</a>
@@ -25,6 +28,14 @@
         @*<h4>@Model.ShortDescription</h4>*@
         <h3>About <span>&#9759;</span></h3>
         <p>@Model.LongDescription</p>
+        <h2>
+            Average Rating:
+            @for (int i = 0; i < Model.AverageRating; i++)
+            {
+                <img src="@star" width="40" alt="rating" />
+            }
+        </h2>
+        
         <h3>Ingredients:</h3>
         @foreach (var item in Model.Ingredients)
         {
@@ -38,7 +49,7 @@
 
     @if (!(User.Identity.IsAuthenticated))
     {
-        <h4 class="card-title"><a asp-area="Identity" asp-page="/Account/Login">Login</a> or <a asp-area="Identity" asp-page="/Account/Login">register</a> to add comments</h4>
+        <h4 class="card-title"><a asp-area="Identity" asp-page="/Account/Login">Login</a> or <a asp-area="Identity" asp-page="/Account/Login">register</a> to add comments and rate</h4>
     }
     else
     {
@@ -53,11 +64,30 @@
             <input asp-controller="Cocktails" asp-action="AddComment" type="submit" value="Submit" />
 
         }
+        <form asp-controller="Cocktails" asp-action="AddRating">
+
+            <fieldset class="rating">
+                <input type="hidden" asp-for="@Model.Id" value="@Model.Id" />
+                <link href="~/css/star.css" rel="stylesheet" type="text/css" />
+                <input type="submit" id="star5" name="SelectedRating" value="5" /><label class="full" for="star5"></label>
+                <input type="submit" id="star4half" name="SelectedRating" value="4.5" /><label class="half" for="star4half"></label>
+                <input type="submit" id="star4" name="SelectedRating" value="4" /><label class="full" for="star4"></label>
+                <input type="submit" id="star3half" name="SelectedRating" value="3.5" /><label class="half" for="star3half"></label>
+                <input type="submit" id="star3" name="SelectedRating" value="3" /><label class="full" for="star3"></label>
+                <input type="submit" id="star2half" name="SelectedRating" value="2.5" /><label class="half" for="star2half"></label>
+                <input type="submit" id="star2" name="SelectedRating" value="2" /><label class="full" for="star2"></label>
+                <input type="submit" id="star1half" name="SelectedRating" value="1.5" /><label class="half" for="star1half"></label>
+                <input type="submit" id="star1" name="SelectedRating" value="1" /><label class="full" for="star1"></label>
+                <input type="submit" id="starhalf" name="SelectedRating" value=".5" /><label class="half" for="starhalf"></label>
+            </fieldset>
+
+        </form>
     }
 </div>
 <div>
     @if (Model.Comments.Count == 0 || Model.Comments == null)
     {
+        <br />
         <h4>Be the first to add a Comment!!!</h4>
     }
     else

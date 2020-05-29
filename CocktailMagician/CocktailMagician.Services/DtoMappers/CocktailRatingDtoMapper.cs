@@ -18,10 +18,9 @@ namespace CocktailMagician.Services.DtoMappers
             }
             return new CocktailRatingDto
             {
-
+                Id=entity.Id,
                 Value = entity.Value,
                 UserId = entity.UserId,
-                Username = entity.User.UserName,
                 CocktailId = entity.CocktailId,
                 CreatedOn = entity.CreatedOn,
                 ModifiedOn = entity.ModifiedOn,

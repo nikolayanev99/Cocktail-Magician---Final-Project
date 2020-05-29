@@ -34,7 +34,7 @@ namespace CocktailMagician.Data
             builder.ApplyConfiguration(new IngredientConfigration());
             builder.ApplyConfiguration(new CocktailIngredientConfiguration());
             builder.ApplyConfiguration(new CocktailCommentConfiguration());
-            builder.ApplyConfiguration(new CocktailRatingConfiguration());
+            //builder.ApplyConfiguration(new CocktailRatingConfiguration());
             
 
             builder.Seeder();

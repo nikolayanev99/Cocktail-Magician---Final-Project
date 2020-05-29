@@ -11,7 +11,7 @@ namespace CocktailMagician.Services.Contracts
         public Task<CocktailRatingDto> GetRatingAsync(int userId, int cocktailId);
         public Task<ICollection<CocktailRatingDto>> GetAllRatingsAsync(int cocktailId);
         public Task<CocktailRatingDto> CreateRatingAsync(CocktailRatingDto cocktailRatingDto);
-        public Task<CocktailRatingDto> UpdateRatingAsync(CocktailRatingDto newCocktailRatingDto);
-        public Task<CocktailRatingDto> AddEditRatingAsync(CocktailRatingDto newCocktailRatingDto);
+        public Task<CocktailRatingDto> UpdateRatingAsync(int cocktailId, int userId, double newValue);
+        public double GetAverageCocktailRating(int cocktailId);
     }
 }
