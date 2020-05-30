@@ -526,6 +526,7 @@ namespace CocktailMagician.Models.Seeder
                 Address = "55 Keong Saik Road, #01-04, Outram, Singapore, 089158",
                 PhotoPath = "cbc4bb48-089b-4e8e-b2ae-8dbc6393aa30 The Old Man.jpg",
             };
+
             var bar11 = new Bar
             {
                 Id = 11,
@@ -535,14 +536,7 @@ namespace CocktailMagician.Models.Seeder
                 PhotoPath = "302a3f55-1642-4f16-bfc4-00dbb50c6fc9 Bees Knees.jpg",
             };
 
-
-<<<<<<< HEAD
             builder.Entity<Bar>().HasData(bar1, bar2, bar3, bar4, bar5, bar6, bar7, bar8, bar9, bar10, bar11);
-=======
-            builder.Entity<Bar>().HasData(bar1, bar2, bar3, bar4, bar5,bar6, bar7,bar8,bar9,bar10,bar11);
-
-           
->>>>>>> 753d51c18b1aeebb49db424bb2fefeb4cf409f6a
         }
     }
 }

@@ -230,5 +230,36 @@ namespace CocktailMagician.Web.Controllers
             return RedirectToAction("Details", barVM);
 
         }
+
+        public async Task<IActionResult> Search(string searchString, int pageNumber = 1, int pageSize = 4)
+        {
+            if (searchString == null)
+            {
+                return Redirect("Index");
+            }
+
+            int excludeRecodrds = (pageSize * pageNumber) - pageSize;
+
+            var result = from b in await this.barService.SearchBarsAsync(searchString)
+                         select b;
+
+            var barsCount = result.Count();
+
+            result = result
+                .Skip(excludeRecodrds)
+                .Take(pageSize);
+
+            var models = this.barVmMapper.MapViewModel(result.ToList());
+
+            var newResult = new PagedResult<BarViewModel>
+            {
+                Data = models.ToList(),
+                TotalItems = barsCount,
+                PageNumber = pageNumber,
+                PageSize = pageSize,
+            };
+
+            return View(newResult);
+        }
     }
 }

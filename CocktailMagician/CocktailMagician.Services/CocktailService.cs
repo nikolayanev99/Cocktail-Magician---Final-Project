@@ -172,10 +172,32 @@ namespace CocktailMagician.Services
 
         public async Task<ICollection<CocktailDto>> SearchCocktailsAsync(string searchString) 
         {
+            int number;
+
+            if (int.TryParse(searchString, out number))
+            {
+                var allCocktails = await this._context.Cocktails
+               .Where(i => i.IsDeleted == false)
+               .Include(i => i.CocktailIngredients)
+               .ThenInclude(i => i.Ingredient)
+               .Include(i => i.CocktailRatings)
+               .Select(i => this._cocktailDtoMapper.MapDto(i))
+               .ToListAsync();
+
+                var cocktailByRating = allCocktails.Where(r => Math.Floor(r.AverageRating) == number);
+
+                return cocktailByRating.ToList();
+            }
+
+            else
+            {
+
+            
             var cocktails = await this._context.Cocktails
                 .Where(i => i.IsDeleted == false)
                 .Include(i => i.CocktailIngredients)
                 .ThenInclude(i => i.Ingredient)
+                .Include(r => r.CocktailRatings)
                 .Select(i => this._cocktailDtoMapper.MapDto(i))
                 .ToListAsync();
 
@@ -197,9 +219,8 @@ namespace CocktailMagician.Services
             var result = cocktailByIngredients.Union(cocktailByName);
 
 
-
-
             return result.ToList();
+            }
         }
     }
 }

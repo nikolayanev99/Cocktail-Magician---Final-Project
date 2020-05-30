@@ -17,7 +17,7 @@ namespace CocktailMagician.Services.DtoEntities
 
         public string PhotoPath { get; set; }
 
-        public double? AverageRating { get; set; }
+        public double AverageRating { get; set; }
 
 
         public DateTime CreatedOn { get; set; }

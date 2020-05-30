@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CocktailMagician.Data.Migrations
 {
     [DbContext(typeof(CocktailMagicianContext))]
-    [Migration("20200529072735_Initial")]
+    [Migration("20200530111523_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -609,10 +609,12 @@ namespace CocktailMagician.Data.Migrations
 
             modelBuilder.Entity("CocktailMagician.Models.CocktailRating", b =>
                 {
-                    b.Property<int>("CocktailId")
-                        .HasColumnType("int");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("UserId")
+                    b.Property<int>("CocktailId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedOn")
@@ -627,10 +629,15 @@ namespace CocktailMagician.Data.Migrations
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.Property<double>("Value")
                         .HasColumnType("float");
 
-                    b.HasKey("CocktailId", "UserId");
+                    b.HasKey("Id");
+
+                    b.HasIndex("CocktailId");
 
                     b.HasIndex("UserId");
 
@@ -910,14 +917,14 @@ namespace CocktailMagician.Data.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "8061ba4d-2a9b-44f3-ac02-11b0cd43237d",
+                            ConcurrencyStamp = "68fd1525-3a1a-49d8-bd81-69d8df70bda2",
                             Name = "bar crawler",
                             NormalizedName = "BAR CRAWLER"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "a83e6eee-36ad-4b36-971f-d6a0e561062e",
+                            ConcurrencyStamp = "db8fe046-7bac-4577-a099-2bc085666a8a",
                             Name = "cocktail magician",
                             NormalizedName = "COCKTAIL MAGICIAN"
                         });
@@ -994,13 +1001,13 @@ namespace CocktailMagician.Data.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "11b10aa5-092b-4d47-8816-e28e39a471d6",
+                            ConcurrencyStamp = "d793615f-24ff-4d3e-8435-53192d656ba3",
                             Email = "admin@admin.com",
                             EmailConfirmed = false,
                             LockoutEnabled = true,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAED1v/U0W24axodcYiKfNmV2fq9fUhdD6qAUbJRqU/wtRb9QSzWzDw9LimuEfNiFFAQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEOQ6sHnO/xFGBST0/ryIB9MCBdMyAx2umzTfeDWsDSddXPvLs3LfflOX0+xvkijzbw==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "d12a8993 - 382a - 4680 - 845f - 39c744d04ca1",
                             TwoFactorEnabled = false,

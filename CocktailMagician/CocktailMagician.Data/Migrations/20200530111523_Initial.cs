@@ -309,17 +309,19 @@ namespace CocktailMagician.Data.Migrations
                 name: "CocktailRatings",
                 columns: table => new
                 {
-                    CocktailId = table.Column<int>(nullable: false),
-                    UserId = table.Column<int>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     CreatedOn = table.Column<DateTime>(nullable: false),
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     DeletedOn = table.Column<DateTime>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
-                    Value = table.Column<double>(nullable: false)
+                    Value = table.Column<double>(nullable: false),
+                    CocktailId = table.Column<int>(nullable: false),
+                    UserId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CocktailRatings", x => new { x.CocktailId, x.UserId });
+                    table.PrimaryKey("PK_CocktailRatings", x => x.Id);
                     table.ForeignKey(
                         name: "FK_CocktailRatings_Cocktails_CocktailId",
                         column: x => x.CocktailId,
@@ -365,14 +367,14 @@ namespace CocktailMagician.Data.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { 1, "8061ba4d-2a9b-44f3-ac02-11b0cd43237d", "bar crawler", "BAR CRAWLER" },
-                    { 2, "a83e6eee-36ad-4b36-971f-d6a0e561062e", "cocktail magician", "COCKTAIL MAGICIAN" }
+                    { 1, "68fd1525-3a1a-49d8-bd81-69d8df70bda2", "bar crawler", "BAR CRAWLER" },
+                    { 2, "db8fe046-7bac-4577-a099-2bc085666a8a", "cocktail magician", "COCKTAIL MAGICIAN" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { 1, 0, "11b10aa5-092b-4d47-8816-e28e39a471d6", "admin@admin.com", false, true, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAED1v/U0W24axodcYiKfNmV2fq9fUhdD6qAUbJRqU/wtRb9QSzWzDw9LimuEfNiFFAQ==", null, false, "d12a8993 - 382a - 4680 - 845f - 39c744d04ca1", false, "admin@admin.com" });
+                values: new object[] { 1, 0, "d793615f-24ff-4d3e-8435-53192d656ba3", "admin@admin.com", false, true, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEOQ6sHnO/xFGBST0/ryIB9MCBdMyAx2umzTfeDWsDSddXPvLs3LfflOX0+xvkijzbw==", null, false, "d12a8993 - 382a - 4680 - 845f - 39c744d04ca1", false, "admin@admin.com" });
 
             migrationBuilder.InsertData(
                 table: "Bars",
@@ -554,6 +556,11 @@ namespace CocktailMagician.Data.Migrations
                 name: "IX_CocktailIngredients_IngredientId",
                 table: "CocktailIngredients",
                 column: "IngredientId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CocktailRatings_CocktailId",
+                table: "CocktailRatings",
+                column: "CocktailId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CocktailRatings_UserId",

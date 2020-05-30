@@ -123,10 +123,14 @@ namespace CocktailMagician.Web.Controllers
             cocktailVm.AverageRating = this.cocktailRatingService.GetAverageCocktailRating(cocktailComment.Id);
             return View("Details", cocktailVm);
         }
-<<<<<<< HEAD
 
-        public async Task<IActionResult> Search(string searchString, int pageNumber = 1, int pageSize = 4) 
+        public async Task<IActionResult> Search(string searchString, int pageNumber = 1, int pageSize = 4)
         {
+            if (searchString == null)
+            {
+                return Redirect("List");
+            }
+
             int excludeRecodrds = (pageSize * pageNumber) - pageSize;
 
             var result = from b in await this._cocktailService.SearchCocktailsAsync(searchString)
@@ -137,7 +141,7 @@ namespace CocktailMagician.Web.Controllers
             result = result
                 .Skip(excludeRecodrds)
                 .Take(pageSize);
-            
+
             var models = this._cocktailVmMapper.MapViewModel(result.ToList());
 
             var newResult = new PagedResult<CocktailViewModel>
@@ -148,8 +152,9 @@ namespace CocktailMagician.Web.Controllers
                 PageSize = pageSize,
             };
 
-            return View(newResult);
-=======
+            return View(newResult); 
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddRating(CocktailViewModel cocktail)
@@ -177,7 +182,6 @@ namespace CocktailMagician.Web.Controllers
             cocktailVM.AverageRating = this.cocktailRatingService.GetAverageCocktailRating(cocktail.Id);
 
             return View("Details", cocktailVM);
->>>>>>> 753d51c18b1aeebb49db424bb2fefeb4cf409f6a
         }
     }
 }
