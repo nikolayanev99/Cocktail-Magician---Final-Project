@@ -24,19 +24,7 @@ namespace CocktailMagician.Services
             this.dtoMapper = dtoMapper ?? throw new ArgumentNullException(nameof(dtoMapper));
             this.dateTimeProvider = dateTimeProvider ?? throw new ArgumentNullException(nameof(dateTimeProvider));
         }
-        //public async Task<bool> HasUserCommented(int userId,int barId)
-        //{
-        //    var userComments = await this.context.BarComments
-        //        .Where(c => c.IsDeleted == false)
-        //        .Where(c => c.BarId == barId && c.UserId == userId)
-        //        .ToListAsync();
 
-        //    if (userComments != null)
-        //    {
-        //        return true;
-        //    }
-        //    return false;
-        //}
         public async Task<ICollection<BarCommentDto>> GetBarCommentsAsync(int barId)
         {
             var barComment = await this.context.BarComments

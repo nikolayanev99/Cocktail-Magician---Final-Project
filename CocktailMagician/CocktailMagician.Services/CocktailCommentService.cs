@@ -29,7 +29,7 @@ namespace CocktailMagician.Services
             this._dateTimeProvider = dateTimeProvider ?? throw new ArgumentNullException(nameof(dateTimeProvider));
         }
 
-        public async Task<ICollection<CocktailCommentDto>> GetCocktailCommentAsync(int cocktailId)
+        public async Task<ICollection<CocktailCommentDto>> GetCocktailCommentsAsync(int cocktailId)
         {
             var comments = await this._context.CocktailComments
                 .Include(u => u.User)

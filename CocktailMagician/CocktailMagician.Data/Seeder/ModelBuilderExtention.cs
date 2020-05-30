@@ -536,7 +536,13 @@ namespace CocktailMagician.Models.Seeder
             };
 
 
+<<<<<<< HEAD
             builder.Entity<Bar>().HasData(bar1, bar2, bar3, bar4, bar5, bar6, bar7, bar8, bar9, bar10, bar11);
+=======
+            builder.Entity<Bar>().HasData(bar1, bar2, bar3, bar4, bar5,bar6, bar7,bar8,bar9,bar10,bar11);
+
+           
+>>>>>>> 753d51c18b1aeebb49db424bb2fefeb4cf409f6a
         }
     }
 }

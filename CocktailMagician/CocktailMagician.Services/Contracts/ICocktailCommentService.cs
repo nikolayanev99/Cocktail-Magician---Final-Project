@@ -8,7 +8,7 @@ namespace CocktailMagician.Services.Contracts
 {
     public interface ICocktailCommentService
     {
-        public Task<ICollection<CocktailCommentDto>> GetCocktailCommentAsync(int cocktailId);
+        public Task<ICollection<CocktailCommentDto>> GetCocktailCommentsAsync(int cocktailId);
         public Task<CocktailCommentDto> CreateCocktailCommentAsync(CocktailCommentDto cocktailCommentDto);
         public Task<CocktailCommentDto> UpdateCocktailComment(int id, string newComment);
         public Task<CocktailCommentDto> DeleteCocktailComment(int id, int cocktailId);

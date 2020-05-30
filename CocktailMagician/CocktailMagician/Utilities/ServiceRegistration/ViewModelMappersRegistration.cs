@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CocktailMagician.Models;
 using CocktailMagician.Services.DtoEntities;
+using CocktailMagician.Web.Areas.Member.Models;
 using CocktailMagician.Web.Mappers;
 using CocktailMagician.Web.Mappers.Contracts;
 using CocktailMagician.Web.Models;
@@ -21,6 +23,7 @@ namespace CocktailMagician.Web.Utilities.ServiceRegistration
 
             services.AddScoped<IViewModelMapper<CocktailDto, CocktailViewModel>, CocktailViewModelMapper>();
             services.AddScoped<IViewModelMapper<CocktailCommentDto, CocktailCommentViewModel>, CocktailCommentViewModelMapper>();
+            services.AddScoped<IViewModelMapper<CocktailRatingDto, CocktailRatingViewModel>, CocktailRatingViewModelMapper>();
 
             return services;
         }

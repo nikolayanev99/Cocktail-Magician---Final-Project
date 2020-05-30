@@ -4,61 +4,54 @@
     ViewData["Title"] = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
     var photoPath = "/images/" + (Model.PhotoPath ?? "noimage.jpg");
-    //"~/images/95d8a701-2093-4c81-be24-807f7e8b2588 Hashtag.jpg"
+    var star = "/images/star.png";
 }
 
 
 <h1>Details</h1>
-@using (Html.BeginForm("AddRating", "Bars"))
-{
-<fieldset class="rating">
-    <input type="hidden" asp-for="@Model.Id" value="@Model.Id"/>
-    <link href="~/css/star.css" rel="stylesheet" type="text/css" />
-    <input asp-controller="Bars" asp-action="AddRating" type="submit" id="star5" name="SelectedRating" value="5" /><label class="full" for="star5"></label>
-    <input asp-controller="Bars" asp-action="AddRating" type="submit" id="star4half" name="SelectedRating" value="4.5" /><label class="half" for="star4half" ></label>
-    <input asp-controller="Bars" asp-action="AddRating" type="submit" id="star4" name="SelectedRating" value="4" /><label class="full" for="star4" ></label>
-    <input asp-controller="Bars" asp-action="AddRating" type="submit" id="star3half" name="SelectedRating" value="3.5" /><label class="half" for="star3half"></label>
-    <input asp-controller="Bars" asp-action="AddRating" type="submit" id="star3" name="SelectedRating" value="3" /><label class="full" for="star3" ></label>
-    <input asp-controller="Bars" asp-action="AddRating" type="submit" id="star2half" name="SelectedRating" value="2.5" /><label class="half" for="star2half"></label>
-    <input asp-controller="Bars" asp-action="AddRating" type="submit" id="star2" name="SelectedRating" value="2" /><label class="full" for="star2" ></label>
-    <input asp-controller="Bars" asp-action="AddRating" type="submit" id="star1half" name="SelectedRating" value="1.5" /><label class="half" for="star1half"></label>
-    <input asp-controller="Bars" asp-action="AddRating" type="submit" id="star1" name="SelectedRating" value="1" /><label class="full" for="star1" ></label>
-    <input asp-controller="Bars" asp-action="AddRating" type="submit"id="starhalf" name="SelectedRating" value=".5" /><label class="half" for="starhalf" ></label>
-</fieldset>
-}
-    <div>
-        <h4>Bar</h4>
-        <hr />
-        <img class="card-img-top" src="@photoPath" />
-        <dl class="row">
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Name)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Name)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Info)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Info)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Address)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Address)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.AverageRating)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.AverageRating)
-            </dd>
-        </dl>
-    </div>
-    <div class="form-group">
 
+
+<div>
+    <h4>Bar</h4>
+    <hr />
+    <img class="card-img-top" src="@photoPath" />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Info)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Info)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AverageRating)
+        </dt>
+        <dd class="col-sm-10">
+             @for (int i = 0; i < Model.AverageRating; i++)
+             {
+            <img src="@star" width="30" alt="rating"/>
+             }
+        </dd>
+    </dl>
+</div>
+<div class="form-group">
+    @if (!(User.Identity.IsAuthenticated))
+    {
+        <h4 class="card-title"><a asp-area="Identity" asp-page="/Account/Login">Login</a> or <a asp-area="Identity" asp-page="/Account/Login">register</a> to add comments and rate</h4>
+    }
+    else
+    {
 
         <input type="hidden" asp-for="@Model.CurrentComment" class="form-control">
         @using (Html.BeginForm("AddComment", "Bars"))
@@ -69,45 +62,63 @@
             <input asp-controller="Bars" asp-action="AddComment" type="submit" value="Submit" />
 
         }
-    </div>
-    <div>
-        @if (Model.Comments.Count == 0 || Model.Comments == null)
-        {
-            <h4>Be the first to add a Comment!!!</h4>
-        }
-        else
-        {
-            <h4>Reviews:</h4>
-            <table class="table">
-                <thead>
+        <form asp-controller="Bars" asp-action="AddRating">
+            <fieldset class="rating">
+                <input type="hidden" asp-for="@Model.Id" value="@Model.Id" />
+                <link href="~/css/star.css" rel="stylesheet" type="text/css" />
+                <input type="submit" id="star5" name="SelectedRating" value="5" /><label class="full" for="star5"></label>
+                <input type="submit" id="star4half" name="SelectedRating" value="4.5" /><label class="half" for="star4half"></label>
+                <input type="submit" id="star4" name="SelectedRating" value="4" /><label class="full" for="star4"></label>
+                <input type="submit" id="star3half" name="SelectedRating" value="3.5" /><label class="half" for="star3half"></label>
+                <input type="submit" id="star3" name="SelectedRating" value="3" /><label class="full" for="star3"></label>
+                <input type="submit" id="star2half" name="SelectedRating" value="2.5" /><label class="half" for="star2half"></label>
+                <input type="submit" id="star2" name="SelectedRating" value="2" /><label class="full" for="star2"></label>
+                <input type="submit" id="star1half" name="SelectedRating" value="1.5" /><label class="half" for="star1half"></label>
+                <input type="submit" id="star1" name="SelectedRating" value="1" /><label class="full" for="star1"></label>
+                <input type="submit" id="starhalf" name="SelectedRating" value=".5" /><label class="half" for="starhalf"></label>
+            </fieldset>
+        </form>
+    }
+</div>
+<div>
+    @if (Model.Comments.Count == 0 || Model.Comments == null)
+    {
+        <br />
+        <h4>Be the first to add a Comment!!!</h4>
+    }
+    else
+    {
+        <h4>Reviews:</h4>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        User Name
+                    </th>
+                    <th>
+                        Comment
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Comments)
+                {
                     <tr>
-                        <th>
-                            User Name
-                        </th>
-                        <th>
-                            Comment
-                        </th>
+
+                        <td>
+                            @item.Author
+                        </td>
+                        <td>
+                            @item.Text
+                        </td>
                     </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model.Comments)
-                    {
-                        <tr>
+                }
+            </tbody>
+        </table>
+    }
 
-                            <td>
-                                @item.Author
-                            </td>
-                            <td>
-                                @item.Text
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        }
-
-    </div>
-    <div>
-        <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-        <a asp-action="Index">Back to List</a>
-    </div>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
