@@ -7,6 +7,7 @@ using CocktailMagician.Services.Providers.Contracts;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -167,6 +168,38 @@ namespace CocktailMagician.Services
 
             var coctailDto = this._cocktailDtoMapper.MapDto(cocktail);
             return coctailDto;
+        }
+
+        public async Task<ICollection<CocktailDto>> SearchCocktailsAsync(string searchString) 
+        {
+            var cocktails = await this._context.Cocktails
+                .Where(i => i.IsDeleted == false)
+                .Include(i => i.CocktailIngredients)
+                .ThenInclude(i => i.Ingredient)
+                .Select(i => this._cocktailDtoMapper.MapDto(i))
+                .ToListAsync();
+
+            var cocktailByIngredients = new List<CocktailDto>();
+
+            foreach (var item in cocktails)
+            {
+                foreach (var ingredient in item.Ingredients)
+                {
+                    if (ingredient.ToLower().Contains(searchString.ToLower()))
+                    {
+                        cocktailByIngredients.Add(item);
+                    }
+                }
+            }
+
+            var cocktailByName = cocktails.Where(i => i.Name.ToLower().Contains(searchString.ToLower()));
+
+            var result = cocktailByIngredients.Union(cocktailByName);
+
+
+
+
+            return result.ToList();
         }
     }
 }

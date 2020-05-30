@@ -113,5 +113,31 @@ namespace CocktailMagician.Web.Controllers
 
             return View("Details", cocktailVm);
         }
+
+        public async Task<IActionResult> Search(string searchString, int pageNumber = 1, int pageSize = 4) 
+        {
+            int excludeRecodrds = (pageSize * pageNumber) - pageSize;
+
+            var result = from b in await this._cocktailService.SearchCocktailsAsync(searchString)
+                         select b;
+
+            var cocktailsCount = result.Count();
+
+            result = result
+                .Skip(excludeRecodrds)
+                .Take(pageSize);
+            
+            var models = this._cocktailVmMapper.MapViewModel(result.ToList());
+
+            var newResult = new PagedResult<CocktailViewModel>
+            {
+                Data = models.ToList(),
+                TotalItems = cocktailsCount,
+                PageNumber = pageNumber,
+                PageSize = pageSize,
+            };
+
+            return View(newResult);
+        }
     }
 }

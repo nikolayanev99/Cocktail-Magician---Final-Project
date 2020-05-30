@@ -1,0 +1,37 @@
+﻿@model cloudscribe.Pagination.Models.PagedResult<CocktailViewModel>
+
+
+
+
+<div class="col-12">
+    <table class="table table-striped border">
+
+
+        @foreach (var item in Model.Data)
+        {
+            <tr>
+                <td><a asp-controller="Cocktails" asp-action="Details" asp-route-id="@item.Id"><img src="@item.ImageUrl" width="150" height="200" /></a></td>
+                <td>
+                    <b>Name: </b>@Html.DisplayFor(m => item.Name)<br />
+                    @*<b>Comments</b>(@Html.DisplayFor(m => item.Comments.Count))<br />*@
+                    <b>Rating: </b>@Html.DisplayFor(m => item.AverageRating)<br />
+                </td>
+                <td>
+                    <b>Ingredients: </b><br />@foreach (var ingridient in item.Ingredients)
+                    {
+                        <span>&#8211;</span> @Html.DisplayFor(m => ingridient)<br />
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+<div class="row">
+    <cs-pager cs-paging-pagenumber="Model.PageNumber"
+              cs-paging-totalitems="Model.TotalItems"
+              cs-paging-pagesize="Model.PageSize"
+              cs-pagenumber-param="pageNumber"
+              asp-controller="Cocktails"
+              asp-action="Search">
+    </cs-pager>
+</div>
