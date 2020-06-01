@@ -9,6 +9,10 @@ namespace CocktailMagician.Models
 {
     public class Bar : Entity
     {
+        public Bar()
+        {
+            this.BarCocktails = new List<BarCocktail>();
+        }
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public int Id { get; set; }
@@ -30,6 +34,7 @@ namespace CocktailMagician.Models
         public string PhotoPath { get; set; }
 
         public ICollection<BarComment> Comments { get; set; }
+        public ICollection<BarCocktail> BarCocktails { get; set; }
 
         public ICollection<BarRating> Ratings { get; set; } = new List<BarRating>();
 

@@ -29,6 +29,10 @@ namespace CocktailMagician.Data.Configurations
                 .WithOne(rr => rr.Cocktail);
             builder.HasMany(r => r.CocktailComments)
                 .WithOne(rr => rr.Cocktail);
+
+            builder.HasMany(i => i.BarCocktails)
+                .WithOne(ii => ii.Cocktail)
+                .HasForeignKey(ii => ii.CocktailId);
         }
     }
 }

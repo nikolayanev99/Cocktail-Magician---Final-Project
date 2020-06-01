@@ -61,10 +61,10 @@
             <input type="hidden" asp-for="@Model.Id" value="@Model.Id" />
 
             <input class=" form-control" id="CurrentComment" name="CurrentComment" type="text" placeholder="Write your Comment here" />
-            <input asp-controller="Cocktails" asp-action="AddComment" type="submit" value="Submit" />
+            <input asp-area="Member" asp-controller="CocktailComment" asp-action="AddComment" type="submit" value="Submit" />
 
         }
-        <form asp-controller="Cocktails" asp-action="AddRating">
+        <form asp-area="Member" asp-controller="CocktailRating" asp-action="AddRating">
 
             <fieldset class="rating">
                 <input type="hidden" asp-for="@Model.Id" value="@Model.Id" />

@@ -21,21 +21,22 @@ namespace CocktailMagician.Data
         public DbSet<Cocktail> Cocktails { get; set; }
         public DbSet<Ingredient> Ingredients { get; set; }
         public DbSet<CocktailIngredient> CocktailIngredients { get; set; }
+        public DbSet<BarCocktail> BarCocktails { get; set; }
         public DbSet<CocktailRating> CocktailRatings { get; set; }
-        public DbSet<CocktailComment> CocktailComments { get;set; }
+        public DbSet<CocktailComment> CocktailComments { get; set; }
         public DbSet<BarComment> BarComments { get; set; }
 
         public DbSet<BarRating> BarRatings { get; set; }
-       
-        
+
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.ApplyConfiguration(new CocktailConfiguration());
             builder.ApplyConfiguration(new IngredientConfigration());
             builder.ApplyConfiguration(new CocktailIngredientConfiguration());
             builder.ApplyConfiguration(new CocktailCommentConfiguration());
-            //builder.ApplyConfiguration(new CocktailRatingConfiguration());
-            
+            builder.ApplyConfiguration(new BarCocktailConfiguration());
+            builder.ApplyConfiguration(new BarConfiguration());
 
             builder.Seeder();
             base.OnModelCreating(builder);

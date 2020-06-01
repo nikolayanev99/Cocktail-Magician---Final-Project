@@ -49,7 +49,7 @@ namespace CocktailMagician
                 options.Password.RequireLowercase = false;
                 options.Password.RequireNonAlphanumeric = false;
             });
-
+            services.AddControllersWithViews();
             services.AddRazorPages();
             services.AddIdentity<User, Role>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddEntityFrameworkStores<CocktailMagicianContext>()
@@ -67,8 +67,7 @@ namespace CocktailMagician
             services.RegisterDtoMappers();
             services.RegisterViewModelMappers();
             services.RegisterProvides();
-
-            services.AddControllersWithViews();
+           
 
         }
 
@@ -92,12 +91,14 @@ namespace CocktailMagician
 
             app.UseRouting();
 
-            app.UseAuthorization();
             app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute("areas", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute(
+                    name:"areas",
+                    pattern:"{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
                 endpoints.MapControllerRoute(
                     name: "default",

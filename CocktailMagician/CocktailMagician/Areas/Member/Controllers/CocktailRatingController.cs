@@ -14,7 +14,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace CocktailMagician.Web.Areas.Member.Controllers
 {
     [Area("Member")]
-    //[Authorize(Roles="bar crawler")]
+    [Authorize]
     public class CocktailRatingController : Controller
     {
         private readonly IViewModelMapper<CocktailRatingDto, CocktailRatingViewModel> cocktailRatingVmMapper;
@@ -65,7 +65,7 @@ namespace CocktailMagician.Web.Areas.Member.Controllers
             cocktailVM.Comments = this.cocktailCommentVmMapper.MapViewModel(DtoComments);
             cocktailVM.AverageRating = this.cocktailRatingService.GetAverageCocktailRating(cocktail.Id);
 
-            return RedirectToAction("Details", "Cocktails", cocktailVM);
+            return RedirectToAction("Details", "Cocktails", new { area = "", id = cocktailVM.Id });
 
 
         }

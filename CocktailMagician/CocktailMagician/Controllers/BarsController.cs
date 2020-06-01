@@ -175,60 +175,6 @@ namespace CocktailMagician.Web.Controllers
             await this.barService.DeleteBarAsync(id);
             return RedirectToAction(nameof(Index));
         }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddComment(BarViewModel bar)
-        {
-            int userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            var author = HttpContext.User.Identity.Name;
 
-            var barComment = new BarCommentViewModel
-            {
-                Text = bar.CurrentComment,
-                BarId = bar.Id,
-                UserId = userId,
-                Author = author,
-            };
-
-            var barCommentDto = this.barCommentVmMapper.MapDTO(barComment);
-
-            var comment = await this.barCommentsService.CreateCommentAsync(barCommentDto);
-
-            var currentBar = await this.barService.GetBarAsync(comment.BarId);
-
-            var barVM = this.barVmMapper.MapViewModel(currentBar);
-            var DtoComments = await this.barCommentsService.GetBarCommentsAsync(barVM.Id);
-            barVM.Comments = this.barCommentVmMapper.MapViewModel(DtoComments);
-            barVM.AverageRating = this.barRatingService.GetAverageBarRating(bar.Id);
-
-            return RedirectToAction("Details", barVM);
-        }
-        [HttpPost]
-        [ValidateAntiForgeryToken]        
-        public async Task<IActionResult> AddRating(BarViewModel bar)
-        {
-            int userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-
-            var barRating = new BarRatingViewModel
-            {
-                Value = (bar.SelectedRating),
-                BarId = bar.Id,
-                UserId = userId,
-            };
-
-            var barRatingDto = this.barRatingVmMapper.MapDTO(barRating);
-
-            var rating = await this.barRatingService.CreateRatingAsync(barRatingDto);
-
-            var currentBar = await this.barService.GetBarAsync(rating.BarId);
-
-            var barVM = this.barVmMapper.MapViewModel(currentBar);
-
-            var DtoComments = await this.barCommentsService.GetBarCommentsAsync(barVM.Id);
-            barVM.Comments = this.barCommentVmMapper.MapViewModel(DtoComments);
-            barVM.AverageRating = this.barRatingService.GetAverageBarRating(bar.Id);
-            return RedirectToAction("Details", barVM);
-
-        }
     }
 }
