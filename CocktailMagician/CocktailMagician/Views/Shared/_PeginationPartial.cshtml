@@ -1,0 +1,9 @@
+﻿<div class="row">
+<cs-pager cs-paging-pagenumber="Model.PageNumber"
+          cs-paging-totalitems="Model.TotalItems"
+          cs-paging-pagesize="Model.PageSize"
+          cs-pagenumber-param="pageNumber"
+          asp-controller=@ViewData["Controller"]
+          asp-action=@ViewData["Action"]>
+</cs-pager>
+</div>

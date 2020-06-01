@@ -176,5 +176,79 @@ namespace CocktailMagician.Web.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+<<<<<<< HEAD
+=======
+            var barCommentDto = this.barCommentVmMapper.MapDTO(barComment);
+
+            var comment = await this.barCommentsService.CreateCommentAsync(barCommentDto);
+
+            var currentBar = await this.barService.GetBarAsync(comment.BarId);
+
+            var barVM = this.barVmMapper.MapViewModel(currentBar);
+            var DtoComments = await this.barCommentsService.GetBarCommentsAsync(barVM.Id);
+            barVM.Comments = this.barCommentVmMapper.MapViewModel(DtoComments);
+            barVM.AverageRating = this.barRatingService.GetAverageBarRating(bar.Id);
+
+            return RedirectToAction("Details", barVM);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]        
+        public async Task<IActionResult> AddRating(BarViewModel bar)
+        {
+            int userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+            var barRating = new BarRatingViewModel
+            {
+                Value = (bar.SelectedRating),
+                BarId = bar.Id,
+                UserId = userId,
+            };
+
+            var barRatingDto = this.barRatingVmMapper.MapDTO(barRating);
+
+            var rating = await this.barRatingService.CreateRatingAsync(barRatingDto);
+
+            var currentBar = await this.barService.GetBarAsync(rating.BarId);
+
+            var barVM = this.barVmMapper.MapViewModel(currentBar);
+
+            var DtoComments = await this.barCommentsService.GetBarCommentsAsync(barVM.Id);
+            barVM.Comments = this.barCommentVmMapper.MapViewModel(DtoComments);
+            barVM.AverageRating = this.barRatingService.GetAverageBarRating(bar.Id);
+            return RedirectToAction("Details", barVM);
+
+        }
+
+        public async Task<IActionResult> Search(string searchString, int pageNumber = 1, int pageSize = 4)
+        {
+            if (searchString == null)
+            {
+                return Redirect("Index");
+            }
+
+            int excludeRecodrds = (pageSize * pageNumber) - pageSize;
+
+            var result = from b in await this.barService.SearchBarsAsync(searchString)
+                         select b;
+
+            var barsCount = result.Count();
+
+            result = result
+                .Skip(excludeRecodrds)
+                .Take(pageSize);
+
+            var models = this.barVmMapper.MapViewModel(result.ToList());
+
+            var newResult = new PagedResult<BarViewModel>
+            {
+                Data = models.ToList(),
+                TotalItems = barsCount,
+                PageNumber = pageNumber,
+                PageSize = pageSize,
+            };
+
+            return View(newResult);
+        }
+>>>>>>> b06f6d8134e45cd63506def195ddbc56d9712bb4
     }
 }

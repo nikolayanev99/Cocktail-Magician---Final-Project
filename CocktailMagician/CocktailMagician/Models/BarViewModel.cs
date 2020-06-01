@@ -36,7 +36,7 @@ namespace CocktailMagician.Web.Models
 
         public IFormFile Photo { get; set; }
 
-        public double? AverageRating { get; set; }
+        public double AverageRating { get; set; }
 
         public string CurrentComment { get; set; }
 

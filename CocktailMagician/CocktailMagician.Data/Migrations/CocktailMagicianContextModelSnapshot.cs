@@ -915,14 +915,14 @@ namespace CocktailMagician.Data.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "ea4c080f-5374-49ba-b2d9-509870d178bf",
+                            ConcurrencyStamp = "68fd1525-3a1a-49d8-bd81-69d8df70bda2",
                             Name = "bar crawler",
                             NormalizedName = "BAR CRAWLER"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "5f1c0fb0-8f0b-415f-8a98-2295c397397e",
+                            ConcurrencyStamp = "db8fe046-7bac-4577-a099-2bc085666a8a",
                             Name = "cocktail magician",
                             NormalizedName = "COCKTAIL MAGICIAN"
                         });
@@ -999,13 +999,13 @@ namespace CocktailMagician.Data.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9c23a4c0-4656-4a44-b36a-11a8720cf4a8",
+                            ConcurrencyStamp = "d793615f-24ff-4d3e-8435-53192d656ba3",
                             Email = "admin@admin.com",
                             EmailConfirmed = false,
                             LockoutEnabled = true,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAELz0bVJlxM9CDn2NGKzlpI7EjVSpwmA0jbRsztQP2pMAkKbbu3wStduUiHepBdz3MQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEOQ6sHnO/xFGBST0/ryIB9MCBdMyAx2umzTfeDWsDSddXPvLs3LfflOX0+xvkijzbw==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "d12a8993 - 382a - 4680 - 845f - 39c744d04ca1",
                             TwoFactorEnabled = false,

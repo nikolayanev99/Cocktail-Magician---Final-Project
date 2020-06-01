@@ -27,6 +27,10 @@ namespace CocktailMagician.Services.DtoMappers
                 Ingredients = entity.CocktailIngredients
                        .Select(n => n.Ingredient.Name)
                        .ToList(),
+                AverageRating = entity.CocktailRatings
+                .Any() ? entity.CocktailRatings
+                .Average(v => v.Value) : 0.00
+
                 // TODO: average rating for Cocktail
             };
 

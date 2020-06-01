@@ -3,13 +3,15 @@
 
 @{
     ViewData["Title"] = "Index";
+    ViewData["Controller"] = "Cocktails";
+    ViewData["Action"] = "List";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
 
 }
 
 <h1>Cocktails</h1>
-<form asp-action="List" method="get">
+<form asp-action="Search" method="get">
     <div>
         <p>
             <input type="text" name="searchString" value="" />
@@ -34,12 +36,4 @@
         </div>
     }
 </div>
-<div class="row">
-    <cs-pager cs-paging-pagenumber="Model.PageNumber"
-              cs-paging-totalitems="Model.TotalItems"
-              cs-paging-pagesize="Model.PageSize"
-              cs-pagenumber-param="pageNumber"
-              asp-controller="Cocktails"
-              asp-action="List">
-    </cs-pager>
-</div>
+<partial name="_PeginationPartial" view-data="ViewData" model="Model" />

@@ -6,6 +6,7 @@
     var photoPath = "/images/" + (Model.PhotoPath ?? "noimage.jpg");
     var star = "/images/star.png";
 }
+<<<<<<< HEAD
 
 <head>
     <style>     
@@ -87,10 +88,45 @@
                 <h4> <span>&#9728;</span> @item</h4>
             }*@
     </div>
+=======
+<div>
+    <h1>@Model.Name</h1>
+    <img class="card-img-top" src="@photoPath" />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Name):
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Info):
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Info)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Address):
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AverageRating):
+        </dt>
+        <dd class="col-sm-10">
+             @for (int i = 0; i < Model.AverageRating; i++)
+             {
+            <img src="@star" width="30" alt="rating"/>
+             }
+        </dd>
+    </dl>
+>>>>>>> b06f6d8134e45cd63506def195ddbc56d9712bb4
 </div>
 
 <h3 class="warning">Leave a Comment</h3>
 <div class="form-group">
+    <h3>Leave a Comment        <span>&#9759;</span></h3>
     @if (!(User.Identity.IsAuthenticated))
     {
         <h4 class="card-title"><a asp-area="Identity" asp-page="/Account/Login">Login</a> or <a asp-area="Identity" asp-page="/Account/Login">register</a> to add comments and rate</h4>
@@ -166,6 +202,7 @@
     }
 
 </div>
+<<<<<<< HEAD
 @if (User.IsInRole("cocktail magician"))
 {
     <div>
@@ -173,3 +210,9 @@
     </div>
 }
         <a asp-action="Index" class="btn btn-warning">Back to List</a>
+=======
+<div>
+    @*<a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |*@
+    <a asp-action="Index">Back to List</a>
+</div>
+>>>>>>> b06f6d8134e45cd63506def195ddbc56d9712bb4

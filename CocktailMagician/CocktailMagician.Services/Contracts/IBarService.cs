@@ -12,5 +12,6 @@ namespace CocktailMagician.Services
         Task<ICollection<BarDTO>> GetAllBarsAsync();
         Task<BarDTO> GetBarAsync(int id);
         Task<ICollection<BarDTO>> GetBarsForPeginationAsync(int pageSize = 1, int pageNumber = 1);
+        Task<ICollection<BarDTO>> SearchBarsAsync(string searchString);
     }
 }

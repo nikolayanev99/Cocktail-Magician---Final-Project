@@ -135,6 +135,41 @@ namespace CocktailMagician.Services
 
             return barDto;
         }
-     
+
+        public async Task<ICollection<BarDTO>> SearchBarsAsync(string searchString) 
+        {
+            int ratingNumber;
+
+            if (int.TryParse(searchString, out ratingNumber))
+            {
+                var allBars = await this.context.Bars
+               .Where(i => i.IsDeleted == false)
+               .Include(i => i.Ratings)
+               .OrderBy(i=> i.Name)
+               .Select(i => this.barDTOMapper.MapDto(i))
+               .ToListAsync();
+
+                var barsByRating = allBars.Where(r => Math.Floor(r.AverageRating) == ratingNumber);
+
+                return barsByRating.ToList();
+            }
+            else
+            {
+                var bars = await this.context.Bars
+                .Where(i => i.IsDeleted == false)
+                .Include(r => r.Ratings)
+                .OrderBy(i => i.Name)
+                .Select(i => this.barDTOMapper.MapDto(i))
+                .ToListAsync();
+
+
+                var barByName = bars.Where(i => i.Name.ToLower().Contains(searchString.ToLower()));
+                var barByAdress = bars.Where(i => i.Address.ToLower().Contains(searchString.ToLower()));
+
+                var result = barByName.Union(barByAdress);
+
+                return result.ToList();
+            }
+        }
     }
 }
