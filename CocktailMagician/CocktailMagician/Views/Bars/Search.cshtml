@@ -3,7 +3,23 @@
     ViewData["Controller"] = "Bars";
     ViewData["Action"] = "Search";
 }
+<head>
+    <style>
+        .name, .rating, .adress {
+            font-family: Tahoma, Geneva, sans-serif;
+            font-size: 23px;
+            line-height: 2;       
 
+        }
+
+        .information {
+            text-align: left;
+            font-size: 22px;
+            font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+        }
+
+    </style>
+</head>
 
 
 <div class="col-12">
@@ -13,14 +29,12 @@
         @foreach (var item in Model.Data)
         {
             <tr>
-                <td><a asp-controller="Bars" asp-action="Details" asp-route-id="@item.Id"><img src="/images/@item.PhotoPath" width="220" height="160" /></a></td>
-                <td>
-                    <b>Name: </b>@Html.DisplayFor(m => item.Name)<br />
+                <td><a asp-controller="Bars" asp-action="Details" asp-route-id="@item.Id"><img src="/images/@item.PhotoPath" width="260" height="180" /></a></td>
+                <td class="information">
+                    <b class="name">Name: </b>@Html.DisplayFor(m => item.Name)<br />
                     @*<b>Comments</b>(@Html.DisplayFor(m => item.Comments.Count))<br />*@
-                    <b>Rating: </b>@Html.DisplayFor(m => item.AverageRating)<br />
-                </td>
-                <td>
-                    <b>Adress: </b><br />
+                    <b class="rating">Rating: </b>@Html.DisplayFor(m => item.AverageRating)<br />
+                    <b class="adress">Adress: </b>
                         <span>&#8211;</span> @Html.DisplayFor(m => item.Address)<br />
                 </td>
             </tr>

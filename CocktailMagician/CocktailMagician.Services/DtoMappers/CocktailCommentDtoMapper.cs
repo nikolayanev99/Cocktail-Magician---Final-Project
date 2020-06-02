@@ -21,7 +21,7 @@ namespace CocktailMagician.Services.DtoMappers
                 Id = entity.Id,
                 commentText = entity.commentText,
                 UserId = entity.UserId,
-                Username = entity.User.UserName,
+                Username = entity.User.Email.Split('@')[0],
                 CocktailId = entity.CocktailId,
                 CreatedOn = entity.CreatedOn,
                 ModifiedOn = entity.ModifiedOn,
