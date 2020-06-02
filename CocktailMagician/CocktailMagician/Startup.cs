@@ -13,6 +13,7 @@ using CocktailMagician.Services.Providers;
 using CocktailMagician.Services.Providers.Contracts;
 using CocktailMagician.Web.Mappers;
 using CocktailMagician.Web.Mappers.Contracts;
+using CocktailMagician.Web.Middlewares;
 using CocktailMagician.Web.Models;
 using CocktailMagician.Web.Providers;
 using CocktailMagician.Web.Utilities.ServiceRegistration;
@@ -90,6 +91,8 @@ namespace CocktailMagician
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseMiddleware<PageNotFoundMiddleware>();
 
             app.UseAuthentication();
             app.UseAuthorization();

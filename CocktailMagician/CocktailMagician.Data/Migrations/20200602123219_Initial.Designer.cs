@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CocktailMagician.Data.Migrations
 {
     [DbContext(typeof(CocktailMagicianContext))]
-    [Migration("20200601172714_Initial")]
+    [Migration("20200602123219_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -974,14 +974,14 @@ namespace CocktailMagician.Data.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "13a07728-09a1-419f-a3f7-dfa86820c907",
+                            ConcurrencyStamp = "e15e173e-bfdd-4cd4-a1d6-1f33ebf7eb06",
                             Name = "bar crawler",
                             NormalizedName = "BAR CRAWLER"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "702e9778-c79b-461a-96ff-29b6b8c7f335",
+                            ConcurrencyStamp = "95a87a92-798e-4189-9439-e7b4699665be",
                             Name = "cocktail magician",
                             NormalizedName = "COCKTAIL MAGICIAN"
                         });
@@ -1058,13 +1058,13 @@ namespace CocktailMagician.Data.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "96b28a69-3da4-4a6a-801c-172c5e850d25",
+                            ConcurrencyStamp = "7a5aac19-985a-425e-9ac0-128ac00e10c7",
                             Email = "admin@admin.com",
                             EmailConfirmed = false,
                             LockoutEnabled = true,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEFHQaAO67O1A75JFD++yxA/k7sDzYCCmNeFaRb0OdZInypl+bMcMZ3KIcytz7nmRPA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEG369vtSLqlw/YIrGCLEM01a1bIdmhXYIsBJAlGv1XhnRG/d2vMSEe/xd2BRfaSPnA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "d12a8993 - 382a - 4680 - 845f - 39c744d04ca1",
                             TwoFactorEnabled = false,
