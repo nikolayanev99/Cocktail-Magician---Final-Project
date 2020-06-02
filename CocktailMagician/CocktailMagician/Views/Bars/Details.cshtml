@@ -39,17 +39,25 @@
         }
 
         .info {
-            font-size: 15px;
+            font-size: 18px;
             font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+        .cocktails {
+            font-family: Impact, Charcoal, sans-serif;
+            font-size: 30px;
         }
 
         .warning {
             font-size: 25px;
             font-family: Impact, Charcoal, sans-serif;
         }
+        .comments {
+            font-size: 25px;
+            font-family: Impact, Charcoal, sans-serif;
+        }
 
         .table, th, td {
-            font-size: 18px;
+
             border-top: 2px solid black;
         }
 
@@ -62,10 +70,14 @@
             text-indent: 5px;
             border-bottom: 2px solid black;
         }
-
+        .author {
+            font-size: 17px;
+            font-family: Impact, Charcoal, sans-serif;
+        }
         .comment {
-            font-size: 25px;
+            font-size: 22px;
             text-align: center;
+
         }
     </style>
 </head>
@@ -83,7 +95,7 @@
     <h3 class="about">About <span>&#9759;</span></h3>
     <p class="info">@Model.Info</p>
 
-    <h3>Avaiable Cocktails:</h3>
+    <h3 class="cocktails">Avaiable Cocktails</h3>
     @foreach (var item in Model.Cocktails)
     {
 
@@ -94,9 +106,9 @@
 </div>
 
 
-<h3 class="warning">Leave a Comment</h3>
+<h3 class="warning">Leave a Comment      <span>&#9759;</span></h3>
 <div class="form-group">
-    <h3>Leave a Comment        <span>&#9759;</span></h3>
+
     @if (!(User.Identity.IsAuthenticated))
     {
         <h4 class="card-title"><a asp-area="Identity" asp-page="/Account/Login">Login</a> or <a asp-area="Identity" asp-page="/Account/Login">register</a> to add comments and rate</h4>
@@ -140,24 +152,14 @@
     }
     else
     {
-        <h4>Comments:</h4>
+        <h4 class="comments">Comments:</h4>
         <table class="table">
-            @*<thead>
-                    <tr>
-                        <th>
-                            User Name
-                        </th>
-                        <th>
-                            Comment
-                        </th>
-                    </tr>
-                </thead>*@
             <tbody>
                 @foreach (var item in Model.Comments)
                 {
                     <tr>
 
-                        <td>
+                        <td class="author">
                             @item.Author <br />
                             @item.CreatedOn.ToString("dd MM yyyy HH:mm")
                         </td>

@@ -1,50 +1,122 @@
 ﻿
 @model CocktailViewModel
-@{ 
+@{
     var star = "/images/star.png";
 }
 
-<h2>@Model.Name Cocktail</h2>
 
 <head>
     <style>
-        .thumbnail img {
-            height: 480px;
-            width: 300px;
-        }
 
         .picture {
-            height: 480px;
-            width: 300px;
+            display: inline-block;
+            height: 400px;
+            width: 250px;
+            border-radius: 8px;
+
+        }
+
+        .title {
+            font-size: 45px;
+            text-align: left;
+            text-decoration: underline;
+            line-height: 1;
+            font-family: Impact, Charcoal, sans-serif;
+        }
+
+        .averageRating {
+            text-align: left;
+            word-spacing: 10px;
+        }
+
+        .about {
+            font-size: 30px;
+            font-family: Impact, Charcoal, sans-serif;
+        }
+
+        .info {
+            font-size: 16px;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+
+        .ingredients {
+            display: inline-block;
+            font-family: Impact, Charcoal, sans-serif;
+            font-size: 35px;
+            text-indent:60px;
+            margin-left:auto;
+            margin-right: auto;
+            vertical-align: top;
+            text-align: left;
+        }
+
+
+        .warning {
+            font-size: 25px;
+            font-family: Impact, Charcoal, sans-serif;
+        }
+
+        .comments {
+            font-size: 25px;
+            font-family: Impact, Charcoal, sans-serif;
+        }
+
+        .table, th, td {
+            border-top: 2px solid black;
+        }
+
+        th {
+            text-align: center;
+            font-size: 20px;
+        }
+
+        td {
+            text-indent: 5px;
+            border-bottom: 2px solid black;
+        }
+
+        .author {
+            font-size: 17px;
+            font-family: Impact, Charcoal, sans-serif;
+        }
+
+        .comment {
+            font-size: 22px;
+            text-align: left;
         }
     </style>
 </head>
+
+
+<h2 class="title">@Model.Name Cocktail</h2>
+
+<h2>
+    @for (int i = 0; i < Model.AverageRating; i++)
+    {
+        <img src="@star" width="25" alt="rating" />
+    }
+</h2>
 <img class="picture" alt="@Model.Name" src="@Model.ImageUrl" width="300" height="200">
+<div class="ingredients">
+    <h2 class="ingredients">Ingredients</h2>
+
+    @foreach (var item in Model.Ingredients)
+    {
+
+        <h4> <span>&#9728;</span> @item</h4>
+    }
+
+</div>
 <div>
     <div class="caption-full">
-        <h3>
-            <a href="#">@Model.Name</a>
-        </h3>
-        @*<h4>@Model.ShortDescription</h4>*@
-        <h3>About <span>&#9759;</span></h3>
-        <p>@Model.LongDescription</p>
-        <h2>
-            Average Rating:
-            @for (int i = 0; i < Model.AverageRating; i++)
-            {
-                <img src="@star" width="40" alt="rating" />
-            }
-        </h2>
-        
-        <h3>Ingredients:</h3>
-        @foreach (var item in Model.Ingredients)
-        {
 
-            <h4> <span>&#9728;</span> @item</h4>
-        }
+        <h3 class="about">About <span>&#9759;</span></h3>
+        <p class="info">@Model.LongDescription</p>
+
+
     </div>
 </div>
-<h3>Leave a Comment</h3>
+<h3 class="warning">Leave a Comment     <span>&#9759;</span></h3>
 <div class="form-group">
 
     @if (!(User.Identity.IsAuthenticated))
@@ -84,6 +156,7 @@
         </form>
     }
 </div>
+<br />
 <div>
     @if (Model.Comments.Count == 0 || Model.Comments == null)
     {
@@ -92,27 +165,18 @@
     }
     else
     {
-        <h4>Comments:</h4>
+        <h4 class="comments">Comments:</h4>
         <table class="table">
-            <thead>
-                <tr>
-                    <th>
-                        Username
-                    </th>
-                    <th>
-                        Comment
-                    </th>
-                </tr>
-            </thead>
             <tbody>
                 @foreach (var item in Model.Comments)
                 {
                     <tr>
 
-                        <td>
-                            @item.Author
+                        <td class="author">
+                            @item.Author<br />
+                            @item.CreatedOn.ToString("dd MM yyyy HH:mm")
                         </td>
-                        <td>
+                        <td class="comment">
                             @item.Text
                         </td>
                     </tr>
