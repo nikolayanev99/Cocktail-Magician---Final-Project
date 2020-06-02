@@ -49,7 +49,24 @@ namespace CocktailMagician.Services
 
             return cocktailDto;
         }
+        public async Task<CocktailDto> GetCocktailByNameAsync(string cocktailName)
+        {
+            var cocktail = await this._context.Cocktails
+             .Where(v => v.IsDeleted == false)
+             .Include(i => i.CocktailIngredients)
+             .ThenInclude(ii => ii.Ingredient)
+             .Include(c => c.CocktailComments)
+             .FirstOrDefaultAsync(i => i.Name.ToLower() == cocktailName.ToLower());
 
+            if (cocktail == null)
+            {
+                throw new ArgumentNullException("No entity found");
+            }
+
+            var cocktailDto = this._cocktailDtoMapper.MapDto(cocktail);
+
+            return cocktailDto;
+        }
         public async Task<ICollection<CocktailDto>> GetAllCocktailsAsync()
         {
             var cocktails = await this._context.Cocktails

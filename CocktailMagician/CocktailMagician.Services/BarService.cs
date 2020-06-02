@@ -28,6 +28,8 @@ namespace CocktailMagician.Services
         {
             var bar = await this.context.Bars
                 .Include(b => b.Comments)
+                .Include(b=>b.BarCocktails)
+                .ThenInclude(bc=>bc.Cocktail)
                 .Where(b => b.IsDeleted == false)
                 .FirstOrDefaultAsync(b => b.Id == id);
 

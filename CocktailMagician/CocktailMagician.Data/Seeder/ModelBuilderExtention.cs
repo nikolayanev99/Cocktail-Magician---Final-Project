@@ -537,6 +537,36 @@ namespace CocktailMagician.Models.Seeder
             };
 
             builder.Entity<Bar>().HasData(bar1, bar2, bar3, bar4, bar5, bar6, bar7, bar8, bar9, bar10, bar11);
+
+            // BarCocktails
+
+            //     ||
+            //     ||
+            //   ()()()
+            //    ()()
+            //     ()
+
+            var barCocktail1 = new BarCocktail
+            {
+                BarId = 1,
+                CocktailId=1,
+            };
+            var barCocktail2 = new BarCocktail
+            {
+                BarId = 1,
+                CocktailId = 2,
+            };
+            var barCocktail3 = new BarCocktail
+            {
+                BarId = 1,
+                CocktailId = 3,
+            };
+            var barCocktail4 = new BarCocktail
+            {
+                BarId = 1,
+                CocktailId = 4,
+            };
+            builder.Entity<BarCocktail>().HasData(barCocktail1, barCocktail2, barCocktail3, barCocktail4);
         }
     }
 }

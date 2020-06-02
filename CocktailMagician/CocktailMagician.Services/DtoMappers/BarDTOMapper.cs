@@ -24,7 +24,9 @@ namespace CocktailMagician.Services.DtoMappers
                 Info = entity.Info,
                 Address = entity.Address,
                 PhotoPath = entity.PhotoPath,
-                AverageRating = entity.Ratings.Any() ? entity.Ratings.Average(r => r.Value):0.00,
+                AverageRating = entity.Ratings.Any() ? entity.Ratings.Average(r => r.Value) : 0.00,
+                Cocktails = entity.BarCocktails
+                            .Select(bc => bc.Cocktail.Name).ToList(),
                 CreatedOn=entity.CreatedOn,
                 ModifiedOn=entity.ModifiedOn,
                 DeletedOn = entity.DeletedOn,

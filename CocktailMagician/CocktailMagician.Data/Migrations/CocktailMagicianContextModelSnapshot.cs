@@ -173,6 +173,63 @@ namespace CocktailMagician.Data.Migrations
                         });
                 });
 
+            modelBuilder.Entity("CocktailMagician.Models.BarCocktail", b =>
+                {
+                    b.Property<int>("CocktailId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("BarId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("CocktailId", "BarId");
+
+                    b.HasIndex("BarId");
+
+                    b.ToTable("BarCocktails");
+
+                    b.HasData(
+                        new
+                        {
+                            CocktailId = 1,
+                            BarId = 1,
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsDeleted = false
+                        },
+                        new
+                        {
+                            CocktailId = 2,
+                            BarId = 1,
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsDeleted = false
+                        },
+                        new
+                        {
+                            CocktailId = 3,
+                            BarId = 1,
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsDeleted = false
+                        },
+                        new
+                        {
+                            CocktailId = 4,
+                            BarId = 1,
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsDeleted = false
+                        });
+                });
+
             modelBuilder.Entity("CocktailMagician.Models.BarComment", b =>
                 {
                     b.Property<int>("Id")
@@ -915,14 +972,14 @@ namespace CocktailMagician.Data.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "68fd1525-3a1a-49d8-bd81-69d8df70bda2",
+                            ConcurrencyStamp = "13a07728-09a1-419f-a3f7-dfa86820c907",
                             Name = "bar crawler",
                             NormalizedName = "BAR CRAWLER"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "db8fe046-7bac-4577-a099-2bc085666a8a",
+                            ConcurrencyStamp = "702e9778-c79b-461a-96ff-29b6b8c7f335",
                             Name = "cocktail magician",
                             NormalizedName = "COCKTAIL MAGICIAN"
                         });
@@ -999,13 +1056,13 @@ namespace CocktailMagician.Data.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d793615f-24ff-4d3e-8435-53192d656ba3",
+                            ConcurrencyStamp = "96b28a69-3da4-4a6a-801c-172c5e850d25",
                             Email = "admin@admin.com",
                             EmailConfirmed = false,
                             LockoutEnabled = true,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEOQ6sHnO/xFGBST0/ryIB9MCBdMyAx2umzTfeDWsDSddXPvLs3LfflOX0+xvkijzbw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEFHQaAO67O1A75JFD++yxA/k7sDzYCCmNeFaRb0OdZInypl+bMcMZ3KIcytz7nmRPA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "d12a8993 - 382a - 4680 - 845f - 39c744d04ca1",
                             TwoFactorEnabled = false,
@@ -1119,6 +1176,21 @@ namespace CocktailMagician.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("CocktailMagician.Models.BarCocktail", b =>
+                {
+                    b.HasOne("CocktailMagician.Models.Bar", "Bar")
+                        .WithMany("BarCocktails")
+                        .HasForeignKey("BarId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CocktailMagician.Models.Cocktail", "Cocktail")
+                        .WithMany("BarCocktails")
+                        .HasForeignKey("CocktailId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("CocktailMagician.Models.BarComment", b =>

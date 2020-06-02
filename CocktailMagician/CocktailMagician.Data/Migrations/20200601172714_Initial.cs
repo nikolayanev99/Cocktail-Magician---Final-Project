@@ -275,6 +275,34 @@ namespace CocktailMagician.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "BarCocktails",
+                columns: table => new
+                {
+                    BarId = table.Column<int>(nullable: false),
+                    CocktailId = table.Column<int>(nullable: false),
+                    CreatedOn = table.Column<DateTime>(nullable: false),
+                    ModifiedOn = table.Column<DateTime>(nullable: true),
+                    DeletedOn = table.Column<DateTime>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BarCocktails", x => new { x.CocktailId, x.BarId });
+                    table.ForeignKey(
+                        name: "FK_BarCocktails_Bars_BarId",
+                        column: x => x.BarId,
+                        principalTable: "Bars",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_BarCocktails_Cocktails_CocktailId",
+                        column: x => x.CocktailId,
+                        principalTable: "Cocktails",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "CocktailComments",
                 columns: table => new
                 {
@@ -367,14 +395,14 @@ namespace CocktailMagician.Data.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { 1, "68fd1525-3a1a-49d8-bd81-69d8df70bda2", "bar crawler", "BAR CRAWLER" },
-                    { 2, "db8fe046-7bac-4577-a099-2bc085666a8a", "cocktail magician", "COCKTAIL MAGICIAN" }
+                    { 1, "13a07728-09a1-419f-a3f7-dfa86820c907", "bar crawler", "BAR CRAWLER" },
+                    { 2, "702e9778-c79b-461a-96ff-29b6b8c7f335", "cocktail magician", "COCKTAIL MAGICIAN" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { 1, 0, "d793615f-24ff-4d3e-8435-53192d656ba3", "admin@admin.com", false, true, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEOQ6sHnO/xFGBST0/ryIB9MCBdMyAx2umzTfeDWsDSddXPvLs3LfflOX0+xvkijzbw==", null, false, "d12a8993 - 382a - 4680 - 845f - 39c744d04ca1", false, "admin@admin.com" });
+                values: new object[] { 1, 0, "96b28a69-3da4-4a6a-801c-172c5e850d25", "admin@admin.com", false, true, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEFHQaAO67O1A75JFD++yxA/k7sDzYCCmNeFaRb0OdZInypl+bMcMZ3KIcytz7nmRPA==", null, false, "d12a8993 - 382a - 4680 - 845f - 39c744d04ca1", false, "admin@admin.com" });
 
             migrationBuilder.InsertData(
                 table: "Bars",
@@ -454,6 +482,17 @@ namespace CocktailMagician.Data.Migrations
                 values: new object[] { 1, 2 });
 
             migrationBuilder.InsertData(
+                table: "BarCocktails",
+                columns: new[] { "CocktailId", "BarId", "CreatedOn", "DeletedOn", "IsDeleted", "ModifiedOn" },
+                values: new object[,]
+                {
+                    { 4, 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, false, null },
+                    { 1, 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, false, null },
+                    { 2, 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, false, null },
+                    { 3, 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, false, null }
+                });
+
+            migrationBuilder.InsertData(
                 table: "CocktailIngredients",
                 columns: new[] { "CocktailId", "IngredientId", "DeletedOn", "IsDeleted" },
                 values: new object[,]
@@ -469,8 +508,7 @@ namespace CocktailMagician.Data.Migrations
                     { 4, 10, null, false },
                     { 6, 9, null, false },
                     { 5, 9, null, false },
-                    { 3, 9, null, false },
-                    { 3, 8, null, false },
+                    { 10, 17, null, false },
                     { 3, 7, null, false },
                     { 2, 6, null, false },
                     { 2, 5, null, false },
@@ -479,8 +517,9 @@ namespace CocktailMagician.Data.Migrations
                     { 1, 2, null, false },
                     { 7, 1, null, false },
                     { 2, 1, null, false },
-                    { 10, 17, null, false },
-                    { 1, 1, null, false }
+                    { 1, 1, null, false },
+                    { 3, 9, null, false },
+                    { 3, 8, null, false }
                 });
 
             migrationBuilder.CreateIndex(
@@ -521,6 +560,11 @@ namespace CocktailMagician.Data.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BarCocktails_BarId",
+                table: "BarCocktails",
+                column: "BarId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_BarComments_BarId",
@@ -584,6 +628,9 @@ namespace CocktailMagician.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "BarCocktails");
 
             migrationBuilder.DropTable(
                 name: "BarComments");

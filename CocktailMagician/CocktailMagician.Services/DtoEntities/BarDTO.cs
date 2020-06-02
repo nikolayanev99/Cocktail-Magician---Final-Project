@@ -19,7 +19,7 @@ namespace CocktailMagician.Services.DtoEntities
 
         public double AverageRating { get; set; }
 
-
+        public ICollection<string> Cocktails { get; set; }
         public DateTime CreatedOn { get; set; }
         public DateTime? ModifiedOn { get; set; }
         public DateTime? DeletedOn { get; set; }

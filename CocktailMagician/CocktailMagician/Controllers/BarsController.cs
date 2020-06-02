@@ -17,6 +17,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Security.Claims;
 using cloudscribe.Pagination.Models;
 using Microsoft.AspNetCore.Authorization;
+using CocktailMagician.Services.Contracts;
 
 namespace CocktailMagician.Web.Controllers
 {
@@ -31,12 +32,12 @@ namespace CocktailMagician.Web.Controllers
         private readonly IViewModelMapper<BarRatingDto, BarRatingViewModel> barRatingVmMapper;
         private readonly IWebHostEnvironment webHostEnvironment;
 
-        public BarsController(IBarService barService, 
-                              IBarCommentsService barCommentsService, 
-                              IBarRatingService barRatingService, 
-                              IViewModelMapper<BarCommentDto, BarCommentViewModel> barCommentVmMapper, 
-                              IViewModelMapper<BarDTO, BarViewModel> barVmMapper, 
-                              IViewModelMapper<BarRatingDto, BarRatingViewModel> barRatingVmMapper, 
+        public BarsController(IBarService barService,
+                              IBarCommentsService barCommentsService,
+                              IBarRatingService barRatingService,
+                              IViewModelMapper<BarCommentDto, BarCommentViewModel> barCommentVmMapper,
+                              IViewModelMapper<BarDTO, BarViewModel> barVmMapper,
+                              IViewModelMapper<BarRatingDto, BarRatingViewModel> barRatingVmMapper,
                               IWebHostEnvironment webHostEnvironment)
         {
             this.barService = barService ?? throw new ArgumentNullException(nameof(barService));
@@ -176,49 +177,6 @@ namespace CocktailMagician.Web.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-<<<<<<< HEAD
-=======
-            var barCommentDto = this.barCommentVmMapper.MapDTO(barComment);
-
-            var comment = await this.barCommentsService.CreateCommentAsync(barCommentDto);
-
-            var currentBar = await this.barService.GetBarAsync(comment.BarId);
-
-            var barVM = this.barVmMapper.MapViewModel(currentBar);
-            var DtoComments = await this.barCommentsService.GetBarCommentsAsync(barVM.Id);
-            barVM.Comments = this.barCommentVmMapper.MapViewModel(DtoComments);
-            barVM.AverageRating = this.barRatingService.GetAverageBarRating(bar.Id);
-
-            return RedirectToAction("Details", barVM);
-        }
-        [HttpPost]
-        [ValidateAntiForgeryToken]        
-        public async Task<IActionResult> AddRating(BarViewModel bar)
-        {
-            int userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-
-            var barRating = new BarRatingViewModel
-            {
-                Value = (bar.SelectedRating),
-                BarId = bar.Id,
-                UserId = userId,
-            };
-
-            var barRatingDto = this.barRatingVmMapper.MapDTO(barRating);
-
-            var rating = await this.barRatingService.CreateRatingAsync(barRatingDto);
-
-            var currentBar = await this.barService.GetBarAsync(rating.BarId);
-
-            var barVM = this.barVmMapper.MapViewModel(currentBar);
-
-            var DtoComments = await this.barCommentsService.GetBarCommentsAsync(barVM.Id);
-            barVM.Comments = this.barCommentVmMapper.MapViewModel(DtoComments);
-            barVM.AverageRating = this.barRatingService.GetAverageBarRating(bar.Id);
-            return RedirectToAction("Details", barVM);
-
-        }
-
         public async Task<IActionResult> Search(string searchString, int pageNumber = 1, int pageSize = 4)
         {
             if (searchString == null)
@@ -249,6 +207,8 @@ namespace CocktailMagician.Web.Controllers
 
             return View(newResult);
         }
->>>>>>> b06f6d8134e45cd63506def195ddbc56d9712bb4
+
+
+
     }
 }

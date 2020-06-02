@@ -9,6 +9,7 @@ namespace CocktailMagician.Services.Contracts
     public interface ICocktailService
     {
         public Task<CocktailDto> GetCokctailAsync(int id);
+        public Task<CocktailDto> GetCocktailByNameAsync(string cocktailName);
         public Task<ICollection<CocktailDto>> GetAllCocktailsAsync();
         public Task<CocktailDto> CreateCocktailAsync(CocktailDto tempCocktailDto);
         public Task<CocktailDto> UpdateCocktailAsync(int id, string newName, string shortDescription, string longDescription);

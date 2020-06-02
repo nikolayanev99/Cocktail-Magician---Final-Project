@@ -6,10 +6,9 @@
     var photoPath = "/images/" + (Model.PhotoPath ?? "noimage.jpg");
     var star = "/images/star.png";
 }
-<<<<<<< HEAD
 
 <head>
-    <style>     
+    <style>
         .picture {
             display: block;
             margin-left: auto;
@@ -18,27 +17,32 @@
             width: 800px;
             border-radius: 8px;
         }
+
         .title {
-            font-size:45px;
+            font-size: 45px;
             text-align: left;
             text-decoration: underline;
             text-indent: 20px;
             line-height: 1;
             font-family: Impact, Charcoal, sans-serif;
         }
-        .averageRating{
-            text-align:left;
-            text-indent:20px;
-            word-spacing:10px;
+
+        .averageRating {
+            text-align: left;
+            text-indent: 20px;
+            word-spacing: 10px;
         }
+
         .about {
-            font-size:30px;
+            font-size: 30px;
             font-family: Impact, Charcoal, sans-serif;
         }
-        .info{
-            font-size:15px;
-            font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+        .info {
+            font-size: 15px;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
         }
+
         .warning {
             font-size: 25px;
             font-family: Impact, Charcoal, sans-serif;
@@ -48,81 +52,47 @@
             font-size: 18px;
             border-top: 2px solid black;
         }
-        th{
-            text-align:center;
-            font-size:20px;
 
+        th {
+            text-align: center;
+            font-size: 20px;
         }
+
         td {
             text-indent: 5px;
             border-bottom: 2px solid black;
-           
-        }
-        .comment{
-            font-size:25px;
-            
-            text-align:center;
         }
 
+        .comment {
+            font-size: 25px;
+            text-align: center;
+        }
     </style>
-</head> 
+</head>
 
-    <h2 class="title">@Model.Name</h2>
-    <p class="averageRating">
-        @for (int i = 0; i < Model.AverageRating; i++)
-        {
-            <img src="@star" width="25" alt="rating" />
-        }
-    </p>
+<h2 class="title">@Model.Name</h2>
+<p class="averageRating">
+    @for (int i = 0; i < Model.AverageRating; i++)
+    {
+        <img src="@star" width="25" alt="rating" />
+    }
+</p>
 <img class="picture" alt="@Model.Name" src="@photoPath" width="300" height="200">
-<div>
-    <div class="caption-full">
-        <h3 class="about">About <span>&#9759;</span></h3>
-        <p class="info">@Model.Info</p>
 
+<div class="caption-full">
+    <h3 class="about">About <span>&#9759;</span></h3>
+    <p class="info">@Model.Info</p>
 
-        @*<h3>Avaiable Cocktails:</h3>
-            @foreach (var item in Model.Cocktails)
-            {
+    <h3>Avaiable Cocktails:</h3>
+    @foreach (var item in Model.Cocktails)
+    {
 
-                <h4> <span>&#9728;</span> @item</h4>
-            }*@
-    </div>
-=======
-<div>
-    <h1>@Model.Name</h1>
-    <img class="card-img-top" src="@photoPath" />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Name):
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Info):
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Info)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Address):
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Address)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.AverageRating):
-        </dt>
-        <dd class="col-sm-10">
-             @for (int i = 0; i < Model.AverageRating; i++)
-             {
-            <img src="@star" width="30" alt="rating"/>
-             }
-        </dd>
-    </dl>
->>>>>>> b06f6d8134e45cd63506def195ddbc56d9712bb4
+        <h4>
+            <a asp-controller="Cocktails" asp-action="GetCocktails" asp-route-cocktailName="@item"> <span>🍸</span> @item</a>
+        </h4>
+    }
 </div>
+
 
 <h3 class="warning">Leave a Comment</h3>
 <div class="form-group">
@@ -173,15 +143,15 @@
         <h4>Comments:</h4>
         <table class="table">
             @*<thead>
-                <tr>
-                    <th>
-                        User Name
-                    </th>
-                    <th>
-                        Comment
-                    </th>
-                </tr>
-            </thead>*@
+                    <tr>
+                        <th>
+                            User Name
+                        </th>
+                        <th>
+                            Comment
+                        </th>
+                    </tr>
+                </thead>*@
             <tbody>
                 @foreach (var item in Model.Comments)
                 {
@@ -192,9 +162,9 @@
                             @item.CreatedOn.ToString("dd MM yyyy HH:mm")
                         </td>
                         <td class="comment">
-                            @item.Text                           
+                            @item.Text
                         </td>
-                        
+
                     </tr>
                 }
             </tbody>
@@ -202,17 +172,12 @@
     }
 
 </div>
-<<<<<<< HEAD
+
 @if (User.IsInRole("cocktail magician"))
 {
     <div>
-        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-danger">Edit</a> 
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-danger">Edit</a>
     </div>
 }
-        <a asp-action="Index" class="btn btn-warning">Back to List</a>
-=======
-<div>
-    @*<a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |*@
-    <a asp-action="Index">Back to List</a>
-</div>
->>>>>>> b06f6d8134e45cd63506def195ddbc56d9712bb4
+<a asp-action="Index" class="btn btn-warning">Back to List</a>
+

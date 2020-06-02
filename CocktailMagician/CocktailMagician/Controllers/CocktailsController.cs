@@ -96,36 +96,6 @@ namespace CocktailMagician.Web.Controllers
             return View(result);
         }
 
-<<<<<<< HEAD
-=======
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddComment(CocktailViewModel cocktail)
-        {
-            int userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            var author = HttpContext.User.Identity.Name;
-
-            var cocktailComment = new CocktailCommentViewModel
-            {
-                Text = cocktail.CurrentComment,
-                CocktailId = cocktail.Id,
-                UserId = userId,
-                Author = author
-            };
-
-            var cocktailCommentDto = this._cocktailCommentVmMapper.MapDTO(cocktailComment);
-
-            var comment = await this._cocktailCommentService.CreateCocktailCommentAsync(cocktailCommentDto);
-
-            var currentCocktail = await this._cocktailService.GetCokctailAsync(comment.CocktailId);
-
-            var cocktailVm = this._cocktailVmMapper.MapViewModel(currentCocktail);
-            var dtoComments = await this._cocktailCommentService.GetCocktailCommentsAsync(cocktailVm.Id);
-            cocktailVm.Comments = this._cocktailCommentVmMapper.MapViewModel(dtoComments);
-            cocktailVm.AverageRating = this.cocktailRatingService.GetAverageCocktailRating(cocktailComment.Id);
-            return View("Details", cocktailVm);
-        }
-
         public async Task<IActionResult> Search(string searchString, int pageNumber = 1, int pageSize = 4)
         {
             if (searchString == null)
@@ -154,37 +124,14 @@ namespace CocktailMagician.Web.Controllers
                 PageSize = pageSize,
             };
 
-            return View(newResult); 
+            return View(newResult);
         }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddRating(CocktailViewModel cocktail)
+        public async Task<IActionResult> GetCocktails(string cocktailName)
         {
+            var cocktail = await this._cocktailService.GetCocktailByNameAsync(cocktailName);
 
-            int userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-
-            var cocktailRating = new CocktailRatingViewModel
-            {
-                Value = (cocktail.SelectedRating),
-                CocktailId = cocktail.Id,
-                UserId = userId,
-            };
-
-            var cocktailRatingDto = this.cocktailRatingVmMapper.MapDTO(cocktailRating);
-
-            var rating = await this.cocktailRatingService.CreateRatingAsync(cocktailRatingDto);
-
-            var currentCocktail = await this._cocktailService.GetCokctailAsync(rating.CocktailId);
-
-            var cocktailVM = this._cocktailVmMapper.MapViewModel(currentCocktail);
-
-            var DtoComments = await this._cocktailCommentService.GetCocktailCommentsAsync(cocktailVM.Id);
-            cocktailVM.Comments = this._cocktailCommentVmMapper.MapViewModel(DtoComments);
-            cocktailVM.AverageRating = this.cocktailRatingService.GetAverageCocktailRating(cocktail.Id);
-
-            return View("Details", cocktailVM);
+            return RedirectToAction("Details", new { id = cocktail.Id });
         }
->>>>>>> b06f6d8134e45cd63506def195ddbc56d9712bb4
+
     }
 }
