@@ -44,7 +44,7 @@ namespace CocktailMagician.Web.Models
 
         public ICollection<BarCommentViewModel> Comments { get; set; }
 
-        public ICollection<string> Cocktails { get; set; }
+        public ICollection<CocktailViewModel> Cocktails { get; set; }
 
         public ICollection<BarRatingViewModel> Ratings { get; set; }
     }

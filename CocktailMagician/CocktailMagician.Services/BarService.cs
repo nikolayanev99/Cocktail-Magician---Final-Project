@@ -28,8 +28,8 @@ namespace CocktailMagician.Services
         {
             var bar = await this.context.Bars
                 .Include(b => b.Comments)
-                .Include(b=>b.BarCocktails)
-                .ThenInclude(bc=>bc.Cocktail)
+                .Include(b => b.BarCocktails)
+                .ThenInclude(bc => bc.Cocktail)
                 .Where(b => b.IsDeleted == false)
                 .FirstOrDefaultAsync(b => b.Id == id);
 
@@ -138,7 +138,7 @@ namespace CocktailMagician.Services
             return barDto;
         }
 
-        public async Task<ICollection<BarDTO>> SearchBarsAsync(string searchString) 
+        public async Task<ICollection<BarDTO>> SearchBarsAsync(string searchString)
         {
             int ratingNumber;
 
@@ -147,7 +147,7 @@ namespace CocktailMagician.Services
                 var allBars = await this.context.Bars
                .Where(i => i.IsDeleted == false)
                .Include(i => i.Ratings)
-               .OrderBy(i=> i.Name)
+               .OrderBy(i => i.Name)
                .Select(i => this.barDTOMapper.MapDto(i))
                .ToListAsync();
 
@@ -172,6 +172,8 @@ namespace CocktailMagician.Services
 
                 return result.ToList();
             }
+
         }
+      
     }
 }

@@ -16,5 +16,6 @@ namespace CocktailMagician.Services.Contracts
         public Task<CocktailDto> DeleteCocktailAsync(int id);
         public Task<ICollection<CocktailDto>> GetCocktailsForPeginationAsync(int pageSize = 1, int pageNumber = 1);
         public Task<ICollection<CocktailDto>> SearchCocktailsAsync(string searchString);
+        public Task<ICollection<CocktailDto>> GetBarCocktailsAsync(int barId);
     }
 }

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CocktailMagician.Data.Migrations
 {
     [DbContext(typeof(CocktailMagicianContext))]
-    [Migration("20200602123219_Initial")]
+    [Migration("20200603194648_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -356,8 +356,8 @@ namespace CocktailMagician.Data.Migrations
                         {
                             Id = 1,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ImageThumbnailUrl = "/storage/images/cocktails-thumbnails/Margarita-cocktail.jpg",
-                            ImageUrl = "/storage/images/cocktails/Margarita-cocktail.jpg",
+                            ImageThumbnailUrl = "Margarita-cocktail.jpg",
+                            ImageUrl = "Margarita-cocktail.jpg",
                             IsDeleted = false,
                             LongDescription = "A margarita is a cocktail consisting of tequila, orange liqueur, and lime juice often served with salt on the rim of the glass. The drink is served shaken with ice (on the rocks), blended with ice (frozen margarita), or without ice (straight up). Although it has become acceptable to serve a margarita in a wide variety of glass types, ranging from cocktail and wine glasses to pint glasses and even large schooners, the drink is traditionally served in the eponymous margarita glass, a stepped-diameter variant of a cocktail glass or champagne coupe.",
                             Name = "Margarita",
@@ -367,8 +367,8 @@ namespace CocktailMagician.Data.Migrations
                         {
                             Id = 2,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ImageThumbnailUrl = "/storage/images/cocktails-thumbnails/Mai-Tai-Cocktail.jpg",
-                            ImageUrl = "/storage/images/cocktails/Mai-Tai-Cocktail.jpg",
+                            ImageThumbnailUrl = "Mai-Tai-Cocktail.jpg",
+                            ImageUrl = "Mai-Tai-Cocktail.jpg",
                             IsDeleted = false,
                             LongDescription = "The Mai Tai cocktail was created by bartender  “Trader” Vic Bergeron. In 1970, “Trader Vic” Bergeron wrote the following: “I originated the Mai Tai and put together a bit of the background of the evolution of this drink…. In 1944, after success with several exotic rum drinks, I felt a new drink was needed. I thought about all the really successful drinks: martinis, manhattans, daiquiris… All basically simple drinks…. I took down a bottle of 17 year old rum. It was J. Wray Nephew from Jamaica; surprisingly golden in colour, medium bodied, but with rich pungent flavour particular to Jamaican blends…. I took a fresh lime, added some orange curaçao from Holland, a dash of Rock Candy Syrup, and a dollop of French Orgeat, for its subtle almond flavour. A generous amount of shaved ice and vigorous shaking by hand produced the marriage I was after. Half the lime shell went in for color…. I stuck in a branch of fresh mint and gave two of them to  Ham and Carrie Guide, friends from Tahiti, who were there that night. Carrie took one sip and said, “Mai Tai— Roa Ai.” In Tahitian this means “Out of This World — The Best.” Well, that was that. I named the drink “Mai Tai.” … In fairness to myself and to a truly great drink, I hope you will agree when I say, “let’s get the record straight on the Mai Tai.” The ingredients “Trader Vic” originally used are hard to come by today. So the above recipe is an excellent recipe that’s more accessible.",
                             Name = "Mai Tai",
@@ -378,8 +378,8 @@ namespace CocktailMagician.Data.Migrations
                         {
                             Id = 3,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ImageThumbnailUrl = "/storage/images/cocktails-thumbnails/White-Russian-Cocktail.jpg",
-                            ImageUrl = "/storage/images/cocktails/White-Russian-Cocktail.jpg",
+                            ImageThumbnailUrl = "White-Russian-Cocktail.jpg",
+                            ImageUrl = "White-Russian-Cocktail.jpg",
                             IsDeleted = false,
                             LongDescription = "The traditional cocktail known as a Black Russian, which first appeared in 1949, becomes a White Russian with the addition of cream. Neither drink is Russian in origin, but both are so named due to vodka being the primary ingredient. It is unclear which drink preceded the other.",
                             Name = "White Russian",
@@ -389,8 +389,8 @@ namespace CocktailMagician.Data.Migrations
                         {
                             Id = 4,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ImageThumbnailUrl = "/storage/images/cocktails-thumbnails/Caipirinha-cocktail.jpg",
-                            ImageUrl = "/storage/images/cocktails/Caipirinha-cocktail.jpg",
+                            ImageThumbnailUrl = "Caipirinha-cocktail.jpg",
+                            ImageUrl = "Caipirinha-cocktail.jpg",
                             IsDeleted = false,
                             LongDescription = "According to historians, the caipirinha was invented by landowning farmers in the region of Piracicaba, interior of the State of São Paulo during the 19th century as a local drink for 'high standard' events and parties, a reflection of the strong sugarcane culture in the region.",
                             Name = "Caipirinha",
@@ -400,8 +400,8 @@ namespace CocktailMagician.Data.Migrations
                         {
                             Id = 5,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ImageThumbnailUrl = "/storage/images/cocktails-thumbnails/Screwdriver-cocktail.jpg",
-                            ImageUrl = "/storage/images/cocktails/Screwdriver-cocktail.jpg",
+                            ImageThumbnailUrl = "Screwdriver-cocktail.jpg",
+                            ImageUrl = "Screwdriver-cocktail.jpg",
                             IsDeleted = false,
                             LongDescription = "While the basic drink is simply the two ingredients, there are many variations. Many of the variations have different names in different parts of the world. The screwdriver is mentioned in 1944: A Screwdriver—a drink compounded of vodka and orange juice and supposedly invented by interned American fliers; the latest Yankee concoction of vodka and orange juice, called a 'screwdriver'.",
                             Name = "Screwdriver",
@@ -411,8 +411,8 @@ namespace CocktailMagician.Data.Migrations
                         {
                             Id = 6,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ImageThumbnailUrl = "/storage/images/cocktails-thumbnails/Bloody-Mary-Cocktail.jpg",
-                            ImageUrl = "/storage/images/cocktails/Bloody-Mary-Cocktail.jpg",
+                            ImageThumbnailUrl = "Bloody-Mary-Cocktail.jpg",
+                            ImageUrl = "Bloody-Mary-Cocktail.jpg",
                             IsDeleted = false,
                             LongDescription = "Unlike most cocktails, the origins of the Bloody Mary cocktail are well known. It was created by bartender Fernand “Pete” Petiot at Harry’s New York bar in Paris around 1924 just after France started importing tinned tomatoes from America.In 1934, Petiot was brought to New York to head the bar at the St Regis Hotel during the prohibition era and he brought his creation with him. Americans have been drinking Bloody Mary’s ever since.When it was first created, it wasn’t very well liked. David Embury went as far as to describe the cocktail as “strictly vile” in his book ‘The Fine Art of Mixing Drinks.’ Today, many people still consider the Bloody Mary strictly vile, but it also has a loyal following of diehard fans that absolutely love it.Every bartender thinks they know ‘the best’ Bloody Mary recipe, but the truth, there is no 1 recipe because people’s preferences vary so widely. Some drinkers like it extra spicy, some prefer it mild. As such, you should always ask your guest how spicy they would like it on a scale of 1-10 and adjust the hot sauce you add appropriately.Despite it being individualized, there are a few general consensuses on how it should be made. Always use lemon juice over lime juice as it marries better with tomato juice. And it should always be rolled as opposed to shaking or stirring. Shaking emulsifies the tomato juice (a fancy way of saying, separating it and making it bubble), and stirring isn’t strong enough to adequately mix the ingredients.",
                             Name = "Bloody Mary",
@@ -422,8 +422,8 @@ namespace CocktailMagician.Data.Migrations
                         {
                             Id = 7,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ImageThumbnailUrl = "/storage/images/cocktails-thumbnails/Whiskey-Sour-Cocktail.jpg",
-                            ImageUrl = "/storage/images/cocktails/Whiskey-Sour-Cocktail.jpg",
+                            ImageThumbnailUrl = "Whiskey-Sour-Cocktail.jpg",
+                            ImageUrl = "Whiskey-Sour-Cocktail.jpg",
                             IsDeleted = false,
                             LongDescription = "The whiskey sour is a mixed drink containing whiskey (often bourbon), lemon juice, sugar, and optionally, a dash of egg white. With the egg white, it is sometimes called a Boston Sour. With a few bar spoons of full-bodied red wine floated on top, it is often referred to as a New York Sour. It is shaken and served either straight up or over ice. The traditional garnish is half an orange slice and a maraschino cherry. A variant of the whiskey sour is the Ward 8, which often is based on bourbon or rye whiskey, and includes both lemon and orange juices, and grenadine syrup as the sweetener. The egg white sometimes employed in other whiskey sours is not usually included.",
                             Name = "Whiskey Sour",
@@ -433,8 +433,8 @@ namespace CocktailMagician.Data.Migrations
                         {
                             Id = 8,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ImageThumbnailUrl = "/storage/images/cocktails-thumbnails/Old-fashioned-cocktail.jpg",
-                            ImageUrl = "/storage/images/cocktails/Old-fashioned-cocktail.jpg",
+                            ImageThumbnailUrl = "Old-fashioned-cocktail.jpg",
+                            ImageUrl = "Old-fashioned-cocktail.jpg",
                             IsDeleted = false,
                             LongDescription = "Yet for all of its suave simplicity, the drink remains as relevant today as it was when it first captured drinkers’ hearts 200 years ago. In truth, you could draw a straight line connecting this drink to the first recorded definition of the cocktail category in general (circa 1806), which calls for spirits, sugar, water and bitters. You could also skip the history lesson and simply make the drink. Do the latter. Start by using good bourbon, the rule being that if you wouldn’t sip it by itself it has no place at the helm of a Bourbon Old Fashioned. (There are other whiskey drinks for masking subpar booze—this isn’t one of them.) From there, the cocktail-minded seem to break into two camps: simple syrup or muddled sugar. While a barspoon of syrup can cut your prep time in half, it robs the drink of some of the weight and texture that makes it so appealing. And anyway, what’s the big rush? The Bourbon Old Fashioned isn’t going anywhere.",
                             Name = "Old Fashioned",
@@ -444,8 +444,8 @@ namespace CocktailMagician.Data.Migrations
                         {
                             Id = 9,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ImageThumbnailUrl = "/storage/images/cocktails-thumbnails/Manhattan-Cocktail.jpg",
-                            ImageUrl = "/storage/images/cocktails/Manhattan-Cocktail.jpg",
+                            ImageThumbnailUrl = "Manhattan-Cocktail.jpg",
+                            ImageUrl = "Manhattan-Cocktail.jpg",
                             IsDeleted = false,
                             LongDescription = "Originating in the late 1800s, the Manhattan is the grandfather to the infamous Martini cocktail and it’s one classics that every bartender should know. Legend has it a bartender at the Manhattan club created this drink when Jennie Churchill (mother of Winston Churchill) threw a party for her father’s friend, the newly elected governor of New York, Samuel James Tilden. In his book ‘The Joy of Mixology,’ Gary Regan describes it as “Quite simply, when properly constructed, it is the finest cocktail on the face of the earth.” From a bartender as influential and skilled as Regan, that’s quite a statement! As a non-Manhattan drinker, I disagree, but that doesn’t change how important it is to know how to make this cocktail well. Variations : If possible, you should always offer your customer their choice of whiskey – the brand and either bourbon or rye. Feel free to experiment with different brands until you find something you love serving. This is also a great drink to experiment with different types of bitters. Start with peychauds & orange bitters. It can also be made in a rocks / old-fashioned glass served over ice if your customer prefers. A Dry Manhattan is made with dry vermouth instead of sweet vermouth using the same proportions (i.e. 1 shot) and a lemon twist instead of the cherry for the garnish. A Perfect Manhattan is made with half dry & half sweet vermouth (1/2 shot of each), and both a lemon twist & cherry for the garnish.",
                             Name = "Manhattan",
@@ -455,8 +455,8 @@ namespace CocktailMagician.Data.Migrations
                         {
                             Id = 10,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ImageThumbnailUrl = "/storage/images/cocktails-thumbnails/Dry-Martini-Cocktail.jpg",
-                            ImageUrl = "/storage/images/cocktails/Dry-Martini-Cocktail.jpg",
+                            ImageThumbnailUrl = "Dry-Martini-Cocktail.jpg",
+                            ImageUrl = "Dry-Martini-Cocktail.jpg",
                             IsDeleted = false,
                             LongDescription = "The Dry martini cocktail is probably the most well-known cocktail of all time. James Bond may have had something to do with its modern-day resurgence but it has been popular since it first hit the market in the late 1800s. Today, the classic Martini is a sign of sophistication and martini drinks are often the most particular.  Perhaps for that reason, the Martini intimidates new bartenders. There are so many different variations and it has a lot consuming terminology surrounding it that make it seem far more complex than what it actually is. To make things more confusing, in the 90’s, bartenders started calling any cocktail that was served in a martini glass a ‘Martini.’ To clarify, most of these cocktails aren’t ‘real’ martinis. Most of them are, in fact, a type of sour cocktail, and have nothing to do with the classic recipe. It’s usually fairly obvious when someone wants a ‘new-age’ martini like a lychee martini or an espresso martini because that’s exactly what they’ll ask for. But for the classic martini order, you’ll need to get further clarification because people have different preferences and like I mentioned earlier, martini drinkers can be particular.",
                             Name = "Martini",
@@ -974,14 +974,14 @@ namespace CocktailMagician.Data.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "e15e173e-bfdd-4cd4-a1d6-1f33ebf7eb06",
+                            ConcurrencyStamp = "d59e2ee4-a3f0-454d-8452-a62a867f1960",
                             Name = "bar crawler",
                             NormalizedName = "BAR CRAWLER"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "95a87a92-798e-4189-9439-e7b4699665be",
+                            ConcurrencyStamp = "1a75f11b-b4b5-4fc0-922b-65d793945123",
                             Name = "cocktail magician",
                             NormalizedName = "COCKTAIL MAGICIAN"
                         });
@@ -1058,13 +1058,13 @@ namespace CocktailMagician.Data.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "7a5aac19-985a-425e-9ac0-128ac00e10c7",
+                            ConcurrencyStamp = "08968420-a2d9-4ec8-aa7d-cc57512e51dd",
                             Email = "admin@admin.com",
                             EmailConfirmed = false,
                             LockoutEnabled = true,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEG369vtSLqlw/YIrGCLEM01a1bIdmhXYIsBJAlGv1XhnRG/d2vMSEe/xd2BRfaSPnA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEH+0oY9rRr5YtgG69ITWPQ/rR0IugB+4DORZRXAnh+OJx+sk/IkNhuUApa4GYk+voA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "d12a8993 - 382a - 4680 - 845f - 39c744d04ca1",
                             TwoFactorEnabled = false,

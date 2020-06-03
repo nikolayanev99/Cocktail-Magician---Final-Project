@@ -6,7 +6,7 @@
     ViewData["Controller"] = "Cocktails";
     ViewData["Action"] = "List";
     Layout = "~/Views/Shared/_Layout.cshtml";
-
+    
 
 }
 
@@ -25,7 +25,7 @@
     @foreach (var cocktail in Model.Data)
     {<div class="col-sm-3 col-lg-3 col-md-3">
             <div class="thumbnail">
-                <img src="@cocktail.ImageUrl" alt="" width="200" height="320">
+                <img src="/storage/images/cocktail-thumbnails/@cocktail.ImageUrl" alt="" width="200" height="320">
                 <div class="caption">
                     <h3>
                         <a asp-controller="Cocktails" asp-action="Details" asp-route-id="@cocktail.Id">@cocktail.Name</a>

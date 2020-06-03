@@ -31,6 +31,8 @@ namespace CocktailMagician.Web.Controllers
         private readonly IViewModelMapper<BarDTO, BarViewModel> barVmMapper;
         private readonly IViewModelMapper<BarRatingDto, BarRatingViewModel> barRatingVmMapper;
         private readonly IWebHostEnvironment webHostEnvironment;
+        private readonly ICocktailService cocktailService;
+        private readonly IViewModelMapper<CocktailDto, CocktailViewModel> cocktailVmMapper;
 
         public BarsController(IBarService barService,
                               IBarCommentsService barCommentsService,
@@ -38,7 +40,9 @@ namespace CocktailMagician.Web.Controllers
                               IViewModelMapper<BarCommentDto, BarCommentViewModel> barCommentVmMapper,
                               IViewModelMapper<BarDTO, BarViewModel> barVmMapper,
                               IViewModelMapper<BarRatingDto, BarRatingViewModel> barRatingVmMapper,
-                              IWebHostEnvironment webHostEnvironment)
+                              IWebHostEnvironment webHostEnvironment,
+                              ICocktailService cocktailService,
+                              IViewModelMapper<CocktailDto, CocktailViewModel> cocktailVmMapper)
         {
             this.barService = barService ?? throw new ArgumentNullException(nameof(barService));
             this.barCommentsService = barCommentsService ?? throw new ArgumentNullException(nameof(barCommentsService));
@@ -47,6 +51,8 @@ namespace CocktailMagician.Web.Controllers
             this.barVmMapper = barVmMapper ?? throw new ArgumentNullException(nameof(barVmMapper));
             this.barRatingVmMapper = barRatingVmMapper ?? throw new ArgumentNullException(nameof(barRatingVmMapper));
             this.webHostEnvironment = webHostEnvironment ?? throw new ArgumentNullException(nameof(webHostEnvironment));
+            this.cocktailService=cocktailService ?? throw new ArgumentNullException(nameof(cocktailService));
+            this.cocktailVmMapper = cocktailVmMapper;
         }
 
 
@@ -84,6 +90,8 @@ namespace CocktailMagician.Web.Controllers
             var barCommentDtos = await this.barCommentsService.GetBarCommentsAsync(id);
             barVM.Comments = this.barCommentVmMapper.MapViewModel(barCommentDtos);
             barVM.AverageRating = this.barRatingService.GetAverageBarRating(id);
+            var cocktailsForBar = await this.cocktailService.GetBarCocktailsAsync(id);
+            barVM.Cocktails = this.cocktailVmMapper.MapViewModel(cocktailsForBar);
             return View(barVM);
         }
 

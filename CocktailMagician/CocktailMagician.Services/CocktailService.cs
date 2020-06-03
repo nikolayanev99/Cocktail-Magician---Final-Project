@@ -33,13 +33,14 @@ namespace CocktailMagician.Services
 
         public async Task<CocktailDto> GetCokctailAsync(int id)
         {
+
+
             var cocktail = await this._context.Cocktails
                 .Where(v => v.IsDeleted == false)
                 .Include(i => i.CocktailIngredients)
                 .ThenInclude(ii => ii.Ingredient)
                 .Include(c => c.CocktailComments)
                 .FirstOrDefaultAsync(i => i.Id == id);
-
             if (cocktail == null)
             {
                 throw new ArgumentNullException("No entity found");
@@ -82,7 +83,7 @@ namespace CocktailMagician.Services
         public async Task<ICollection<CocktailDto>> GetCocktailsForPeginationAsync(int pageSize = 1, int pageNumber = 1)
         {
             int excludeRecodrds = (pageSize * pageNumber) - pageSize;
-            
+
             var cocktails = await this._context.Cocktails
                 .Where(v => v.IsDeleted == false)
                 .OrderBy(n => n.Name)
@@ -167,7 +168,7 @@ namespace CocktailMagician.Services
             }
         }
 
-        public async Task<CocktailDto> DeleteCocktailAsync(int id) 
+        public async Task<CocktailDto> DeleteCocktailAsync(int id)
         {
             var cocktail = this._context.Cocktails
                 .FirstOrDefault(i => i.Id == id);
@@ -179,7 +180,7 @@ namespace CocktailMagician.Services
 
             cocktail.IsDeleted = true;
             cocktail.DeletedOn = this._provider.GetDateTime();
-            
+
             this._context.Update(cocktail);
             await this._context.SaveChangesAsync();
 
@@ -187,7 +188,7 @@ namespace CocktailMagician.Services
             return coctailDto;
         }
 
-        public async Task<ICollection<CocktailDto>> SearchCocktailsAsync(string searchString) 
+        public async Task<ICollection<CocktailDto>> SearchCocktailsAsync(string searchString)
         {
             int number;
 
@@ -209,35 +210,54 @@ namespace CocktailMagician.Services
             else
             {
 
-            
-            var cocktails = await this._context.Cocktails
-                .Where(i => i.IsDeleted == false)
-                .Include(i => i.CocktailIngredients)
-                .ThenInclude(i => i.Ingredient)
-                .Include(r => r.CocktailRatings)
-                .Select(i => this._cocktailDtoMapper.MapDto(i))
-                .ToListAsync();
 
-            var cocktailByIngredients = new List<CocktailDto>();
+                var cocktails = await this._context.Cocktails
+                    .Where(i => i.IsDeleted == false)
+                    .Include(i => i.CocktailIngredients)
+                    .ThenInclude(i => i.Ingredient)
+                    .Include(r => r.CocktailRatings)
+                    .Select(i => this._cocktailDtoMapper.MapDto(i))
+                    .ToListAsync();
 
-            foreach (var item in cocktails)
-            {
-                foreach (var ingredient in item.Ingredients)
+                var cocktailByIngredients = new List<CocktailDto>();
+
+                foreach (var item in cocktails)
                 {
-                    if (ingredient.ToLower().Contains(searchString.ToLower()))
+                    foreach (var ingredient in item.Ingredients)
                     {
-                        cocktailByIngredients.Add(item);
+                        if (ingredient.ToLower().Contains(searchString.ToLower()))
+                        {
+                            cocktailByIngredients.Add(item);
+                        }
                     }
                 }
-            }
 
-            var cocktailByName = cocktails.Where(i => i.Name.ToLower().Contains(searchString.ToLower()));
+                var cocktailByName = cocktails.Where(i => i.Name.ToLower().Contains(searchString.ToLower()));
 
-            var result = cocktailByIngredients.Union(cocktailByName);
+                var result = cocktailByIngredients.Union(cocktailByName);
 
 
-            return result.ToList();
+                return result.ToList();
             }
         }
+
+        public async Task<ICollection<CocktailDto>> GetBarCocktailsAsync(int barId)
+        {
+            var cocktailsFromBar = new List<CocktailDto>();
+
+            var barCocktails = await this._context.BarCocktails
+                .Where(bc => bc.BarId == barId)
+                .Select(bc => bc.CocktailId)
+                .ToListAsync();
+
+            foreach (var item in barCocktails)
+            {
+               cocktailsFromBar.Add(await this.GetCokctailAsync(item));
+            }
+
+
+            return cocktailsFromBar;
+        }
+
     }
 }
