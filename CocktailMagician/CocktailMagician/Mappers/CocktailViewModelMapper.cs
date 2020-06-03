@@ -23,7 +23,7 @@ namespace CocktailMagician.Web.Mappers
                 Name = entityViewModel.Name,
                 Ingredients = entityViewModel.Ingredients,
                 ImageUrl = entityViewModel.ImageUrl,
-                ImageThumbnailUrl = entityViewModel.ImageThumbnailUrl,
+                ImageThumbnailUrl = entityViewModel.ImageUrl, // TODO: only for testing
                 ShortDescription = entityViewModel.ShortDescription,
                 LongDescription = entityViewModel.LongDescription,
                 AverageRating = entityViewModel.AverageRating.Value
