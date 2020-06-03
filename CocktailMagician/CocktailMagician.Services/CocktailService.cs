@@ -111,6 +111,7 @@ namespace CocktailMagician.Services
             {
                 Name = tempCocktailDto.Name,
                 ShortDescription = tempCocktailDto.ShortDescription,
+                LongDescription = tempCocktailDto.LongDescription,
                 ImageUrl = tempCocktailDto.ImageUrl,
                 ImageThumbnailUrl = tempCocktailDto.ImageThumbnailUrl,
             };

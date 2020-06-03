@@ -13,6 +13,9 @@ using cloudscribe.Pagination.Models;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.EntityFrameworkCore;
 using CocktailMagician.Web.Areas.Member.Models;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Authorization;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -26,13 +29,15 @@ namespace CocktailMagician.Web.Controllers
         private readonly IViewModelMapper<CocktailCommentDto, CocktailCommentViewModel> _cocktailCommentVmMapper;
         private readonly IViewModelMapper<CocktailRatingDto, CocktailRatingViewModel> cocktailRatingVmMapper;
         private readonly ICocktailRatingService cocktailRatingService;
+        private readonly IWebHostEnvironment webHostEnvironment;
 
         public CocktailsController(ICocktailService cocktailService,
                                    IViewModelMapper<CocktailDto, CocktailViewModel> cocktailVmMapper,
                                    ICocktailCommentService cocktailCommentService,
                                    IViewModelMapper<CocktailCommentDto, CocktailCommentViewModel> cocktailCommentVmMapper,
                                    IViewModelMapper<CocktailRatingDto, CocktailRatingViewModel> cocktailRatingVmMapper,
-                                   ICocktailRatingService cocktailRatingService)
+                                   ICocktailRatingService cocktailRatingService,
+                                   IWebHostEnvironment webHostEnvironment)
         {
             _cocktailService = cocktailService ?? throw new ArgumentNullException(nameof(cocktailService));
             _cocktailVmMapper = cocktailVmMapper ?? throw new ArgumentNullException(nameof(cocktailVmMapper));
@@ -40,6 +45,7 @@ namespace CocktailMagician.Web.Controllers
             _cocktailCommentVmMapper = cocktailCommentVmMapper ?? throw new ArgumentNullException(nameof(cocktailCommentVmMapper));
             this.cocktailRatingVmMapper = cocktailRatingVmMapper ?? throw new ArgumentNullException(nameof(cocktailRatingVmMapper));
             this.cocktailRatingService = cocktailRatingService ?? throw new ArgumentNullException(nameof(cocktailRatingService));
+            this.webHostEnvironment = webHostEnvironment ?? throw new ArgumentNullException(nameof(webHostEnvironment));
         }
 
 
@@ -131,6 +137,30 @@ namespace CocktailMagician.Web.Controllers
             var cocktail = await this._cocktailService.GetCocktailByNameAsync(cocktailName);
 
             return RedirectToAction("Details", new { id = cocktail.Id });
+        }
+
+        [Area("cocktail magician")]
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(CreateCocktailViewModel model) 
+        {
+            if (ModelState.IsValid)
+            {
+
+                if (model.Photo != null)
+                {
+                    string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "storage\\images\\cocktails");
+                    model.CocktailViewModel.ImageUrl = Guid.NewGuid().ToString() + " " + model.Photo.FileName;
+                    string filePath = Path.Combine(uploadsFolder, model.CocktailViewModel.ImageUrl.ToString());
+                    model.Photo.CopyTo(new FileStream(filePath, FileMode.Create));
+                }
+                var cocktailDto = this._cocktailVmMapper.MapDTO(model.CocktailViewModel);
+                await this._cocktailService.CreateCocktailAsync(cocktailDto);
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(model);
         }
 
     }

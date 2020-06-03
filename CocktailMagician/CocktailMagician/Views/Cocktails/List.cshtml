@@ -6,11 +6,17 @@
     ViewData["Controller"] = "Cocktails";
     ViewData["Action"] = "List";
     Layout = "~/Views/Shared/_Layout.cshtml";
-
-
 }
 
 <h1>Cocktails</h1>
+@if (User.IsInRole("cocktail magician"))
+{
+    @*<p>
+        <a asp-action="CreateCocktail" class="btn btn-warning">Create New</a>
+    </p>*@
+    @await Component.InvokeAsync("CreateCocktail")
+}
+
 <form asp-action="Search" method="get">
     <div>
         <p>
