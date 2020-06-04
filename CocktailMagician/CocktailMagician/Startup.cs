@@ -62,13 +62,13 @@ namespace CocktailMagician
            .UseSqlServer(
                Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddCloudscribePagination();
+            services.AddCloudscribePagination(); // library for peggination
 
             services.RegisterServices();
             services.RegisterDtoMappers();
             services.RegisterViewModelMappers();
             services.RegisterProvides();
-           
+
 
         }
 

@@ -35,6 +35,11 @@
                         <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                         <li><a asp-area="" asp-controller="Bars" asp-action="Index">Bars</a></li>
                         <li><a asp-area="" asp-controller="Cocktails" asp-action="List">Cocktails</a></li>
+                        @if (User.IsInRole("cocktail magician"))
+                        {
+                            <li><a asp-area="Admin" asp-controller="Ingredients" asp-action="List">Ingredients</a></li>
+                        }
+
                     </ul>
                 </div>
             </div>

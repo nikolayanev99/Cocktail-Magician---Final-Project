@@ -25,6 +25,8 @@ namespace CocktailMagician.Web.Utilities.ServiceRegistration
             services.AddScoped<IViewModelMapper<CocktailCommentDto, CocktailCommentViewModel>, CocktailCommentViewModelMapper>();
             services.AddScoped<IViewModelMapper<CocktailRatingDto, CocktailRatingViewModel>, CocktailRatingViewModelMapper>();
 
+            services.AddScoped<IViewModelMapper<IngredientDto, IngredientViewModel>, IngredientViewModelMapper>();
+
             return services;
         }
     }

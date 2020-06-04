@@ -137,8 +137,8 @@
 
         }
         <form asp-area="Member" asp-controller="CocktailRating" asp-action="AddRating">
-
-            <fieldset class="rating">
+            <h4>Rate this cocktail here:</h4>
+            <fieldset class="rating" style="float: left; background-color: #8FA08B;">
                 <input type="hidden" asp-for="@Model.Id" value="@Model.Id" />
                 <link href="~/css/star.css" rel="stylesheet" type="text/css" />
                 <input type="submit" id="star5" name="SelectedRating" value="5" /><label class="full" for="star5"></label>

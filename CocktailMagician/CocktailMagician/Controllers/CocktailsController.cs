@@ -145,6 +145,14 @@ namespace CocktailMagician.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CreateCocktailViewModel model) 
         {
+            if (model.CocktailViewModel.Name == null ||
+                model.CocktailViewModel.ShortDescription == null ||
+                model.CocktailViewModel.LongDescription == null ||
+                model.CocktailViewModel.Ingredients == null)
+            {
+                return RedirectToAction("List", "Cocktails", new { area = "" });
+            }
+
             if (ModelState.IsValid)
             {
 
@@ -157,7 +165,7 @@ namespace CocktailMagician.Web.Controllers
                 }
                 var cocktailDto = this._cocktailVmMapper.MapDTO(model.CocktailViewModel);
                 await this._cocktailService.CreateCocktailAsync(cocktailDto);
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("List", "Cocktails", new { area = "" });
             }
 
             return View(model);

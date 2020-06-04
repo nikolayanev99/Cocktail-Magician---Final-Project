@@ -1,0 +1,46 @@
+﻿@model cloudscribe.Pagination.Models.PagedResult<IngredientViewModel>
+@{
+    ViewData["Controller"] = "Ingredients";
+    ViewData["Action"] = "List";
+}
+<head>
+    <style>
+        .name, .rating, .ingredients {
+            font-family: Tahoma, Geneva, sans-serif;
+            font-size: 12px;
+            line-height: 2;
+        }
+
+        .information {
+            text-align: left;
+            font-size: 20px;
+            font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+        }
+    </style>
+</head>
+
+
+<div class="col-12">
+    <p>
+        <a asp-area="Admin" asp-controller="Ingredients" asp-action="Create" class="btn btn-warning">Create New Ingredient</a>
+    </p>
+    <h3>List of all Ingredients:  <span>&#9759;</span></h3><br />
+    <table class="table table-striped border">
+
+
+        @foreach (var item in Model.Data)
+        {
+            <tr>
+                <td class="information">
+                    <span>&#9728;</span>  @Html.DisplayFor(m => item.Name)<br />
+                </td>
+                <td class="buttons" align="right">
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-primary">Delete</a>
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+<partial name="_PeginationPartial" view-data="ViewData" model="Model" />
+

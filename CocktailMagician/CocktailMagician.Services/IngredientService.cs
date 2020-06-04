@@ -133,12 +133,29 @@ namespace CocktailMagician.Services
 
             ingredient.IsDeleted = true;
             ingredient.DeletedOn = this._dateTimeProvider.GetDateTime();
+            this._context.Update(ingredient);
 
             await this._context.SaveChangesAsync();
 
             var ingredientDto = this._ingredientDtoMapper.MapDto(ingredient);
 
             return ingredientDto;
+        }
+
+        public async Task<ICollection<IngredientDto>> GetIngredientsForPeginationAsync(int pageSize = 1, int pageNumber = 1)
+        {
+            int excludeRecodrds = (pageSize * pageNumber) - pageSize;
+
+            var ingredients = await this._context.Ingredients
+                .Where(v => v.IsDeleted == false)
+                .OrderBy(n => n.Name)
+                .Skip(excludeRecodrds)
+                .Take(pageSize)
+                .ToListAsync();
+
+            var intredientDto = this._ingredientDtoMapper.MapDto(ingredients);
+
+            return intredientDto;
         }
     }
 }
