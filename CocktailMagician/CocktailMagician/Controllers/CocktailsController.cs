@@ -140,7 +140,7 @@ namespace CocktailMagician.Web.Controllers
         }
 
         [Area("cocktail magician")]
-        [Authorize]
+        [Authorize(Roles = "cocktail magician")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CreateCocktailViewModel model) 

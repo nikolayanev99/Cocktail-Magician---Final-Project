@@ -395,14 +395,14 @@ namespace CocktailMagician.Data.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { 1, "d59e2ee4-a3f0-454d-8452-a62a867f1960", "bar crawler", "BAR CRAWLER" },
-                    { 2, "1a75f11b-b4b5-4fc0-922b-65d793945123", "cocktail magician", "COCKTAIL MAGICIAN" }
+                    { 1, "0d99028e-36be-4b27-86fa-b0bd5b0dd40d", "bar crawler", "BAR CRAWLER" },
+                    { 2, "8bdc8e81-93e4-4b11-b883-e20b6ffaa0ab", "cocktail magician", "COCKTAIL MAGICIAN" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { 1, 0, "08968420-a2d9-4ec8-aa7d-cc57512e51dd", "admin@admin.com", false, true, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEH+0oY9rRr5YtgG69ITWPQ/rR0IugB+4DORZRXAnh+OJx+sk/IkNhuUApa4GYk+voA==", null, false, "d12a8993 - 382a - 4680 - 845f - 39c744d04ca1", false, "admin@admin.com" });
+                values: new object[] { 1, 0, "f660776f-9368-4dc5-96e6-3ebee1651786", "admin@admin.com", false, true, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEO7QUuA+6HWeBWYQ8rqv1ASEQpzYXIbVm4t0bVSVkfbyt4PyMv/m7e29OpMWWOvO4g==", null, false, "d12a8993 - 382a - 4680 - 845f - 39c744d04ca1", false, "admin@admin.com" });
 
             migrationBuilder.InsertData(
                 table: "Bars",
