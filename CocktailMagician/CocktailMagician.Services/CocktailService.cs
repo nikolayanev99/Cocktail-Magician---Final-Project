@@ -72,6 +72,7 @@ namespace CocktailMagician.Services
         {
             var cocktails = await this._context.Cocktails
                 .Where(v => v.IsDeleted == false)
+                .Include(c=>c.BarCocktails)
                 .OrderBy(n => n.Name)
                 .ToListAsync();
 

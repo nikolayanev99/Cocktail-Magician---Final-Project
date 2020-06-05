@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CocktailMagician.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CocktailMagician.Web.Models
 {
@@ -47,5 +48,7 @@ namespace CocktailMagician.Web.Models
         public ICollection<CocktailViewModel> Cocktails { get; set; }
 
         public ICollection<BarRatingViewModel> Ratings { get; set; }
+
+        public List<CheckBoxItem> SelectedCocktails { get; set; }
     }
 }

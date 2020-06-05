@@ -118,6 +118,7 @@ namespace CocktailMagician.Services
             bar.IsDeleted = true;
             bar.DeletedOn = this.dateTimeProvider.GetDateTime();
 
+            this.context.Update(bar);
             await this.context.SaveChangesAsync();
             return true;
         }

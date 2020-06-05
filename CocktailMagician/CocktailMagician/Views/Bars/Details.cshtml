@@ -42,6 +42,7 @@
             font-size: 18px;
             font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
         }
+
         .cocktails {
             font-family: Impact, Charcoal, sans-serif;
             font-size: 30px;
@@ -51,13 +52,13 @@
             font-size: 25px;
             font-family: Impact, Charcoal, sans-serif;
         }
+
         .comments {
             font-size: 25px;
             font-family: Impact, Charcoal, sans-serif;
         }
 
         .table, th, td {
-
             border-top: 2px solid black;
         }
 
@@ -70,14 +71,15 @@
             text-indent: 5px;
             border-bottom: 2px solid black;
         }
+
         .author {
             font-size: 17px;
             font-family: Impact, Charcoal, sans-serif;
         }
+
         .comment {
             font-size: 22px;
             text-align: center;
-
         }
     </style>
 </head>
@@ -94,7 +96,10 @@
 <div class="caption-full">
     <h3 class="about">About <span>&#9759;</span></h3>
     <p class="info">@Model.Info</p>
-
+    @if (User.IsInRole("cocktail magician"))
+    {
+        <a asp-area="Admin" asp-controller="AddCocktailToBar" asp-action="AvailableCocktails" asp-route-barId="@Model.Id" class="btn btn-danger">Edit Available Cocktails</a>
+    }
     <h3 class="cocktails">Avaiable Cocktails</h3>
     @foreach (var item in Model.Cocktails)
     {
@@ -114,7 +119,7 @@
         <h4 class="card-title"><a asp-area="Identity" asp-page="/Account/Login">Login</a> or <a asp-area="Identity" asp-page="/Account/Login">register</a> to add comments and rate</h4>
     }
     else
-    {
+    {   
 
         <input type="hidden" asp-for="@Model.CurrentComment" class="form-control">
         @using (Html.BeginForm("AddComment", "Bars"))
@@ -179,6 +184,7 @@
 {
     <div>
         <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-danger">Edit</a>
+        <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
     </div>
 }
 <a asp-action="Index" class="btn btn-warning">Back to List</a>

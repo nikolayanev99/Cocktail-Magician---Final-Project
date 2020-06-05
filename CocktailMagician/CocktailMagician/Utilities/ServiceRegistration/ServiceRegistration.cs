@@ -17,6 +17,7 @@ namespace CocktailMagician.Web.Utilities.ServiceRegistration
             services.AddScoped<IBarService, BarService>();
             services.AddScoped<IBarCommentsService, BarCommentsService>();
             services.AddScoped<IBarRatingService,BarRatingService>();
+            services.AddScoped<IBarCocktailsService, BarCocktailsService>(); 
             
             services.AddScoped<ICocktailService, CocktailService>();
             services.AddScoped<ICocktailCommentService, CocktailCommentService>();
