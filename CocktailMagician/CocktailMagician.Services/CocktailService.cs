@@ -260,6 +260,24 @@ namespace CocktailMagician.Services
 
             return cocktailsFromBar;
         }
+        public async Task<ICollection<CocktailDto>> GetThreeCocktailsAsync(int num) 
+        {
+            var cocktails = await this._context.Cocktails
+                .Include(r => r.CocktailRatings)
+                .Where(r => r.IsDeleted == false)
+                .OrderByDescending(r => r.CocktailRatings.Count())
+                .Take(num)
+                .ToListAsync();
+
+            if (cocktails == null)
+            {
+                return null;
+            }
+
+            var threeCocktailDto = this._cocktailDtoMapper.MapDto(cocktails);
+
+            return threeCocktailDto;
+        }
 
     }
 }

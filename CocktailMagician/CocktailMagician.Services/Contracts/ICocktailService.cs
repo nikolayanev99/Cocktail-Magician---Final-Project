@@ -17,5 +17,6 @@ namespace CocktailMagician.Services.Contracts
         public Task<ICollection<CocktailDto>> GetCocktailsForPeginationAsync(int pageSize = 1, int pageNumber = 1);
         public Task<ICollection<CocktailDto>> SearchCocktailsAsync(string searchString);
         public Task<ICollection<CocktailDto>> GetBarCocktailsAsync(int barId);
+        public Task<ICollection<CocktailDto>> GetThreeCocktailsAsync(int num);
     }
 }
