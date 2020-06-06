@@ -25,10 +25,10 @@
 <h1>Cocktails</h1>
 @if (User.IsInRole("cocktail magician"))
 {
-    @*<p>
-        <a asp-action="CreateCocktail" class="btn btn-warning">Create New</a>
-    </p>*@
-    @await Component.InvokeAsync("CreateCocktail")
+    <p>
+        <a asp-area="Admin" asp-controller="Cocktails" asp-action="Create" class="btn btn-warning">Create New</a>
+    </p>
+    @*@await Component.InvokeAsync("CreateCocktail")*@
 }
 
 <form asp-action="Search" method="get">

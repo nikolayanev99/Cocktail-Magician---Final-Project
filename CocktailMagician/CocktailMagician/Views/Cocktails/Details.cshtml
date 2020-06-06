@@ -1,7 +1,8 @@
-﻿
-@model CocktailViewModel
+﻿@model CocktailMagician.Web.Models.CocktailViewModel
 @{
     var star = "/images/star.png";
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 
@@ -13,7 +14,6 @@
             height: 400px;
             width: 250px;
             border-radius: 8px;
-
         }
 
         .title {
@@ -43,8 +43,8 @@
             display: inline-block;
             font-family: Impact, Charcoal, sans-serif;
             font-size: 35px;
-            text-indent:60px;
-            margin-left:auto;
+            text-indent: 60px;
+            margin-left: auto;
             margin-right: auto;
             vertical-align: top;
             text-align: left;
@@ -89,7 +89,7 @@
 
 
 <h2 class="title">@Model.Name Cocktail</h2>
-
+<a asp-area="Admin" asp-controller="AddIngredientToCocktail" asp-action="AvailableIngredients" asp-route-Id="@Model.Id" class="btn btn-danger">Edit Available Ingredients</a>
 <h2>
     @for (int i = 0; i < Model.AverageRating; i++)
     {
@@ -186,6 +186,11 @@
     }
 
 </div>
-<div>
-    <a asp-action="List">Back to List</a>
-</div>
+@if (User.IsInRole("cocktail magician"))
+{
+    <div>
+        <a asp-area="Admin" asp-controller="Cocktails" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-danger">Edit</a>
+        <a asp-area="Admin" asp-controller="Cocktails" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
+    </div>
+}
+<a asp-action="List" class="btn btn-warning">Back to List</a>

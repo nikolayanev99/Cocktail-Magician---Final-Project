@@ -29,15 +29,13 @@ namespace CocktailMagician.Web.Controllers
         private readonly IViewModelMapper<CocktailCommentDto, CocktailCommentViewModel> _cocktailCommentVmMapper;
         private readonly IViewModelMapper<CocktailRatingDto, CocktailRatingViewModel> cocktailRatingVmMapper;
         private readonly ICocktailRatingService cocktailRatingService;
-        private readonly IWebHostEnvironment webHostEnvironment;
 
         public CocktailsController(ICocktailService cocktailService,
                                    IViewModelMapper<CocktailDto, CocktailViewModel> cocktailVmMapper,
                                    ICocktailCommentService cocktailCommentService,
                                    IViewModelMapper<CocktailCommentDto, CocktailCommentViewModel> cocktailCommentVmMapper,
                                    IViewModelMapper<CocktailRatingDto, CocktailRatingViewModel> cocktailRatingVmMapper,
-                                   ICocktailRatingService cocktailRatingService,
-                                   IWebHostEnvironment webHostEnvironment)
+                                   ICocktailRatingService cocktailRatingService)
         {
             _cocktailService = cocktailService ?? throw new ArgumentNullException(nameof(cocktailService));
             _cocktailVmMapper = cocktailVmMapper ?? throw new ArgumentNullException(nameof(cocktailVmMapper));
@@ -45,7 +43,6 @@ namespace CocktailMagician.Web.Controllers
             _cocktailCommentVmMapper = cocktailCommentVmMapper ?? throw new ArgumentNullException(nameof(cocktailCommentVmMapper));
             this.cocktailRatingVmMapper = cocktailRatingVmMapper ?? throw new ArgumentNullException(nameof(cocktailRatingVmMapper));
             this.cocktailRatingService = cocktailRatingService ?? throw new ArgumentNullException(nameof(cocktailRatingService));
-            this.webHostEnvironment = webHostEnvironment ?? throw new ArgumentNullException(nameof(webHostEnvironment));
         }
 
 
@@ -56,15 +53,6 @@ namespace CocktailMagician.Web.Controllers
         {
             return View();
         }
-
-        //public async Task<IActionResult> List()
-        //{
-        //    var models = await this._cocktailService.GetAllCocktailsAsync();
-
-        //    var result = this._cocktailVmMapper.MapViewModel(models);
-
-        //    return View(result);
-        //}
 
         public async Task<IActionResult> List(int pageNumber = 1, int pageSize = 4)
         {
@@ -138,38 +126,5 @@ namespace CocktailMagician.Web.Controllers
 
             return RedirectToAction("Details", new { id = cocktail.Id });
         }
-
-        [Area("cocktail magician")]
-        [Authorize(Roles = "cocktail magician")]
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(CreateCocktailViewModel model) 
-        {
-            if (model.CocktailViewModel.Name == null ||
-                model.CocktailViewModel.ShortDescription == null ||
-                model.CocktailViewModel.LongDescription == null ||
-                model.CocktailViewModel.Ingredients == null)
-            {
-                return RedirectToAction("List", "Cocktails", new { area = "" });
-            }
-
-            if (ModelState.IsValid)
-            {
-
-                if (model.Photo != null)
-                {
-                    string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "storage\\images\\cocktails");
-                    model.CocktailViewModel.ImageUrl = Guid.NewGuid().ToString() + " " + model.Photo.FileName;
-                    string filePath = Path.Combine(uploadsFolder, model.CocktailViewModel.ImageUrl.ToString());
-                    model.Photo.CopyTo(new FileStream(filePath, FileMode.Create));
-                }
-                var cocktailDto = this._cocktailVmMapper.MapDTO(model.CocktailViewModel);
-                await this._cocktailService.CreateCocktailAsync(cocktailDto);
-                return RedirectToAction("List", "Cocktails", new { area = "" });
-            }
-
-            return View(model);
-        }
-
     }
 }

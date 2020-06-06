@@ -37,5 +37,8 @@ namespace CocktailMagician.Web.Models
         public string CurrentComment { get; set; }
         public ICollection<CocktailCommentViewModel> Comments { get; set; }
 
+        public List<CheckBoxItem> SelectedIngredients { get; set; }
+        public ICollection<IngredientViewModel> IngredientsChange { get; set; }
+
     }
 }

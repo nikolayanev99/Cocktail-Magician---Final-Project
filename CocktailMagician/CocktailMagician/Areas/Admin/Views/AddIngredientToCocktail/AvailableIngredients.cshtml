@@ -1,0 +1,43 @@
+﻿@model CocktailMagician.Web.Models.CocktailViewModel
+
+@{
+    ViewData["Title"] = "AvailableIngredients";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<head>
+    <style>
+        .cocktails {
+            font-size: 20px;
+        }
+
+        .box {
+            text-indent: 10px;
+            line-height: 1px;
+        }
+    </style>
+</head>
+
+
+<h1>Available Ingredients for @Model.Name</h1>
+<form asp-area="Admin" asp-controller="AddIngredientToCocktail" asp-action="UpdateAvailableIngredients">
+    <input type="hidden" asp-for="@Model.Id" />
+    <div class="form-group">
+        <table>
+            @for (int i = 0; i < Model.SelectedIngredients.Count; i++)
+            {
+                <tr>
+                    <td class="cocktails">
+                        @Html.HiddenFor(x => Model.SelectedIngredients[i].Id)
+                        @Html.DisplayFor(it => Model.SelectedIngredients[i].Title)
+                    </td>
+                    <td class="box">
+                        @Html.CheckBoxFor(it => Model.SelectedIngredients[i].isChecked, new { Style = "vertical-align:3px}" })
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Submit" class="btn btn-default" />
+    </div>
+</form>

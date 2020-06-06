@@ -157,5 +157,23 @@ namespace CocktailMagician.Services
 
             return intredientDto;
         }
+
+        public async Task<ICollection<IngredientDto>> GetCocktailIngredientsAsync(int cocktailId)
+        {
+            var ingredientsFromCocktails = new List<IngredientDto>();
+
+            var cocktailIngredients = await this._context.CocktailIngredients
+                .Where(bc => bc.CocktailId == cocktailId)
+                .Select(bc => bc.IngredientId)
+                .ToListAsync();
+
+            foreach (var ingredient in cocktailIngredients)
+            {
+                ingredientsFromCocktails.Add(await this.GetIngredientAsyng(ingredient));
+            }
+
+
+            return ingredientsFromCocktails;
+        }
     }
 }
