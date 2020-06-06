@@ -149,10 +149,14 @@ namespace CocktailMagician.Services
                .Where(i => i.IsDeleted == false)
                .Include(i => i.Ratings)
                .OrderBy(i => i.Name)
-               .Select(i => this.barDTOMapper.MapDto(i))
                .ToListAsync();
 
-                var barsByRating = allBars.Where(r => Math.Floor(r.AverageRating) == ratingNumber);
+                if (!allBars.Any())
+                {
+                    return null;
+                }
+                var mappedBars = this.barDTOMapper.MapDto(allBars);
+                var barsByRating = mappedBars.Where(r => Math.Floor(r.AverageRating) == ratingNumber);
 
                 return barsByRating.ToList();
             }
@@ -162,12 +166,15 @@ namespace CocktailMagician.Services
                 .Where(i => i.IsDeleted == false)
                 .Include(r => r.Ratings)
                 .OrderBy(i => i.Name)
-                .Select(i => this.barDTOMapper.MapDto(i))
                 .ToListAsync();
+                if (!bars.Any())
+                {
+                    return null;
+                }
+                var mappedBars = this.barDTOMapper.MapDto(bars);
 
-
-                var barByName = bars.Where(i => i.Name.ToLower().Contains(searchString.ToLower()));
-                var barByAdress = bars.Where(i => i.Address.ToLower().Contains(searchString.ToLower()));
+                var barByName = mappedBars.Where(i => i.Name.ToLower().Contains(searchString.ToLower()));
+                var barByAdress = mappedBars.Where(i => i.Address.ToLower().Contains(searchString.ToLower()));
 
                 var result = barByName.Union(barByAdress);
 

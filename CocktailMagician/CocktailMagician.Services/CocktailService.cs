@@ -201,10 +201,15 @@ namespace CocktailMagician.Services
                .Include(i => i.CocktailIngredients)
                .ThenInclude(i => i.Ingredient)
                .Include(i => i.CocktailRatings)
-               .Select(i => this._cocktailDtoMapper.MapDto(i))
                .ToListAsync();
 
-                var cocktailByRating = allCocktails.Where(r => Math.Floor(r.AverageRating) == number);
+                if (!allCocktails.Any())
+                {
+                    return null;
+                }
+                var mappedCocktails = this._cocktailDtoMapper.MapDto(allCocktails);
+
+                var cocktailByRating = mappedCocktails.Where(r => Math.Floor(r.AverageRating) == number);
 
                 return cocktailByRating.ToList();
             }
@@ -218,12 +223,15 @@ namespace CocktailMagician.Services
                     .Include(i => i.CocktailIngredients)
                     .ThenInclude(i => i.Ingredient)
                     .Include(r => r.CocktailRatings)
-                    .Select(i => this._cocktailDtoMapper.MapDto(i))
                     .ToListAsync();
-
+                if (!cocktails.Any())
+                {
+                    return null;
+                }
+                var mappedCocktails = this._cocktailDtoMapper.MapDto(cocktails);
                 var cocktailByIngredients = new List<CocktailDto>();
 
-                foreach (var item in cocktails)
+                foreach (var item in mappedCocktails)
                 {
                     foreach (var ingredient in item.Ingredients)
                     {
@@ -234,7 +242,7 @@ namespace CocktailMagician.Services
                     }
                 }
 
-                var cocktailByName = cocktails.Where(i => i.Name.ToLower().Contains(searchString.ToLower()));
+                var cocktailByName = mappedCocktails.Where(i => i.Name.ToLower().Contains(searchString.ToLower()));
 
                 var result = cocktailByIngredients.Union(cocktailByName);
 

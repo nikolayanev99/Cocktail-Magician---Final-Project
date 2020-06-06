@@ -72,6 +72,10 @@ namespace CocktailMagician.Services
                 .Where(r => r.BarId == barId)
                 .ToListAsync();
 
+            if (!barRating.Any())
+            {
+                return null;
+            }
             var barRatingDtos = this.dtoMapper.MapDto(barRating);
 
             return barRatingDtos;
