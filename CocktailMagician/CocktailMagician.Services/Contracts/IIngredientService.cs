@@ -16,5 +16,6 @@ namespace CocktailMagician.Services.Contracts
         public Task<IngredientDto> DeleteIngredientAsync(int id);
         public Task<Ingredient> GetIngredientByNameAsync(string ingredientName);
         public Task<ICollection<IngredientDto>> GetIngredientsForPeginationAsync(int pageSize = 1, int pageNumber = 1);
+        public Task<ICollection<IngredientDto>> GetCocktailIngredientsAsync(int cocktailId);
     }
 }

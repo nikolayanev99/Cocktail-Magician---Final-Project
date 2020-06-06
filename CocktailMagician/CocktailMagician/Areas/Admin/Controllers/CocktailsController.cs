@@ -78,5 +78,62 @@ namespace CocktailMagician.Web.Areas.Admin.Controllers
 
             return RedirectToAction("List", "Cocktails", new { area = "" });
         }
+        public async Task<IActionResult> Edit(int id)
+        {
+
+            var cocktail = await this._cocktailService.GetCokctailAsync(id);
+
+            if (cocktail == null)
+            {
+                return NotFound();
+            }
+
+            var barVM = this._cocktailVmMapper.MapViewModel(cocktail);
+
+            return View(barVM);
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, CocktailViewModel cocktail)
+        {
+            if (id != cocktail.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+
+                var barDTO = this._cocktailVmMapper.MapDTO(cocktail);
+                await this._cocktailService.UpdateCocktailAsync(barDTO);
+
+                return RedirectToAction("List", "Cocktails", new { area = "" });
+            }
+            return RedirectToAction("List", "Cocktails", new { area = "" });
+        }
+
+        public async Task<IActionResult> Delete(int id)
+        {
+
+            var cocktail = await this._cocktailService.GetCokctailAsync(id);
+            if (cocktail == null)
+            {
+                return NotFound();
+            }
+            var cocktailVm = this._cocktailVmMapper.MapViewModel(cocktail);
+
+            return View(cocktailVm);
+        }
+
+        // POST: Bars/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            await this._cocktailService.DeleteCocktailAsync(id);
+            return RedirectToAction("List", "Cocktails", new { area = "" });
+        }
     }
 }

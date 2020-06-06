@@ -140,11 +140,11 @@ namespace CocktailMagician.Services
             return cocktailDto;
         }
 
-        public async Task<CocktailDto> UpdateCocktailAsync(int id, string newName, string shortDescription, string longDescription)
+        public async Task<CocktailDto> UpdateCocktailAsync(CocktailDto cocktailDto)
         {
             var cocktail = await this._context.Cocktails
                 .Where(i => i.IsDeleted == false)
-                .FirstOrDefaultAsync(ii => ii.Id == id);
+                .FirstOrDefaultAsync(ii => ii.Id == cocktailDto.Id);
 
             if (cocktail == null)
             {
@@ -153,10 +153,10 @@ namespace CocktailMagician.Services
 
             try
             {
-                cocktail.Name = newName;
-                cocktail.ShortDescription = shortDescription;
-                cocktail.LongDescription = longDescription;
-
+                cocktail.Name = cocktailDto.Name == null ? cocktail.Name : cocktailDto.Name;
+                cocktail.ShortDescription = cocktailDto.ShortDescription == null ? cocktail.ShortDescription : cocktailDto.ShortDescription;
+                cocktail.LongDescription = cocktailDto.LongDescription == null ? cocktail.LongDescription : cocktailDto.LongDescription;
+                cocktail.ModifiedOn = this._provider.GetDateTime();
                 this._context.Update(cocktail);
                 await this._context.SaveChangesAsync();
                 var updatedDto = this._cocktailDtoMapper.MapDto(cocktail);

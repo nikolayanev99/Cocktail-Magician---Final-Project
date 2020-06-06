@@ -12,7 +12,7 @@ namespace CocktailMagician.Services.Contracts
         public Task<CocktailDto> GetCocktailByNameAsync(string cocktailName);
         public Task<ICollection<CocktailDto>> GetAllCocktailsAsync();
         public Task<CocktailDto> CreateCocktailAsync(CocktailDto tempCocktailDto);
-        public Task<CocktailDto> UpdateCocktailAsync(int id, string newName, string shortDescription, string longDescription);
+        public Task<CocktailDto> UpdateCocktailAsync(CocktailDto cocktailDto);
         public Task<CocktailDto> DeleteCocktailAsync(int id);
         public Task<ICollection<CocktailDto>> GetCocktailsForPeginationAsync(int pageSize = 1, int pageNumber = 1);
         public Task<ICollection<CocktailDto>> SearchCocktailsAsync(string searchString);
