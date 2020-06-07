@@ -76,6 +76,10 @@ namespace CocktailMagician.Services
                 .OrderBy(n => n.Name)
                 .ToListAsync();
 
+            if (!cocktails.Any())
+            {
+                throw new ArgumentNullException("No entities found");
+            }
             var cocktailDto = this._cocktailDtoMapper.MapDto(cocktails);
 
             return cocktailDto;

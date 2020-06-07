@@ -36,7 +36,7 @@ namespace CocktailMagician.Test.BarServiceTests
                 await arrangeContext.SaveChangesAsync();
                 var barService = new BarService(arrangeContext, mockBarDtoMapper.Object, mockDateTimeProvider.Object);
                 var result = await barService.DeleteBarAsync(1);
-            }
+            }   
             //Act and Assert
             using (var assertContext = new CocktailMagicianContext(options))
             {
