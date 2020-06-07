@@ -34,6 +34,10 @@ namespace CocktailMagician.Services
                 .Where(b => b.BarId == barId)
                 .ToListAsync();
 
+            if (barComment == null)
+            {
+                return null;
+            }
             var barCommentDtos = this.dtoMapper.MapDto(barComment);
 
             return barCommentDtos;
@@ -65,48 +69,6 @@ namespace CocktailMagician.Services
             await this.context.SaveChangesAsync();
 
             var barCommentDto = this.dtoMapper.MapDto(newBarComment);
-
-            return barCommentDto;
-
-        }
-
-        public async Task<BarCommentDto> UpdateBarComment(int id, string newText)
-        {
-            var barComment = await this.context.BarComments
-                .Where(b => b.IsDeleted == false)
-                .FirstOrDefaultAsync(b => b.Id == id);
-
-            if (barComment == null)
-            {
-                return null;
-            }
-
-            barComment.Text = newText;
-            barComment.ModifiedOn = this.dateTimeProvider.GetDateTime();
-
-            this.context.Update(barComment);
-            await this.context.SaveChangesAsync();
-
-            var barCommentDto = this.dtoMapper.MapDto(barComment);
-
-            return barCommentDto;
-        }
-
-        public async Task<BarCommentDto> DeleteBarCommentAsync(int id)
-        {
-            var barComment = await this.context.BarComments
-                .Include(b => b.Bar)
-                .Include(b => b.Author)
-                .Where(b => b.IsDeleted == false)
-                .FirstOrDefaultAsync(b => b.Id == id);
-
-            barComment.IsDeleted = true;
-            barComment.DeletedOn = this.dateTimeProvider.GetDateTime();
-
-            this.context.Update(barComment);
-            await this.context.SaveChangesAsync();
-
-            var barCommentDto = this.dtoMapper.MapDto(barComment);
 
             return barCommentDto;
 

@@ -10,10 +10,10 @@ using CocktailMagician.Services.Providers.Contracts;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
-namespace CocktailMagician.Test.BarServiceTests
+namespace CocktailMagician.Test.BarCommentTests
 {
     [TestClass]
-    public class BarServiceConstructor_Should
+    public class BarCommentConstructor_Should
     {
         [TestMethod]
         public void Constructor_CreateInstance()
@@ -21,56 +21,52 @@ namespace CocktailMagician.Test.BarServiceTests
             //Arrange
             var options = TestUtilities.GetOptions(nameof(Constructor_CreateInstance));
             var mockDateTimeProvider = new Mock<IDateTimeProvider>();
-            var mockBarDtoMapper = new Mock<IDtoMapper<Bar, BarDTO>>();
+            var mockBarCommentDtoMapper = new Mock<IDtoMapper<BarComment, BarCommentDto>>();
 
             //Act and Assert
             using (var assertContext = new CocktailMagicianContext(options))
             {
-                var sut = new BarService(assertContext, mockBarDtoMapper.Object, mockDateTimeProvider.Object);
+                var sut = new BarCommentsService(assertContext, mockBarCommentDtoMapper.Object, mockDateTimeProvider.Object);
                 Assert.IsNotNull(sut);
             }
         }
         [TestMethod]
-        public void Constructor_Throw_WhenContextIsNull()
+        public void Throw_When_ContextIsNull()
         {
             //Arrange
-            var options = TestUtilities.GetOptions(nameof(Constructor_Throw_WhenContextIsNull));
+            var options = TestUtilities.GetOptions(nameof(Throw_When_ContextIsNull));
             var mockDateTimeProvider = new Mock<IDateTimeProvider>();
-            var mockBarDtoMapper = new Mock<IDtoMapper<Bar, BarDTO>>();
-
+            var mockBarCommentDtoMapper = new Mock<IDtoMapper<BarComment, BarCommentDto>>();
             //Act and Assert
             using (var assertContext = new CocktailMagicianContext(options))
             {
-                Assert.ThrowsException<ArgumentNullException>(() => new BarService(null, mockBarDtoMapper.Object, mockDateTimeProvider.Object));
+                Assert.ThrowsException<ArgumentNullException>(()=> new BarCommentsService(null, mockBarCommentDtoMapper.Object, mockDateTimeProvider.Object));
             }
         }
         [TestMethod]
-        public void Constructor_Throw_WhenProviderIsNull()
+        public void Throw_When_ProviderIsNull()
         {
             //Arrange
-            var options = TestUtilities.GetOptions(nameof(Constructor_Throw_WhenProviderIsNull));
-            var mockBarDtoMapper = new Mock<IDtoMapper<Bar, BarDTO>>();
-
+            var options = TestUtilities.GetOptions(nameof(Throw_When_ProviderIsNull));
+            var mockBarCommentDtoMapper = new Mock<IDtoMapper<BarComment, BarCommentDto>>();
             //Act and Assert
             using (var assertContext = new CocktailMagicianContext(options))
             {
-                Assert.ThrowsException<ArgumentNullException>(() => new BarService(assertContext, mockBarDtoMapper.Object,null));
+                Assert.ThrowsException<ArgumentNullException>(() => new BarCommentsService(assertContext, mockBarCommentDtoMapper.Object,null));
             }
         }
         [TestMethod]
-        public void Constructor_Throw_WhenDtoMapperIsNull()
+        public void Throw_When_DtoMappertIsNull()
         {
             //Arrange
-            var options = TestUtilities.GetOptions(nameof(Constructor_Throw_WhenContextIsNull));
+            var options = TestUtilities.GetOptions(nameof(Throw_When_DtoMappertIsNull));
             var mockDateTimeProvider = new Mock<IDateTimeProvider>();
-
             //Act and Assert
             using (var assertContext = new CocktailMagicianContext(options))
             {
-                Assert.ThrowsException<ArgumentNullException>(() => new BarService(assertContext, null, mockDateTimeProvider.Object));
+                Assert.ThrowsException<ArgumentNullException>(() => new BarCommentsService(assertContext, null, mockDateTimeProvider.Object));
             }
         }
+
     }
 }
-
-

@@ -17,10 +17,10 @@ namespace CocktailMagician.Test.BarServiceTests
     public class GetBarAsync_Should
     {
         [TestMethod]
-        public async Task Return_CorrectModel_When_ParamsAreValid()
+        public async Task Return_CorrectModel_WhenParamsAreValid()
         {
             //Arrange
-            var options = TestUtilities.GetOptions(nameof(Return_CorrectModel_When_ParamsAreValid));
+            var options = TestUtilities.GetOptions(nameof(Return_CorrectModel_WhenParamsAreValid));
             var mockDateTimeProvider = new Mock<IDateTimeProvider>();
             var mockBarDtoMapper = new Mock<IDtoMapper<Bar, BarDTO>>();
             var newBar = new Bar

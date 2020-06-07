@@ -18,6 +18,10 @@ namespace CocktailMagician.Services
 
         public async Task<BarCocktail> CreateBarCocktail(int barId, int cocktailId)
         {
+            if (barId < 1 || cocktailId < 1)
+            {
+                return null;
+            }
             var barCocktail = new BarCocktail
             {
                 BarId = barId,
