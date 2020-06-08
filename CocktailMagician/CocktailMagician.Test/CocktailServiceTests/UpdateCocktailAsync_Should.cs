@@ -68,7 +68,7 @@ namespace CocktailMagician.Test.CocktailServiceTests
         public async Task Throw_When_NoCocktailsFound()
         {
             //Arrange
-            var options = TestUtilities.GetOptions(nameof(Update_Cocktail_Correctly));
+            var options = TestUtilities.GetOptions(nameof(Throw_When_NoCocktailsFound));
             var mockCocktailDtoMapper = new Mock<IDtoMapper<Cocktail, CocktailDto>>();
             var mockCocktailIngretientService = new Mock<ICocktailIngredientService>();
             var mockIngredientsService = new Mock<IIngredientService>();

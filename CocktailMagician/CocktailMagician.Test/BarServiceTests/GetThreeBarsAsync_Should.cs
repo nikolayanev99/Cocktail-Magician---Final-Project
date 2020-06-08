@@ -81,21 +81,3 @@ namespace CocktailMagician.Test.BarServiceTests
         }
     }
 }
-//public async Task<ICollection<BarDTO>> GetThreeBarsAsync(int num)
-//{
-//    var bars = await this.context.Bars
-//        .Include(r => r.Ratings)
-//        .Where(r => r.IsDeleted == false)
-//        .OrderByDescending(r => r.Ratings.Count())
-//        .Take(num)
-//        .ToListAsync();
-
-//    if (bars == null)
-//    {
-//        return null;
-//    }
-
-//    var threeBarsDto = this.barDTOMapper.MapDto(bars);
-
-//    return threeBarsDto;
-//}
