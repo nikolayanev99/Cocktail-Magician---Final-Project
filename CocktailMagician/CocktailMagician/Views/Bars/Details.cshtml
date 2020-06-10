@@ -7,82 +7,9 @@
     var star = "/images/star.png";
 }
 
-<head>
-    <style>
-        .picture {
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-            height: 500px;
-            width: 800px;
-            border-radius: 8px;
-        }
-
-        .title {
-            font-size: 45px;
-            text-align: left;
-            text-decoration: underline;
-            text-indent: 20px;
-            line-height: 1;
-            font-family: Impact, Charcoal, sans-serif;
-        }
-
-        .averageRating {
-            text-align: left;
-            text-indent: 20px;
-            word-spacing: 10px;
-        }
-
-        .about {
-            font-size: 30px;
-            font-family: Impact, Charcoal, sans-serif;
-        }
-
-        .info {
-            font-size: 18px;
-            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-        }
-
-        .cocktails {
-            font-family: Impact, Charcoal, sans-serif;
-            font-size: 30px;
-        }
-
-        .warning {
-            font-size: 25px;
-            font-family: Impact, Charcoal, sans-serif;
-        }
-
-        .comments {
-            font-size: 25px;
-            font-family: Impact, Charcoal, sans-serif;
-        }
-
-        .table, th, td {
-            border-top: 2px solid black;
-        }
-
-        th {
-            text-align: center;
-            font-size: 20px;
-        }
-
-        td {
-            text-indent: 5px;
-            border-bottom: 2px solid black;
-        }
-
-        .author {
-            font-size: 17px;
-            font-family: Impact, Charcoal, sans-serif;
-        }
-
-        .comment {
-            font-size: 22px;
-            text-align: center;
-        }
-    </style>
-</head>
+@section Styles {
+    <link href="@Url.Content("~/css/barDetails.css")" rel="stylesheet" type="text/css" />
+}
 
 <h2 class="title">@Model.Name</h2>
 <p class="averageRating">
@@ -119,7 +46,7 @@
         <h4 class="card-title"><a asp-area="Identity" asp-page="/Account/Login">Login</a> or <a asp-area="Identity" asp-page="/Account/Login">register</a> to add comments and rate</h4>
     }
     else
-    {   
+    {
 
         <input type="hidden" asp-for="@Model.CurrentComment" class="form-control">
         @using (Html.BeginForm("AddComment", "Bars"))
@@ -131,7 +58,7 @@
 
         }
         <form asp-area="Member" asp-controller="BarRating" asp-action="AddRating">
-            <fieldset class="rating">
+            <fieldset class="rating" style="float: left; background-color: #8FA08B;">
                 <input type="hidden" asp-for="@Model.Id" value="@Model.Id" />
                 <link href="~/css/star.css" rel="stylesheet" type="text/css" />
                 <input type="submit" id="star5" name="SelectedRating" value="5" /><label class="full" for="star5"></label>

@@ -12,6 +12,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CocktailMagician.Services
 {
+    class Box
+    {
+
+    }
     public class BarCommentsService : IBarCommentsService
     {
         private readonly CocktailMagicianContext context;
@@ -33,6 +37,8 @@ namespace CocktailMagician.Services
                 .Where(b => b.IsDeleted == false)
                 .Where(b => b.BarId == barId)
                 .ToListAsync();
+
+            Func<int, int> func = x => x * 2;
 
             if (barComment == null)
             {
