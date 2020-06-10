@@ -133,6 +133,7 @@ namespace CocktailMagician.Test.DtoMappersTests
             var result = sut.MapDto(barComments);
             //Assert
             Assert.IsInstanceOfType(result, typeof(ICollection<BarCommentDto>));
+
         }
     }
 }
